@@ -10,7 +10,7 @@ using UnityEngine.InputSystem;
 //MonoBehavior: Dadurch kann das Script an Objecte hängen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
 public class PlayerInputHandler : MonoBehaviour
 {
-    //Header: Im Unity Inspector erscheinten eine Überschrift über der Variable. (Die zur Lesbarkeit/Ordnung)
+    //Header: Im Unity Inspector erscheinten eine Überschrift über der Variable. (Dient zur Lesbarkeit/Ordnung)
     //[SerializeField]: Die Variable bleibt Privat, trotzdem wird sie im Inspector angezeigt. Unity speichert den Wert der Variable in der Szene.
     //private: Die Variable nicht im Project nicht zu finden.
     //InputActionAsset: Ist der name des Tpy der Variable für Unity
