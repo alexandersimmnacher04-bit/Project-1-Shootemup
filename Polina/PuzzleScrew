@@ -1,0 +1,28 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PuzzleScrew : MonoBehaviour
+{
+    [SerializeField] private List<GameObject> screws;
+    [SerializeField] private GameObject door;
+    private void Start()
+    {
+        foreach (var screw in screws)
+        {
+            if (screw.TryGetComponent<Screw>(out var screwComponent))
+            {
+                screwComponent.SetPuzzle(this);
+            }
+        }
+    }
+    private int screwsCount = 0;
+
+    public void Screw()
+    {
+        screwsCount++;
+        if (screwsCount >= screws.Count)
+        {
+            door.SetActive(false);
+        }
+    }
+}
