@@ -3,20 +3,21 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class Gamemanager : MonoBehaviour
 {
-    public bool gameState = false;
-    public GameObject rocket;
+    [SerializeField] private bool gameState = false;
+    private GameObject rocket; 
 
     
-    void Start()
+     private void Start()
     {
         gameState = true;
         rocket.SetActive(true);
     }
 
     // Update is called once per frame
-    void Update()
+   private void Update()
     { if (gameState == false)
             return;
         
     }
+
 }
