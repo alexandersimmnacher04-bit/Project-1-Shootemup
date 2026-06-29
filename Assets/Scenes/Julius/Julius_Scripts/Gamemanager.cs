@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class Gamemanager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private bool gameState = false;
+    private GameObject rocket; 
+
+    
+     private void Start()
     {
-        
+        gameState = true;
+        rocket.SetActive(true);
     }
 
     // Update is called once per frame
-    void Update()
-    {
+   private void Update()
+    { if (gameState == false)
+            return;
         
     }
+
 }
