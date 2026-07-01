@@ -1,20 +1,20 @@
 fileFormatVersion: 2
-guid: 4d0237fbdf1ac7d43b964824e6bdc433
+guid: bf1843705bfb38c4d868dc4400d7ce9a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'mari_solarpanel/mari_solarpanelShape:000:'
-    second: {fileID: 2100000, guid: 79763ffa6af68c74eaa53c5804a4987e, type: 2}
+      name: 'uv_booster_uvmap1/uv_booster_uvmapShape:000:'
+    second: {fileID: 2100000, guid: c0ff3360b707d5541a52520a6dd2c2d1, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
   script: {fileID: 11500000, guid: f53f5fc499d31e44b9deee84d28a9ee8, type: 3}
-  rootGameObjectId: mari_solarpanel
-  rootGameObjectName: mari_solarpanel
+  rootGameObjectId: mari_ariane5_booster_scaled
+  rootGameObjectName: mari_ariane5_booster_scaled
   importerVersion: 1
   streamSettings:
     normals: 1
