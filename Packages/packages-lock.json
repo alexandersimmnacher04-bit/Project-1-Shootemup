@@ -46,7 +46,7 @@
       "dependencies": {}
     },
     "com.unity.formats.alembic": {
-      "version": "2.4.4",
+      "version": "2.4.6",
       "depth": 0,
       "source": "registry",
       "dependencies": {
