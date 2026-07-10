@@ -5,15 +5,15 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     private bool gameState = false;
-    public GameObject rocket;
-    public GameObject task1;
-    public GameObject task2;
+    [SerializeField] private GameObject rocket;
+    [SerializeField] private GameObject task1;
+    [SerializeField] private GameObject task2;
     
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    { 
         gameState = true;
         rocket.SetActive(true);
         task1.SetActive(true);
