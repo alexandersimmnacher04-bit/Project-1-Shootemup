@@ -51913,6 +51913,8 @@ GameObject:
   - component: {fileID: 3736441954010204808}
   - component: {fileID: 7406978269816152674}
   - component: {fileID: 2969632975541664130}
+  - component: {fileID: 8399524913018936513}
+  - component: {fileID: 8399524913018936515}
   m_Layer: 0
   m_Name: mari_tank_uvmapShape
   m_TagString: Untagged
@@ -51920,6 +51922,42 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &8399524913018936513
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399524913018936509}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.044301372, y: 0.17482868, z: 0.037762746}
+  m_Center: {x: 0.00028638073, y: 0.08698857, z: -1.2361822e-15}
+--- !u!114 &8399524913018936515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8399524913018936509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52703d96a9469b4b87f1425b1d464f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FillUpTank
+  fillRate: 5
+  maxTank: 100
+  graceAmount: 2
 --- !u!4 &8403959324297020870
 Transform:
   m_ObjectHideFlags: 0

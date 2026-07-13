@@ -22,15 +22,15 @@ public class FillUpTank : MonoBehaviour
     float currentTank = 0f;
     bool isFilling = false;
     bool finished = false;
-    public Slider tankSlider;
+    // public Slider tankSlider;
 
 
     void Start()
     {
         currentTank = Random.Range(20, 70);
-        tankSlider.minValue = 0;
-        tankSlider.maxValue = maxTank + graceAmount;
-        tankSlider.value = currentTank;
+        //tankSlider.minValue = 0;
+        //tankSlider.maxValue = maxTank + graceAmount;
+        //tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
     void OnMouseDown()
@@ -60,7 +60,7 @@ public class FillUpTank : MonoBehaviour
         if (isFilling)
         {
             currentTank += fillRate * Time.deltaTime;
-            tankSlider.value = currentTank;
+          //  tankSlider.value = currentTank;
             Debug.Log(currentTank);
             if (currentTank > maxTank + graceAmount) {
                 Lose();
@@ -72,7 +72,7 @@ public class FillUpTank : MonoBehaviour
     {
         finished = true;
         currentTank = maxTank;
-        tankSlider.value = currentTank;
+        // tankSlider.value = currentTank;
         Debug.Log("Yippie. Du hast es geschafft!");
     }
     void Lose()
