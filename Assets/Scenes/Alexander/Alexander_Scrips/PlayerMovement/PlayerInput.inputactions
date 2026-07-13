@@ -133,6 +133,114 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "robot-arm",
+            "id": "4d675ec1-7611-4107-91d8-ef1af1d0f45a",
+            "actions": [
+                {
+                    "name": "move-forward",
+                    "type": "Value",
+                    "id": "c92b5b5e-950f-46f1-8768-893cf0e58a59",
+                    "expectedControlType": "Bone",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "move-backward",
+                    "type": "Value",
+                    "id": "8e737c21-3ca3-4778-9df0-f9c3440a6eae",
+                    "expectedControlType": "Bone",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "rotate-right",
+                    "type": "Value",
+                    "id": "2a9cd378-4515-4c9a-b06d-6c0eb60a6bba",
+                    "expectedControlType": "Bone",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "rotate-left",
+                    "type": "Value",
+                    "id": "e3325867-6ba5-4025-a57a-edcd6711460d",
+                    "expectedControlType": "Bone",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "open-and-close-fingers",
+                    "type": "Value",
+                    "id": "bac12da6-b250-4490-97db-6a21bacd9f4e",
+                    "expectedControlType": "Bone",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "53c93dcb-7c77-437d-8f27-6909ba470e94",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move-forward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "edb3b7b7-f591-4d75-9202-03ed4094550a",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move-backward",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5b4eeab8-207c-4649-858f-2fe151a92d9e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotate-right",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec5c4aee-e3b9-4a24-b3b7-b642702b865e",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "rotate-left",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ab0e32d2-f12e-4b3d-9cc7-8b0e1d37f63b",
+                    "path": "<Keyboard>/f",
+                    "interactions": "Press(behavior=2)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "open-and-close-fingers",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
