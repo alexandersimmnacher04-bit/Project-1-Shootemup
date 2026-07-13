@@ -36,12 +36,18 @@ public class FirstPersonController : MonoBehaviour
     private Vector3 currentMovement;
     private float verticalRotation;
 
+    private bool movementBlocked = false;
+
+    public void BlockMovement(bool blocked)
+    {
+        movementBlocked = blocked;
+    }
+
     //Wenn Sprint gedrückt wird, wird die Geschwindigkeit, der walkSpeed * sprintMultiplier. (Geschwindigkeit = LaufGeschwindigkeit * SprintMulitiplizierer)
     //Wenn Sprint nicht gedrückt wird die Geschwindigkeit, der walkSpeed * 1. (Geschwindigkeit = LaufGeschwindigkeit * 1).
     //?: Oder
     //CurrentSpeed: Ist die automatisch berechnete Lauf bzw. Sprintgeschwindigkeit.
     private float CurrentSpeed => walkSpeed * (playerInputHandler.SprintTriggered ? sprintMultiplier : 1);
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //Cursor.lockState = CursorLockMode.Locked: Der Mauszeiger wird in der Bildschrimmitte fixiert
@@ -57,6 +63,9 @@ public class FirstPersonController : MonoBehaviour
     //HandleRotation(): Ruft die Methode HandleRotation, jeden Frame.
     void Update()
     {
+        if (movementBlocked)
+            return;
+
         HandleMovement();
         HandleRotation();
     }

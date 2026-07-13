@@ -7922,7 +7922,6 @@ GameObject:
   - component: {fileID: 292070622}
   - component: {fileID: 292070621}
   - component: {fileID: 292070620}
-  - component: {fileID: 292070624}
   m_Layer: 0
   m_Name: robo_cam02
   m_TagString: Untagged
@@ -8048,21 +8047,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 956943056}
   m_LocalEulerAnglesHint: {x: 12.783, y: -224.266, z: 2.82}
---- !u!114 &292070624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 292070619}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3189613c9c64634296ca542bbb6c6b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::robot_arm_animation
-  robo_cam01: {fileID: 0}
-  robo_cam02: {fileID: 0}
-  robo_cam_change: 1
 --- !u!1 &293177868
 GameObject:
   m_ObjectHideFlags: 0
@@ -10390,6 +10374,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386379389}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &390687283 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7142385593331211141, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+  m_PrefabInstance: {fileID: 1877625977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96dfc9f8891e29147be7a7aa16903cec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
 --- !u!1 &391532550
 GameObject:
   m_ObjectHideFlags: 0
@@ -15298,6 +15293,31 @@ MonoBehaviour:
   endTime: 0.041666668
   currentTime: 0
   vertexMotionScale: 1
+--- !u!1 &604330013 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4128071657193768860, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+  m_PrefabInstance: {fileID: 1877625977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &604330014 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1907731036959912945, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+  m_PrefabInstance: {fileID: 1877625977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &604330018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604330013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35f8facf8a319641b4f72bcb426bbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  playerCamera: {fileID: 604330014}
+  robo_cam01: {fileID: 1940859901}
+  robo_cam02: {fileID: 292070622}
 --- !u!1 &607616079
 GameObject:
   m_ObjectHideFlags: 0
@@ -16033,7 +16053,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.12529767, y: 0.07155362, z: 0.07057598}
   m_Center: {x: 0.000022525679, y: 0.03576942, z: 0.021744821}
---- !u!114 &625489094
+--- !u!114 &625489100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -16042,39 +16062,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 625489087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3189613c9c64634296ca542bbb6c6b1, type: 3}
+  m_Script: {fileID: 11500000, guid: 170cb1575efac504291daf79f49672b4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::robot_arm_animation
-  robo_cam01: {fileID: 1940859897}
-  robo_cam02: {fileID: 292070619}
-  robo_cam_change: 1
---- !u!54 &625489095
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 625489087}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_EditorClassIdentifier: Assembly-CSharp::CameraSwitchZone
+  cameraManager: {fileID: 1013556037}
+  playerController: {fileID: 1635025739}
+  inputHandler: {fileID: 390687283}
 --- !u!1 &627877158
 GameObject:
   m_ObjectHideFlags: 0
@@ -16291,21 +16284,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8678505512302829846, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
   m_PrefabInstance: {fileID: 1877625977}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &629373045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629373043}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3189613c9c64634296ca542bbb6c6b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::robot_arm_animation
-  robo_cam01: {fileID: 1940859897}
-  robo_cam02: {fileID: 292070619}
-  robo_cam_change: 1
 --- !u!65 &629373046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26693,10 +26671,7 @@ PrefabInstance:
       addedObject: {fileID: 625489093}
     - targetCorrespondingSourceObject: {fileID: -6521580708982418973, guid: de9383376bb46fc429091d085d42ce27, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 625489094}
-    - targetCorrespondingSourceObject: {fileID: -6521580708982418973, guid: de9383376bb46fc429091d085d42ce27, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 625489095}
+      addedObject: {fileID: 625489100}
   m_SourcePrefab: {fileID: -133194951148927928, guid: de9383376bb46fc429091d085d42ce27, type: 3}
 --- !u!1 &1010582969
 GameObject:
@@ -26988,6 +26963,53 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012497124}
   m_Mesh: {fileID: 0}
+--- !u!1 &1013556036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1013556038}
+  - component: {fileID: 1013556037}
+  m_Layer: 0
+  m_Name: CameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1013556037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013556036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35f8facf8a319641b4f72bcb426bbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  playerCamera: {fileID: 604330014}
+  robo_cam01: {fileID: 1940859901}
+  robo_cam02: {fileID: 292070622}
+--- !u!4 &1013556038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013556036}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000037252907, y: -0, z: 0.000000014901163, w: 1}
+  m_LocalPosition: {x: 124.48267, y: 0.4797418, z: 24.15127}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1015104555
 GameObject:
   m_ObjectHideFlags: 0
@@ -43094,6 +43116,17 @@ Transform:
   - {fileID: 357566349}
   m_Father: {fileID: 1423133291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1635025739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2831114942310513639, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+  m_PrefabInstance: {fileID: 1877625977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 953b57f98fa729844a0a4881cd355c28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FirstPersonController
 --- !u!1 &1638722151
 GameObject:
   m_ObjectHideFlags: 0
@@ -49625,6 +49658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1892693454310424203, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2101477053330247635, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 122.43779
@@ -49665,6 +49702,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4128071657193768860, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+      propertyPath: m_Name
+      value: playerCamera
+      objectReference: {fileID: 0}
     - target: {fileID: 8678505512302829846, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
       propertyPath: m_TagString
       value: player
@@ -49676,9 +49717,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8678505512302829846, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 629373046}
-    - targetCorrespondingSourceObject: {fileID: 8678505512302829846, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 4128071657193768860, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 629373045}
+      addedObject: {fileID: 604330018}
   m_SourcePrefab: {fileID: 100100000, guid: 356abf673f4c82c459d652a3650c623d, type: 3}
 --- !u!1 &1880346288
 GameObject:
@@ -51282,7 +51323,6 @@ GameObject:
   - component: {fileID: 1940859901}
   - component: {fileID: 1940859900}
   - component: {fileID: 1940859899}
-  - component: {fileID: 1940859902}
   m_Layer: 0
   m_Name: robo_cam01
   m_TagString: Untagged
@@ -51408,21 +51448,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!114 &1940859902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1940859897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3189613c9c64634296ca542bbb6c6b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::robot_arm_animation
-  robo_cam01: {fileID: 0}
-  robo_cam02: {fileID: 0}
-  robo_cam_change: 1
 --- !u!1 &1942742581
 GameObject:
   m_ObjectHideFlags: 0
@@ -56585,3 +56610,4 @@ SceneRoots:
   - {fileID: 956943056}
   - {fileID: 1877625977}
   - {fileID: 1371872624}
+  - {fileID: 1013556038}

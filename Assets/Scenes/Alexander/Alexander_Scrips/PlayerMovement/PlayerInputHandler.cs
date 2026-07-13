@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //Gewährt zugriff auf das Unit Input System.
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 //public: Die KLasse ist überall im Project zu finden. 
 //class: Es wird eine neue Klasse definiert
@@ -29,6 +30,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string rotation = "Rotation";
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
+    [SerializeField] private string interact = "interact";
 
     //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
     //movementAction: Speichert die Movement-Action aus dem Asset
@@ -38,6 +40,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction rotationAction;
     private InputAction jumpAction;
     private InputAction sprintAction;
+    private InputAction interactAction;
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
     //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
@@ -48,6 +51,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 RotationInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
+    public bool InteractTriggered { get; private set; }
 
     //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
     //FindActionMap(actionMapName: Holt die Action Map "Player" aus dem Asset.
@@ -61,6 +65,7 @@ public class PlayerInputHandler : MonoBehaviour
         rotationAction = mapReference.FindAction(rotation);
         jumpAction = mapReference.FindAction(jump);
         sprintAction = mapReference.FindAction(sprint);
+        interactAction = mapReference.FindAction(interact);
 
         SubscribeActionValuesToInputEvents();
     }
@@ -82,6 +87,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         sprintAction.performed += inputInfo => SprintTriggered = true;
         sprintAction.canceled += inputInfo => SprintTriggered = false;
+
+        interactAction.performed += inputInfo => InteractTriggered = true;
+        interactAction.canceled += inputInfo => InteractTriggered = false;
     }
 
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
