@@ -37,7 +37,7 @@ public class FillUpTank : MonoBehaviour
     {
 
             isFilling = true;
-            
+        Debug.Log("Hallo");
 
     }
 
