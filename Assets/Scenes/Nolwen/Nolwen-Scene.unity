@@ -119,6 +119,38 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &4628096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3942353896557485591, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
+  m_PrefabInstance: {fileID: 1780314269}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &4628102
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4628096}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8833547
 GameObject:
   m_ObjectHideFlags: 0
@@ -7922,6 +7954,7 @@ GameObject:
   - component: {fileID: 292070622}
   - component: {fileID: 292070621}
   - component: {fileID: 292070620}
+  - component: {fileID: 292070624}
   m_Layer: 0
   m_Name: robo_cam02
   m_TagString: Untagged
@@ -8047,6 +8080,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 956943056}
   m_LocalEulerAnglesHint: {x: 12.783, y: -224.266, z: 2.82}
+--- !u!114 &292070624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292070619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35f8facf8a319641b4f72bcb426bbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  playerCamera: {fileID: 604330014}
+  robo_cam01: {fileID: 1940859901}
+  robo_cam02: {fileID: 292070622}
 --- !u!1 &293177868
 GameObject:
   m_ObjectHideFlags: 0
@@ -18281,7 +18329,7 @@ GameObject:
   - component: {fileID: 697978023}
   m_Layer: 0
   m_Name: 'robot-arm '
-  m_TagString: Untagged
+  m_TagString: RoboterArm
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18295,14 +18343,14 @@ Transform:
   m_GameObject: {fileID: 697978022}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -8.96, y: -1.8909999, z: 42.05}
-  m_LocalScale: {x: 86.62452, y: 86.62454, z: 86.62452}
+  m_LocalPosition: {x: 133.51999, y: 0.44900012, z: 65.12}
+  m_LocalScale: {x: 86.624535, y: 86.62454, z: 86.624535}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1056496379}
   - {fileID: 102568281}
   - {fileID: 188817124}
-  m_Father: {fileID: 794972562}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &710746513
 GameObject:
@@ -20212,7 +20260,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 697978023}
   - {fileID: 1354430300}
   - {fileID: 1164797236}
   - {fileID: 386379390}
@@ -28255,7 +28302,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1056496379}
   - component: {fileID: 1056496381}
-  - component: {fileID: 1056496380}
+  - component: {fileID: 1056496383}
+  - component: {fileID: 1056496382}
   m_Layer: 0
   m_Name: kran_mesh1
   m_TagString: RoboterArm
@@ -28272,34 +28320,12 @@ Transform:
   m_GameObject: {fileID: 1056496378}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1077, y: 0, z: 0}
+  m_LocalPosition: {x: 0.0954, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 697978023}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!64 &1056496380
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1056496378}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!137 &1056496381
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -28378,6 +28404,55 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.035661373, z: 0.058037423}
     m_Extent: {x: 0.019198932, y: 0.03840566, z: 0.048529543}
   m_DirtyAABB: 0
+--- !u!54 &1056496382
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056496378}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!64 &1056496383
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056496378}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1056705261
 GameObject:
   m_ObjectHideFlags: 0
@@ -33622,6 +33697,7 @@ GameObject:
   - component: {fileID: 1240377430}
   - component: {fileID: 1240377429}
   - component: {fileID: 1240377433}
+  - component: {fileID: 1240377434}
   m_Layer: 0
   m_Name: LagerShape
   m_TagString: Untagged
@@ -33716,7 +33792,7 @@ Transform:
   m_GameObject: {fileID: 1240377428}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 119.81, y: -0.83, z: 60.99}
+  m_LocalPosition: {x: 119.98, y: -0.487, z: 60.99}
   m_LocalScale: {x: 1.1149, y: 1.1149, z: 1.1149}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33737,6 +33813,33 @@ MonoBehaviour:
   cameraManager: {fileID: 1013556037}
   playerController: {fileID: 1635025739}
   inputHandler: {fileID: 390687283}
+--- !u!54 &1240377434
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240377428}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1244390785
 GameObject:
   m_ObjectHideFlags: 0
@@ -47408,9 +47511,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3942353896557485591, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
+      propertyPath: m_TagString
+      value: RoboterArm
+      objectReference: {fileID: 0}
     - target: {fileID: 4166973134303531166, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
       propertyPath: m_Name
       value: navigation-cubes 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4166973134303531166, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
+      propertyPath: m_TagString
+      value: RoboterArm
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651760722728780226, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174046792426902474, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
       propertyPath: m_LocalPosition.x
@@ -47540,6 +47655,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3943108734985249361, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3942353896557485591, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4628102}
     - targetCorrespondingSourceObject: {fileID: 794627731513335452, guid: 4aafacff548ab944b8206bbaf3b20876, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
@@ -51530,6 +51648,7 @@ GameObject:
   - component: {fileID: 1940859901}
   - component: {fileID: 1940859900}
   - component: {fileID: 1940859899}
+  - component: {fileID: 1940859902}
   m_Layer: 0
   m_Name: robo_cam01
   m_TagString: Untagged
@@ -51655,6 +51774,21 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1940859902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940859897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f35f8facf8a319641b4f72bcb426bbbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraManager
+  playerCamera: {fileID: 604330014}
+  robo_cam01: {fileID: 1940859901}
+  robo_cam02: {fileID: 292070622}
 --- !u!1 &1942742581
 GameObject:
   m_ObjectHideFlags: 0
@@ -56820,3 +56954,4 @@ SceneRoots:
   - {fileID: 1013556038}
   - {fileID: 969671945}
   - {fileID: 1240377432}
+  - {fileID: 697978023}
