@@ -31,6 +31,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string interact = "interact";
+  
 
 
     //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
@@ -42,6 +43,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction jumpAction;
     private InputAction sprintAction;
     private InputAction interactAction;
+   
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
     //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
@@ -53,6 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
     public bool InteractTriggered { get; private set; }
+  
 
     //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
     //FindActionMap(actionMapName: Holt die Action Map "Player" aus dem Asset.
@@ -67,6 +70,7 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = mapReference.FindAction(jump);
         sprintAction = mapReference.FindAction(sprint);
         interactAction = mapReference.FindAction(interact);
+        
 
         SubscribeActionValuesToInputEvents();
     }
@@ -91,11 +95,15 @@ public class PlayerInputHandler : MonoBehaviour
 
         interactAction.performed += inputInfo => InteractTriggered = true;
         interactAction.canceled += inputInfo => InteractTriggered = false;
+
+        
+
     }
     //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
     private void LateUpdate()
     {
-       InteractTriggered = false; 
+       InteractTriggered = false;
+     
     }
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
     //.Enable(): aktiviert die Action Map.
