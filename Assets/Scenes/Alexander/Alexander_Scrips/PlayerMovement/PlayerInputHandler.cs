@@ -32,6 +32,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string interact = "interact";
 
+
     //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
     //movementAction: Speichert die Movement-Action aus dem Asset
     //rotationAction: Speichert die Rotation-Action
@@ -91,7 +92,11 @@ public class PlayerInputHandler : MonoBehaviour
         interactAction.performed += inputInfo => InteractTriggered = true;
         interactAction.canceled += inputInfo => InteractTriggered = false;
     }
-
+    //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
+    private void LateUpdate()
+    {
+       InteractTriggered = false; 
+    }
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
     //.Enable(): aktiviert die Action Map.
     private void OnEnable()
