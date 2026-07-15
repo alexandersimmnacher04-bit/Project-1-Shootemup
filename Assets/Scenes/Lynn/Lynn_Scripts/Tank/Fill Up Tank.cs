@@ -16,21 +16,24 @@ using UnityEngine.UI;
 
 public class FillUpTank : MonoBehaviour
 {
-    public float fillRate = 5f;
-    public float maxTank = 100f;
-    public float graceAmount = 2f;
-    float currentTank = 0f;
-    bool isFilling = false;
-    bool finished = false;
-    public Slider tankSlider;
+    [SerializeField] private float fillRate = 5f;
+    [SerializeField] private float maxTank = 100f;
+    [SerializeField] private float graceAmount = 5f;
+    [SerializeField] private float threshHold = 110f;
+    private float currentTank = 0f;
+    private bool isFilling = false;
+    //private bool finished = false;
+    public bool tankSolved {  get; private set; }
+    // public Slider tankSlider;
 
 
     void Start()
     {
+        tankSolved = false;
         currentTank = Random.Range(20, 70);
-        tankSlider.minValue = 0;
-        tankSlider.maxValue = maxTank + graceAmount;
-        tankSlider.value = currentTank;
+        //tankSlider.minValue = 0;
+        //tankSlider.maxValue = maxTank + graceAmount;
+        //tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
     void OnMouseDown()
@@ -47,40 +50,56 @@ public class FillUpTank : MonoBehaviour
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
         if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
         {
+            tankSolved = true;
             Debug.Log("Tank is full! You can move on to the next puzzle.");
-             Win();
+            // Win();
         }
         isFilling = false;
     }
 
     void Update()
-    {
-        if (finished) return;  
-     
+    { 
+        //if (finished) return;  
         if (isFilling)
         {
             currentTank += fillRate * Time.deltaTime;
-            tankSlider.value = currentTank;
-            Debug.Log(currentTank);
-            if (currentTank > maxTank + graceAmount) {
-                Lose();
+            //  tankSlider.value = currentTank;
+            if (currentTank < threshHold)
+            {
+                Debug.Log(currentTank);
             }
+            else if (currentTank >= threshHold)
+            {
+                currentTank = threshHold;
+                Debug.Log(currentTank);
+            }
+            if (currentTank > maxTank + graceAmount)
+            {
+                //Lose();
+                tankSolved = false;
+            }
+            
+                
         }
     }
 
-    void Win()
-    {
-        finished = true;
-        currentTank = maxTank;
-        tankSlider.value = currentTank;
-        Debug.Log("Yippie. Du hast es geschafft!");
-    }
-    void Lose()
-    {
-        finished = true;
-        isFilling = false;
-        Debug.Log("Du Loser oder whatever");
-    }
+    //void Win()
+    //{
+    //    finished = true;
+    //    currentTank = maxTank;
+    //    // tankSlider.value = currentTank;
+    //    Debug.Log("Yippie. Du hast es geschafft!");
+    //}
+    //void Lose()
+    //{
+    //    finished = true;
+    //    isFilling = false;
+    //    Debug.Log("Du Loser oder whatever");
+    //}
+    // private void Toggle()
+    //{
+    //    solved = !solved;
+    //}
 }
 
 

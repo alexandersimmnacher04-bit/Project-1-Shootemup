@@ -36,4 +36,14 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void Wingame()
+    {
+        Debug.Log("Du hast gewonnen congrats");
+    }
+
+    public void Losegame()
+    {
+        Debug.Log("Game Over");
+    }
+
 }
