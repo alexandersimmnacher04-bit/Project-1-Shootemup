@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Gewährt zugriff auf das Unit Input System.
+//GewÃ¤hrt zugriff auf das Unit Input System.
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
-//public: Die KLasse ist überall im Project zu finden. 
+//public: Die KLasse ist Ã¼berall im Project zu finden. 
 //class: Es wird eine neue Klasse definiert
 //PlayerInputHandler: Der Name der Klasse
-//MonoBehavior: Dadurch kann das Script an Objecte hängen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
+//MonoBehavior: Dadurch kann das Script an Objecte hÃ¤ngen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
 public class PlayerInputHandler : MonoBehaviour
 {
-    //Header: Im Unity Inspector erscheinten eine Überschrift über der Variable. (Dient zur Lesbarkeit/Ordnung)
+    //Header: Im Unity Inspector erscheinten eine Ãœberschrift Ã¼ber der Variable. (Dient zur Lesbarkeit/Ordnung)
     //[SerializeField]: Die Variable bleibt Privat, trotzdem wird sie im Inspector angezeigt. Unity speichert den Wert der Variable in der Szene.
     //private: Die Variable nicht im Project nicht zu finden.
-    //InputActionAsset: Ist der name des Tpy der Variable für Unity
+    //InputActionAsset: Ist der name des Tpy der Variable fÃ¼r Unity
     //playerControls: Ist der Name der Variable
     [Header("Imput Action Asset")]
     [SerializeField] private InputActionAsset playerControls;
@@ -40,7 +40,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string openclosefingers = "openclosefingers";
 
 
-    //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
+    //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe reprÃ¤sentiert.
     //movementAction: Speichert die Movement-Action aus dem Asset
     //rotationAction: Speichert die Rotation-Action
     //ect.
@@ -56,9 +56,9 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction openclosefingersAction;
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
-    //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
+    //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurÃ¼ck. Oder X = Maus horizontal = Maus vertikal.
     //bool: Eine Variable mit zwei zustanden "true" und "false"
-    //get: andere Scrips dürfen den Wert lesen.
+    //get: andere Scrips dÃ¼rfen den Wert lesen.
     //private set: nur dieses Script darf den Wert setzen
     public Vector2 MovementInput { get; private set; }
     public Vector2 RotationInput { get; private set; }
@@ -72,7 +72,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool OpenCloseFingersTriggered { get; private set; }
 
 
-    //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
+    //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgefÃ¼hrt wird.
     //FindActionMap(actionMapName: Holt die Action Map "Player" aus dem Asset.
     //FindAction(): Holt die Actions Movement, Rotation ect. aus der Action Map.
     //SubscribeActionValuesToInputEvents(): Verbindet die Actions mit den Events (performed, canceled / Klasse private void SubscribeActionValuesToInputEvents() (L.68-81)).
@@ -128,7 +128,7 @@ public class PlayerInputHandler : MonoBehaviour
         openclosefingersAction.performed += InputInfo => OpenCloseFingersTriggered = true;
         openclosefingersAction.canceled += InputInfo => OpenCloseFingersTriggered = false;
     }
-    //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
+    //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt fÃ¼r stÃ¤ndiges hin und her springen bei der Kamera.
     private void LateUpdate()
     {
        InteractTriggered = false; 
@@ -141,7 +141,7 @@ public class PlayerInputHandler : MonoBehaviour
         robotControls.FindActionMap(robotactionMapName).Enable();
     }
 
-    //OnDisable(): Ist ebenfalls eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene deaktiviert wird. (Gegenstück zu OnEnable())
+    //OnDisable(): Ist ebenfalls eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene deaktiviert wird. (GegenstÃ¼ck zu OnEnable())
     //.Disable(): deaktiviert die Action Map.
     private void OnDisable()
     {
