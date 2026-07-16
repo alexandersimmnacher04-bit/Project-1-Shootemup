@@ -19,7 +19,6 @@ public class CameraManager : MonoBehaviour
     public void SwitchTo01()
     {
         IncamMode = true;
-
         playerCamera.gameObject.SetActive(false);
         robo_cam01.gameObject.SetActive(true);
         robo_cam02.gameObject.SetActive(false);

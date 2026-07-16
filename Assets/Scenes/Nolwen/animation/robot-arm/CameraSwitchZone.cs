@@ -1,6 +1,7 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class CameraSwitchZone : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class CameraSwitchZone : MonoBehaviour
     
     private bool playerInside = false;
     //neu
-    private bool RoboterInside = false;
+    private bool roboterInside = false;
     //neu
     //Hier wird geschaut ob der Player in der TriggerBox ist oder nicht.
     private void Update()
@@ -21,7 +22,7 @@ public class CameraSwitchZone : MonoBehaviour
         {
             HandleInteract();
         }
-        if(RoboterInside && cameraManager.IncamMode)
+        if (roboterInside && cameraManager.IncamMode)
         {
             cameraManager.SwitchTo02();
         }
@@ -33,12 +34,10 @@ public class CameraSwitchZone : MonoBehaviour
         {
             cameraManager.SwitchTo01();
             playerController.BlockMovement(true);
+            return;
         }
-        else
-        {
-            cameraManager.SwitchToPlayer();
-            playerController.BlockMovement(false);
-        }
+        cameraManager.SwitchToPlayer();
+        playerController.BlockMovement(false);
     }
     // Wenn der Player in der TriggerBox ist dan wird PlayerInside auf true gestzt.
     // Der Tag "Player" wird hier wieder verglichen.
@@ -50,7 +49,8 @@ public class CameraSwitchZone : MonoBehaviour
         }
         if (other.CompareTag("RoboterArm"))
         {
-            RoboterInside = true;
+           
+            roboterInside = true;
             if (cameraManager.IncamMode)
             {
                 cameraManager.SwitchTo02();
@@ -69,12 +69,11 @@ public class CameraSwitchZone : MonoBehaviour
         }
         if (other.CompareTag("RoboterArm"))
         {
-            RoboterInside = false;
+            roboterInside = false;
             if (cameraManager.IncamMode)
             {
                 cameraManager.SwitchTo01();
             }
         }
     }
-        
 }

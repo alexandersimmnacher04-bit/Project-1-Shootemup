@@ -1,29 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Gewährt zugriff auf das Unit Input System.
+//GewÃ¤hrt zugriff auf das Unit Input System.
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
-//public: Die KLasse ist überall im Project zu finden. 
+//public: Die KLasse ist Ã¼berall im Project zu finden. 
 //class: Es wird eine neue Klasse definiert
 //PlayerInputHandler: Der Name der Klasse
-//MonoBehavior: Dadurch kann das Script an Objecte hängen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
+//MonoBehavior: Dadurch kann das Script an Objecte hÃ¤ngen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
 public class PlayerInputHandler : MonoBehaviour
 {
-    //Header: Im Unity Inspector erscheinten eine Überschrift über der Variable. (Dient zur Lesbarkeit/Ordnung)
+    //Header: Im Unity Inspector erscheinten eine Ãœberschrift Ã¼ber der Variable. (Dient zur Lesbarkeit/Ordnung)
     //[SerializeField]: Die Variable bleibt Privat, trotzdem wird sie im Inspector angezeigt. Unity speichert den Wert der Variable in der Szene.
     //private: Die Variable nicht im Project nicht zu finden.
-    //InputActionAsset: Ist der name des Tpy der Variable für Unity
+    //InputActionAsset: Ist der name des Tpy der Variable fÃ¼r Unity
     //playerControls: Ist der Name der Variable
     [Header("Imput Action Asset")]
     [SerializeField] private InputActionAsset playerControls;
+    [SerializeField] private InputActionAsset robotControls;
 
     //string: Der Typ ist ein string also ein Text.
     //actionMapName: Ist der Name der Variable.
     //"Player": ist der Standartwert welcher zum Start gesetzt wird.
     [Header("Action Map Name Referance")]
-    [SerializeField] private string actionMapName = "Player";
+    [SerializeField] private string playeractionMapName = "Player";
+    [SerializeField] private string robotactionMapName = "robot-arm";
 
     [Header("Action Name References")]
     [SerializeField] private string movement = "Movement";
@@ -31,10 +33,14 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string interact = "interact";
-  
+    [SerializeField] private string moveforward = "moveforeward";
+    [SerializeField] private string movebackward = "movebackward";
+    [SerializeField] private string rotateright = "rotateright";
+    [SerializeField] private string rotateleft = "rotateleft";
+    [SerializeField] private string openclosefingers = "openclosefingers";
 
 
-    //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
+    //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe reprÃ¤sentiert.
     //movementAction: Speichert die Movement-Action aus dem Asset
     //rotationAction: Speichert die Rotation-Action
     //ect.
@@ -43,34 +49,48 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction jumpAction;
     private InputAction sprintAction;
     private InputAction interactAction;
-   
+    private InputAction moveforwardAction;
+    private InputAction movebackwardAction;
+    private InputAction rotaterightAction;
+    private InputAction rotateleftAction;
+    private InputAction openclosefingersAction;
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
-    //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
+    //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurÃ¼ck. Oder X = Maus horizontal = Maus vertikal.
     //bool: Eine Variable mit zwei zustanden "true" und "false"
-    //get: andere Scrips dürfen den Wert lesen.
+    //get: andere Scrips dÃ¼rfen den Wert lesen.
     //private set: nur dieses Script darf den Wert setzen
     public Vector2 MovementInput { get; private set; }
     public Vector2 RotationInput { get; private set; }
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
     public bool InteractTriggered { get; private set; }
-  
+    public bool MoveForwardTriggered { get; private set; }
+    public bool MoveBackwardTriggered { get; private set; }
+    public bool RotateRightTriggered { get; private set; }
+    public bool RotateLeftTriggered { get; private set; }
+    public bool OpenCloseFingersTriggered { get; private set; }
 
-    //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
+
+    //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgefÃ¼hrt wird.
     //FindActionMap(actionMapName: Holt die Action Map "Player" aus dem Asset.
     //FindAction(): Holt die Actions Movement, Rotation ect. aus der Action Map.
     //SubscribeActionValuesToInputEvents(): Verbindet die Actions mit den Events (performed, canceled / Klasse private void SubscribeActionValuesToInputEvents() (L.68-81)).
     private void Awake()
     {
-        InputActionMap mapReference = playerControls.FindActionMap(actionMapName);
+        InputActionMap playermapReference = playerControls.FindActionMap(playeractionMapName);
+        InputActionMap robotmapReference = robotControls.FindActionMap(robotactionMapName);
         
-        movementAction = mapReference.FindAction(movement);
-        rotationAction = mapReference.FindAction(rotation);
-        jumpAction = mapReference.FindAction(jump);
-        sprintAction = mapReference.FindAction(sprint);
-        interactAction = mapReference.FindAction(interact);
-        
+        movementAction = playermapReference.FindAction(movement);
+        rotationAction = playermapReference.FindAction(rotation);
+        jumpAction = playermapReference.FindAction(jump);
+        sprintAction = playermapReference.FindAction(sprint);
+        interactAction = playermapReference.FindAction(interact);
+        moveforwardAction = robotmapReference.FindAction(moveforward);
+        movebackwardAction = robotmapReference.FindAction(movebackward);
+        rotaterightAction = robotmapReference.FindAction(rotateright);
+        rotateleftAction = robotmapReference.FindAction(rotateleft);
+        openclosefingersAction = robotmapReference.FindAction(openclosefingers);
 
         SubscribeActionValuesToInputEvents();
     }
@@ -96,26 +116,36 @@ public class PlayerInputHandler : MonoBehaviour
         interactAction.performed += inputInfo => InteractTriggered = true;
         interactAction.canceled += inputInfo => InteractTriggered = false;
 
-        
+        moveforwardAction.performed += InputInfo => MoveForwardTriggered = true;
+        moveforwardAction.canceled += InputInfo => MoveForwardTriggered = false;
 
+        movebackwardAction.performed += InputInfo => MoveBackwardTriggered = true;
+        movebackwardAction.canceled += InputInfo => MoveBackwardTriggered = false;
+
+        rotaterightAction.performed += InputInfo => RotateRightTriggered = true;
+        rotaterightAction.canceled += InputInfo => RotateLeftTriggered = false;
+
+        openclosefingersAction.performed += InputInfo => OpenCloseFingersTriggered = true;
+        openclosefingersAction.canceled += InputInfo => OpenCloseFingersTriggered = false;
     }
-    //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
+    //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt fÃ¼r stÃ¤ndiges hin und her springen bei der Kamera.
     private void LateUpdate()
     {
-       InteractTriggered = false;
-     
+       InteractTriggered = false; 
     }
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
     //.Enable(): aktiviert die Action Map.
     private void OnEnable()
     {
-        playerControls.FindActionMap(actionMapName).Enable();
+        playerControls.FindActionMap(playeractionMapName).Enable();
+        robotControls.FindActionMap(robotactionMapName).Enable();
     }
 
-    //OnDisable(): Ist ebenfalls eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene deaktiviert wird. (Gegenstück zu OnEnable())
+    //OnDisable(): Ist ebenfalls eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene deaktiviert wird. (GegenstÃ¼ck zu OnEnable())
     //.Disable(): deaktiviert die Action Map.
     private void OnDisable()
     {
-        playerControls.FindActionMap(actionMapName).Disable();
+        playerControls.FindActionMap(playeractionMapName).Disable();
+        robotControls.FindActionMap(robotactionMapName).Disable();
     }
 }
