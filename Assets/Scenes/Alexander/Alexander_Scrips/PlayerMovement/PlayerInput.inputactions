@@ -193,33 +193,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "selectgroup1",
-                    "type": "Button",
-                    "id": "d65af004-cbce-4f51-9a42-7f19759a0922",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "selectgroup2",
-                    "type": "Button",
-                    "id": "54614383-c9c2-4954-9cad-5e2932b478d2",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "selctgroup3",
-                    "type": "Button",
-                    "id": "9ac4d3ec-be28-4156-9d60-a9f98704501f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -264,39 +237,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "moveleft",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "7318e1be-a5dc-46d6-b059-66854036127a",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "selectgroup1",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "71f37503-77c1-4608-92b4-9781b18bf1f2",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "selectgroup2",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d6851a49-9fe8-48a4-8603-497b5de92028",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "selctgroup3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
