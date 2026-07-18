@@ -46,12 +46,10 @@ public class GameManager : MonoBehaviour
     public void Endgame()
     { if (tank.tankSolved == true)
         {
-            Debug.Log("Du hast gewonnen congrats");
             Win.SetActive(true);
         }
         else
         {
-            Debug.Log("Game Over");
             Lose.SetActive(true);
         }  
         gameState = false;
