@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 //Gewährt zugriff auf das Unit Input System.
 using UnityEngine.InputSystem;
@@ -39,7 +40,11 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string movebackward = "movebackward";
     [SerializeField] private string moveright = "moveright";
     [SerializeField] private string moveleft = "moveleft";
-    [SerializeField] private string nextgelenk = "nextgelenk";
+
+    [SerializeField] private string selectgroup1 = "selectgroup1";
+    [SerializeField] private string selectgroup2 = "selectgroup2";
+    [SerializeField] private string selectgroup3 = "selectgroup3";
+    [SerializeField] private string nextgroup = "nextgroup";
 
 
     //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
@@ -56,8 +61,12 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction movebackwardAction;
     private InputAction moverightAction;
     private InputAction moveleftAction;
-    private InputAction nextgelenkAction;
 
+    private InputAction selectgroup1Action;
+    private InputAction selectgroup2Action;
+    private InputAction selectgroup3Action;
+    private InputAction nextgroupAction;
+    
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
     //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
     //bool: Eine Variable mit zwei zustanden "true" und "false"
@@ -74,7 +83,12 @@ public class PlayerInputHandler : MonoBehaviour
     public bool MoveBackward => movebackwardAction.IsPressed();
     public bool MoveRight => moverightAction.IsPressed();
     public bool MoveLeft => moveleftAction.IsPressed();
-    public bool NextGelenk => nextgelenkAction.WasPerformedThisFrame();
+    
+    public bool SelectGroup1Triggered { get; private set; }
+    public bool SelectGroup2Triggered { get; private set; }
+    public bool SelectGroup3Triggered { get; private set; }
+    public bool NextGroupTriggered { get; private set; }
+  
 
 
     //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
@@ -96,7 +110,12 @@ public class PlayerInputHandler : MonoBehaviour
         movebackwardAction = robotmapReference.FindAction(movebackward);
         moverightAction = robotmapReference.FindAction(moveright);
         moveleftAction = robotmapReference.FindAction(moveleft);
-        nextgelenkAction = robotmapReference.FindAction(nextgelenk);
+
+        selectgroup1Action = robotmapReference.FindAction(selectgroup1);
+        selectgroup2Action = robotmapReference.FindAction(selectgroup2);
+        selectgroup3Action = robotmapReference.FindAction(selectgroup3);
+        nextgroupAction = robotmapReference.FindAction(nextgroup);
+
         
 
         SubscribeActionValuesToInputEvents();
@@ -122,7 +141,19 @@ public class PlayerInputHandler : MonoBehaviour
 
         interactAction.performed += inputInfo => InteractTriggered = true;
         interactAction.canceled += inputInfo => InteractTriggered = false;
-  
+
+
+        selectgroup1Action.performed += inputInfo => InteractTriggered = true;
+        selectgroup1Action.canceled += inputInfo => InteractTriggered = false;
+
+        selectgroup2Action.performed += infoInfo => InteractTriggered = true;
+        selectgroup2Action.canceled += infoInfo => InteractTriggered = false;
+        
+        selectgroup3Action.performed += infoInfo => InteractTriggered = true;
+        selectgroup3Action.canceled += infoInfo => InteractTriggered = false;
+
+        nextgroupAction.performed += infoInfo => InteractTriggered = true;
+        nextgroupAction.canceled += infoInfo => InteractTriggered = false;
     }
     private void Start()
     {

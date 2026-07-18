@@ -11,7 +11,7 @@ public class RoboterArmController : MonoBehaviour
     [System.Serializable]
     public class GelenkGruppe
     {
-        public int[] gelenkIndized;
+        public int[] gelenkIndizes;
     }
 
     [System.Serializable]
@@ -23,7 +23,7 @@ public class RoboterArmController : MonoBehaviour
     [Header("Rotation Speeds")]
     [SerializeField] private float speed = 20f;
 
-    private int currentgelenkIndex = 0;
+    private int currentGroupIndex = 0;
 
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
@@ -33,25 +33,51 @@ public class RoboterArmController : MonoBehaviour
         if (!cameraManager.IncamMode)
             return;
 
-        HandleGelenkSelection();
-        HandleGelenkMovement();
+        HandleDirectGroupSelection();
+        HandleGroupCycling();
+        HandleGroupMovement();
+
     }
 
-    private void HandleGelenkSelection()
+    private void HandleDirectGroupSelection()
     {
-        if (input.NextGelenk)
+        if (input.SelectGroup1Triggered)
         {
-            currentgelenkIndex++;
-
-            if (currentgelenkIndex >= gelenke.Length)
-                currentgelenkIndex = 0;
+            currentGroupIndex = 0;
+        }
+        if (input.SelectGroup2Triggered)
+        {
+            currentGroupIndex = 1;
+        }
+        if (input.SelectGroup3Triggered)
+        {
+            currentGroupIndex = 2;
         }
     }
-    private void HandleGelenkMovement()
+    
+    private void HandleGroupCycling()
     {
-        Transform gelenk = gelenke[currentgelenkIndex];
+        if (input.NextGroupTriggered)
+        {
+            currentGroupIndex++;
 
-       foreach (var achse in gelenkAchsen[currentgelenkIndex].achsen)
+            if (currentGroupIndex >= gruppen.Length)
+                currentGroupIndex = 0;
+        }
+    }
+
+    private void HandleGroupMovement()
+    {
+        foreach (int gelenkIndex in gruppen[currentGroupIndex].gelenkIndizes)
+        {
+            HandleMovementForGelenk(gelenkIndex);
+        }
+    }
+    private void HandleMovementForGelenk(int gelenkIndex)
+    {
+        Transform gelenk = gelenke[gelenkIndex];
+
+       foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
        {
             switch (achse)
             {
