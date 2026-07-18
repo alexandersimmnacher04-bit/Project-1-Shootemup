@@ -246,47 +246,83 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""moveforward"",
-                    ""type"": ""Value"",
-                    ""id"": ""c92b5b5e-950f-46f1-8768-893cf0e58a59"",
-                    ""expectedControlType"": ""Bone"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e7d0106-5c3e-43ff-be4f-a99a14c1cbc3"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""movebackward"",
-                    ""type"": ""Value"",
-                    ""id"": ""8e737c21-3ca3-4778-9df0-f9c3440a6eae"",
-                    ""expectedControlType"": ""Bone"",
+                    ""type"": ""Button"",
+                    ""id"": ""40a6676b-3f8a-4ddd-8f54-c5ab4c13fbea"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""moveright"",
-                    ""type"": ""Value"",
-                    ""id"": ""2a9cd378-4515-4c9a-b06d-6c0eb60a6bba"",
-                    ""expectedControlType"": ""Bone"",
+                    ""type"": ""Button"",
+                    ""id"": ""c26a1e30-e2ea-456e-9e52-1eda7a2fc0aa"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""moveleft"",
-                    ""type"": ""Value"",
-                    ""id"": ""e3325867-6ba5-4025-a57a-edcd6711460d"",
-                    ""expectedControlType"": ""Bone"",
+                    ""type"": ""Button"",
+                    ""id"": ""19dff9ee-2412-49dd-a6f2-e8a75335a99e"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""selcetgroup1"",
+                    ""type"": ""Button"",
+                    ""id"": ""b32d1b40-b889-44b6-a19c-a02ddd132b5e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""selectgroup2"",
+                    ""type"": ""Button"",
+                    ""id"": ""1eaa2d2c-c52d-4df6-a4ab-67702f692d16"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""selectgroup3"",
+                    ""type"": ""Button"",
+                    ""id"": ""920358fb-3b08-4ded-a95a-d0f90c739ee7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""nextgroup"",
+                    ""type"": ""Button"",
+                    ""id"": ""6637988d-4f8f-4ee5-b162-f3948860a37d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""53c93dcb-7c77-437d-8f27-6909ba470e94"",
+                    ""id"": ""0f404f98-8081-44d4-b325-0ddd999f1655"",
                     ""path"": ""<Keyboard>/upArrow"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""moveforward"",
@@ -295,9 +331,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""edb3b7b7-f591-4d75-9202-03ed4094550a"",
+                    ""id"": ""4a7f0faa-85c9-44f6-b657-de135cf4a6c1"",
+                    ""path"": ""<Keyboard>/numpad8"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""moveforward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""80b51135-e606-4718-83f5-04c65097daa9"",
                     ""path"": ""<Keyboard>/downArrow"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""movebackward"",
@@ -306,9 +353,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5b4eeab8-207c-4649-858f-2fe151a92d9e"",
+                    ""id"": ""b7a09d8d-5385-4b55-b4a9-3cd92934cc14"",
+                    ""path"": ""<Keyboard>/numpad2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""movebackward"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2edfcae-05dd-4602-9bce-b7fca066520f"",
                     ""path"": ""<Keyboard>/rightArrow"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""moveright"",
@@ -317,19 +375,97 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ec5c4aee-e3b9-4a24-b3b7-b642702b865e"",
+                    ""id"": ""71ecdc94-59c7-4cbb-b8d4-1cb49b3be398"",
+                    ""path"": ""<Keyboard>/numpad6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""moveright"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06ebf497-c309-4242-af18-1513c8be3328"",
                     ""path"": ""<Keyboard>/leftArrow"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""moveleft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ba188499-85b6-4569-90eb-4a8ef117913d"",
+                    ""path"": ""<Keyboard>/numpad4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""moveleft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""095160f2-b42d-4d4f-99df-44c78adfa538"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""selcetgroup1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1ff156d-8345-4013-8dbd-785643ff2e61"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""selectgroup2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0699044-ad80-43fa-a391-53c28a4e4e5b"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""selectgroup3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c1c09c0-b41f-41c5-93e2-6d3fc2d2e295"",
+                    ""path"": ""<Keyboard>/numpad5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""nextgroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""New Control Scheme"",
+            ""bindingGroup"": ""New Control Scheme"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -344,6 +480,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_RoboterArm_movebackward = m_RoboterArm.FindAction("movebackward", throwIfNotFound: true);
         m_RoboterArm_moveright = m_RoboterArm.FindAction("moveright", throwIfNotFound: true);
         m_RoboterArm_moveleft = m_RoboterArm.FindAction("moveleft", throwIfNotFound: true);
+        m_RoboterArm_selcetgroup1 = m_RoboterArm.FindAction("selcetgroup1", throwIfNotFound: true);
+        m_RoboterArm_selectgroup2 = m_RoboterArm.FindAction("selectgroup2", throwIfNotFound: true);
+        m_RoboterArm_selectgroup3 = m_RoboterArm.FindAction("selectgroup3", throwIfNotFound: true);
+        m_RoboterArm_nextgroup = m_RoboterArm.FindAction("nextgroup", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -569,6 +709,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_RoboterArm_movebackward;
     private readonly InputAction m_RoboterArm_moveright;
     private readonly InputAction m_RoboterArm_moveleft;
+    private readonly InputAction m_RoboterArm_selcetgroup1;
+    private readonly InputAction m_RoboterArm_selectgroup2;
+    private readonly InputAction m_RoboterArm_selectgroup3;
+    private readonly InputAction m_RoboterArm_nextgroup;
     /// <summary>
     /// Provides access to input actions defined in input action map "RoboterArm".
     /// </summary>
@@ -596,6 +740,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RoboterArm/moveleft".
         /// </summary>
         public InputAction @moveleft => m_Wrapper.m_RoboterArm_moveleft;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/selcetgroup1".
+        /// </summary>
+        public InputAction @selcetgroup1 => m_Wrapper.m_RoboterArm_selcetgroup1;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/selectgroup2".
+        /// </summary>
+        public InputAction @selectgroup2 => m_Wrapper.m_RoboterArm_selectgroup2;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/selectgroup3".
+        /// </summary>
+        public InputAction @selectgroup3 => m_Wrapper.m_RoboterArm_selectgroup3;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/nextgroup".
+        /// </summary>
+        public InputAction @nextgroup => m_Wrapper.m_RoboterArm_nextgroup;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -634,6 +794,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @moveleft.started += instance.OnMoveleft;
             @moveleft.performed += instance.OnMoveleft;
             @moveleft.canceled += instance.OnMoveleft;
+            @selcetgroup1.started += instance.OnSelcetgroup1;
+            @selcetgroup1.performed += instance.OnSelcetgroup1;
+            @selcetgroup1.canceled += instance.OnSelcetgroup1;
+            @selectgroup2.started += instance.OnSelectgroup2;
+            @selectgroup2.performed += instance.OnSelectgroup2;
+            @selectgroup2.canceled += instance.OnSelectgroup2;
+            @selectgroup3.started += instance.OnSelectgroup3;
+            @selectgroup3.performed += instance.OnSelectgroup3;
+            @selectgroup3.canceled += instance.OnSelectgroup3;
+            @nextgroup.started += instance.OnNextgroup;
+            @nextgroup.performed += instance.OnNextgroup;
+            @nextgroup.canceled += instance.OnNextgroup;
         }
 
         /// <summary>
@@ -657,6 +829,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @moveleft.started -= instance.OnMoveleft;
             @moveleft.performed -= instance.OnMoveleft;
             @moveleft.canceled -= instance.OnMoveleft;
+            @selcetgroup1.started -= instance.OnSelcetgroup1;
+            @selcetgroup1.performed -= instance.OnSelcetgroup1;
+            @selcetgroup1.canceled -= instance.OnSelcetgroup1;
+            @selectgroup2.started -= instance.OnSelectgroup2;
+            @selectgroup2.performed -= instance.OnSelectgroup2;
+            @selectgroup2.canceled -= instance.OnSelectgroup2;
+            @selectgroup3.started -= instance.OnSelectgroup3;
+            @selectgroup3.performed -= instance.OnSelectgroup3;
+            @selectgroup3.canceled -= instance.OnSelectgroup3;
+            @nextgroup.started -= instance.OnNextgroup;
+            @nextgroup.performed -= instance.OnNextgroup;
+            @nextgroup.canceled -= instance.OnNextgroup;
         }
 
         /// <summary>
@@ -690,6 +874,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="RoboterArmActions" /> instance referencing this action map.
     /// </summary>
     public RoboterArmActions @RoboterArm => new RoboterArmActions(this);
+    private int m_NewControlSchemeSchemeIndex = -1;
+    /// <summary>
+    /// Provides access to the input control scheme.
+    /// </summary>
+    /// <seealso cref="UnityEngine.InputSystem.InputControlScheme" />
+    public InputControlScheme NewControlSchemeScheme
+    {
+        get
+        {
+            if (m_NewControlSchemeSchemeIndex == -1) m_NewControlSchemeSchemeIndex = asset.FindControlSchemeIndex("New Control Scheme");
+            return asset.controlSchemes[m_NewControlSchemeSchemeIndex];
+        }
+    }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -768,5 +965,33 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveleft(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "selcetgroup1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelcetgroup1(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "selectgroup2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectgroup2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "selectgroup3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectgroup3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "nextgroup" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnNextgroup(InputAction.CallbackContext context);
     }
 }
