@@ -25,19 +25,21 @@ public class PlayerInputHandler : MonoBehaviour
     //"Player": ist der Standartwert welcher zum Start gesetzt wird.
     [Header("Action Map Name Referance")]
     [SerializeField] private string playeractionMapName = "Player";
-    [SerializeField] private string robotactionMapName = "robot-arm";
+    [SerializeField] private string robotactionMapName = "RoboterArm";
 
-    [Header("Action Name References")]
+    [Header("Player Actions")]
     [SerializeField] private string movement = "Movement";
     [SerializeField] private string rotation = "Rotation";
     [SerializeField] private string jump = "Jump";
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string interact = "interact";
+
+    [Header("Roboter Actionen")]
     [SerializeField] private string moveforward = "moveforeward";
     [SerializeField] private string movebackward = "movebackward";
-    [SerializeField] private string rotateright = "rotateright";
-    [SerializeField] private string rotateleft = "rotateleft";
-    [SerializeField] private string openclosefingers = "openclosefingers";
+    [SerializeField] private string moveright = "moveright";
+    [SerializeField] private string moveleft = "moveleft";
+    [SerializeField] private string nextgelenk = "nextgelenk";
 
 
     //InputAction: Ist ein Object aus dem Unity Input System, das eine einzelne Eingabe repräsentiert.
@@ -49,11 +51,12 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction jumpAction;
     private InputAction sprintAction;
     private InputAction interactAction;
+    
     private InputAction moveforwardAction;
     private InputAction movebackwardAction;
-    private InputAction rotaterightAction;
-    private InputAction rotateleftAction;
-    private InputAction openclosefingersAction;
+    private InputAction moverightAction;
+    private InputAction moveleftAction;
+    private InputAction nextgelenkAction;
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
     //Vector2: Sind die Variablen auf dem Vector2 also X = links/rechts Y = vor/zurück. Oder X = Maus horizontal = Maus vertikal.
@@ -65,11 +68,13 @@ public class PlayerInputHandler : MonoBehaviour
     public bool JumpTriggered { get; private set; }
     public bool SprintTriggered { get; private set; }
     public bool InteractTriggered { get; private set; }
-    public bool MoveForwardTriggered { get; private set; }
-    public bool MoveBackwardTriggered { get; private set; }
-    public bool RotateRightTriggered { get; private set; }
-    public bool RotateLeftTriggered { get; private set; }
-    public bool OpenCloseFingersTriggered { get; private set; }
+
+
+    public bool MoveForward => moveforwardAction.IsPressed();
+    public bool MoveBackward => movebackwardAction.IsPressed();
+    public bool MoveRight => moverightAction.IsPressed();
+    public bool MoveLeft => moveleftAction.IsPressed();
+    public bool NextGelenk => nextgelenkAction.WasPerformedThisFrame();
 
 
     //Awake(): Ist eine Unity-Lebenszklusmethode. Wird einmal aufgerufen sobald das Script geladen wird, bevor Start() ausgeführt wird.
@@ -86,11 +91,13 @@ public class PlayerInputHandler : MonoBehaviour
         jumpAction = playermapReference.FindAction(jump);
         sprintAction = playermapReference.FindAction(sprint);
         interactAction = playermapReference.FindAction(interact);
+        
         moveforwardAction = robotmapReference.FindAction(moveforward);
         movebackwardAction = robotmapReference.FindAction(movebackward);
-        rotaterightAction = robotmapReference.FindAction(rotateright);
-        rotateleftAction = robotmapReference.FindAction(rotateleft);
-        openclosefingersAction = robotmapReference.FindAction(openclosefingers);
+        moverightAction = robotmapReference.FindAction(moveright);
+        moveleftAction = robotmapReference.FindAction(moveleft);
+        nextgelenkAction = robotmapReference.FindAction(nextgelenk);
+        
 
         SubscribeActionValuesToInputEvents();
     }
@@ -115,18 +122,11 @@ public class PlayerInputHandler : MonoBehaviour
 
         interactAction.performed += inputInfo => InteractTriggered = true;
         interactAction.canceled += inputInfo => InteractTriggered = false;
-
-        moveforwardAction.performed += InputInfo => MoveForwardTriggered = true;
-        moveforwardAction.canceled += InputInfo => MoveForwardTriggered = false;
-
-        movebackwardAction.performed += InputInfo => MoveBackwardTriggered = true;
-        movebackwardAction.canceled += InputInfo => MoveBackwardTriggered = false;
-
-        rotaterightAction.performed += InputInfo => RotateRightTriggered = true;
-        rotaterightAction.canceled += InputInfo => RotateLeftTriggered = false;
-
-        openclosefingersAction.performed += InputInfo => OpenCloseFingersTriggered = true;
-        openclosefingersAction.canceled += InputInfo => OpenCloseFingersTriggered = false;
+  
+    }
+    private void Start()
+    {
+        EnablePlayerInput();
     }
     //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
     private void LateUpdate()
@@ -135,17 +135,17 @@ public class PlayerInputHandler : MonoBehaviour
     }
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
     //.Enable(): aktiviert die Action Map.
-    private void OnEnable()
+    private void EnablePlayerInput()
     {
         playerControls.FindActionMap(playeractionMapName).Enable();
-        robotControls.FindActionMap(robotactionMapName).Enable();
+        robotControls.FindActionMap(robotactionMapName).Disable();
     }
 
     //OnDisable(): Ist ebenfalls eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene deaktiviert wird. (Gegenstück zu OnEnable())
     //.Disable(): deaktiviert die Action Map.
-    private void OnDisable()
+    private void EnableRobotInput()
     {
         playerControls.FindActionMap(playeractionMapName).Disable();
-        robotControls.FindActionMap(robotactionMapName).Disable();
+        robotControls.FindActionMap(robotactionMapName).Enable();
     }
 }

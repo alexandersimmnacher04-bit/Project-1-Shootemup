@@ -241,11 +241,11 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""robot-arm"",
+            ""name"": ""RoboterArm"",
             ""id"": ""4d675ec1-7611-4107-91d8-ef1af1d0f45a"",
             ""actions"": [
                 {
-                    ""name"": ""move-forward"",
+                    ""name"": ""moveforward"",
                     ""type"": ""Value"",
                     ""id"": ""c92b5b5e-950f-46f1-8768-893cf0e58a59"",
                     ""expectedControlType"": ""Bone"",
@@ -254,7 +254,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""move-backward"",
+                    ""name"": ""movebackward"",
                     ""type"": ""Value"",
                     ""id"": ""8e737c21-3ca3-4778-9df0-f9c3440a6eae"",
                     ""expectedControlType"": ""Bone"",
@@ -263,7 +263,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""rotate-right"",
+                    ""name"": ""moveright"",
                     ""type"": ""Value"",
                     ""id"": ""2a9cd378-4515-4c9a-b06d-6c0eb60a6bba"",
                     ""expectedControlType"": ""Bone"",
@@ -272,18 +272,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""rotate-left"",
+                    ""name"": ""moveleft"",
                     ""type"": ""Value"",
                     ""id"": ""e3325867-6ba5-4025-a57a-edcd6711460d"",
-                    ""expectedControlType"": ""Bone"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""open-and-close-fingers"",
-                    ""type"": ""Value"",
-                    ""id"": ""bac12da6-b250-4490-97db-6a21bacd9f4e"",
                     ""expectedControlType"": ""Bone"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -298,7 +289,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""move-forward"",
+                    ""action"": ""moveforward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -309,7 +300,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""move-backward"",
+                    ""action"": ""movebackward"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -320,7 +311,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""rotate-right"",
+                    ""action"": ""moveright"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -331,18 +322,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""rotate-left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ab0e32d2-f12e-4b3d-9cc7-8b0e1d37f63b"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press(behavior=2)"",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""open-and-close-fingers"",
+                    ""action"": ""moveleft"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -358,19 +338,18 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Rotation = m_Player.FindAction("Rotation", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        // robot-arm
-        m_robotarm = asset.FindActionMap("robot-arm", throwIfNotFound: true);
-        m_robotarm_moveforward = m_robotarm.FindAction("move-forward", throwIfNotFound: true);
-        m_robotarm_movebackward = m_robotarm.FindAction("move-backward", throwIfNotFound: true);
-        m_robotarm_rotateright = m_robotarm.FindAction("rotate-right", throwIfNotFound: true);
-        m_robotarm_rotateleft = m_robotarm.FindAction("rotate-left", throwIfNotFound: true);
-        m_robotarm_openandclosefingers = m_robotarm.FindAction("open-and-close-fingers", throwIfNotFound: true);
+        // RoboterArm
+        m_RoboterArm = asset.FindActionMap("RoboterArm", throwIfNotFound: true);
+        m_RoboterArm_moveforward = m_RoboterArm.FindAction("moveforward", throwIfNotFound: true);
+        m_RoboterArm_movebackward = m_RoboterArm.FindAction("movebackward", throwIfNotFound: true);
+        m_RoboterArm_moveright = m_RoboterArm.FindAction("moveright", throwIfNotFound: true);
+        m_RoboterArm_moveleft = m_RoboterArm.FindAction("moveleft", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, PlayerInput.Player.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_robotarm.enabled, "This will cause a leak and performance issues, PlayerInput.robotarm.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_RoboterArm.enabled, "This will cause a leak and performance issues, PlayerInput.RoboterArm.Disable() has not been called.");
     }
 
     /// <summary>
@@ -583,49 +562,44 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// </summary>
     public PlayerActions @Player => new PlayerActions(this);
 
-    // robot-arm
-    private readonly InputActionMap m_robotarm;
-    private List<IRobotarmActions> m_RobotarmActionsCallbackInterfaces = new List<IRobotarmActions>();
-    private readonly InputAction m_robotarm_moveforward;
-    private readonly InputAction m_robotarm_movebackward;
-    private readonly InputAction m_robotarm_rotateright;
-    private readonly InputAction m_robotarm_rotateleft;
-    private readonly InputAction m_robotarm_openandclosefingers;
+    // RoboterArm
+    private readonly InputActionMap m_RoboterArm;
+    private List<IRoboterArmActions> m_RoboterArmActionsCallbackInterfaces = new List<IRoboterArmActions>();
+    private readonly InputAction m_RoboterArm_moveforward;
+    private readonly InputAction m_RoboterArm_movebackward;
+    private readonly InputAction m_RoboterArm_moveright;
+    private readonly InputAction m_RoboterArm_moveleft;
     /// <summary>
-    /// Provides access to input actions defined in input action map "robot-arm".
+    /// Provides access to input actions defined in input action map "RoboterArm".
     /// </summary>
-    public struct RobotarmActions
+    public struct RoboterArmActions
     {
         private @PlayerInput m_Wrapper;
 
         /// <summary>
         /// Construct a new instance of the input action map wrapper class.
         /// </summary>
-        public RobotarmActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public RoboterArmActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         /// <summary>
-        /// Provides access to the underlying input action "robotarm/moveforward".
+        /// Provides access to the underlying input action "RoboterArm/moveforward".
         /// </summary>
-        public InputAction @moveforward => m_Wrapper.m_robotarm_moveforward;
+        public InputAction @moveforward => m_Wrapper.m_RoboterArm_moveforward;
         /// <summary>
-        /// Provides access to the underlying input action "robotarm/movebackward".
+        /// Provides access to the underlying input action "RoboterArm/movebackward".
         /// </summary>
-        public InputAction @movebackward => m_Wrapper.m_robotarm_movebackward;
+        public InputAction @movebackward => m_Wrapper.m_RoboterArm_movebackward;
         /// <summary>
-        /// Provides access to the underlying input action "robotarm/rotateright".
+        /// Provides access to the underlying input action "RoboterArm/moveright".
         /// </summary>
-        public InputAction @rotateright => m_Wrapper.m_robotarm_rotateright;
+        public InputAction @moveright => m_Wrapper.m_RoboterArm_moveright;
         /// <summary>
-        /// Provides access to the underlying input action "robotarm/rotateleft".
+        /// Provides access to the underlying input action "RoboterArm/moveleft".
         /// </summary>
-        public InputAction @rotateleft => m_Wrapper.m_robotarm_rotateleft;
-        /// <summary>
-        /// Provides access to the underlying input action "robotarm/openandclosefingers".
-        /// </summary>
-        public InputAction @openandclosefingers => m_Wrapper.m_robotarm_openandclosefingers;
+        public InputAction @moveleft => m_Wrapper.m_RoboterArm_moveleft;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
-        public InputActionMap Get() { return m_Wrapper.m_robotarm; }
+        public InputActionMap Get() { return m_Wrapper.m_RoboterArm; }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
         public void Enable() { Get().Enable(); }
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -633,9 +607,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
         public bool enabled => Get().enabled;
         /// <summary>
-        /// Implicitly converts an <see ref="RobotarmActions" /> to an <see ref="InputActionMap" /> instance.
+        /// Implicitly converts an <see ref="RoboterArmActions" /> to an <see ref="InputActionMap" /> instance.
         /// </summary>
-        public static implicit operator InputActionMap(RobotarmActions set) { return set.Get(); }
+        public static implicit operator InputActionMap(RoboterArmActions set) { return set.Get(); }
         /// <summary>
         /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
         /// </summary>
@@ -643,26 +617,23 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
         /// </remarks>
-        /// <seealso cref="RobotarmActions" />
-        public void AddCallbacks(IRobotarmActions instance)
+        /// <seealso cref="RoboterArmActions" />
+        public void AddCallbacks(IRoboterArmActions instance)
         {
-            if (instance == null || m_Wrapper.m_RobotarmActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_RobotarmActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_RoboterArmActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_RoboterArmActionsCallbackInterfaces.Add(instance);
             @moveforward.started += instance.OnMoveforward;
             @moveforward.performed += instance.OnMoveforward;
             @moveforward.canceled += instance.OnMoveforward;
             @movebackward.started += instance.OnMovebackward;
             @movebackward.performed += instance.OnMovebackward;
             @movebackward.canceled += instance.OnMovebackward;
-            @rotateright.started += instance.OnRotateright;
-            @rotateright.performed += instance.OnRotateright;
-            @rotateright.canceled += instance.OnRotateright;
-            @rotateleft.started += instance.OnRotateleft;
-            @rotateleft.performed += instance.OnRotateleft;
-            @rotateleft.canceled += instance.OnRotateleft;
-            @openandclosefingers.started += instance.OnOpenandclosefingers;
-            @openandclosefingers.performed += instance.OnOpenandclosefingers;
-            @openandclosefingers.canceled += instance.OnOpenandclosefingers;
+            @moveright.started += instance.OnMoveright;
+            @moveright.performed += instance.OnMoveright;
+            @moveright.canceled += instance.OnMoveright;
+            @moveleft.started += instance.OnMoveleft;
+            @moveleft.performed += instance.OnMoveleft;
+            @moveleft.canceled += instance.OnMoveleft;
         }
 
         /// <summary>
@@ -671,8 +642,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <remarks>
         /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
         /// </remarks>
-        /// <seealso cref="RobotarmActions" />
-        private void UnregisterCallbacks(IRobotarmActions instance)
+        /// <seealso cref="RoboterArmActions" />
+        private void UnregisterCallbacks(IRoboterArmActions instance)
         {
             @moveforward.started -= instance.OnMoveforward;
             @moveforward.performed -= instance.OnMoveforward;
@@ -680,24 +651,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @movebackward.started -= instance.OnMovebackward;
             @movebackward.performed -= instance.OnMovebackward;
             @movebackward.canceled -= instance.OnMovebackward;
-            @rotateright.started -= instance.OnRotateright;
-            @rotateright.performed -= instance.OnRotateright;
-            @rotateright.canceled -= instance.OnRotateright;
-            @rotateleft.started -= instance.OnRotateleft;
-            @rotateleft.performed -= instance.OnRotateleft;
-            @rotateleft.canceled -= instance.OnRotateleft;
-            @openandclosefingers.started -= instance.OnOpenandclosefingers;
-            @openandclosefingers.performed -= instance.OnOpenandclosefingers;
-            @openandclosefingers.canceled -= instance.OnOpenandclosefingers;
+            @moveright.started -= instance.OnMoveright;
+            @moveright.performed -= instance.OnMoveright;
+            @moveright.canceled -= instance.OnMoveright;
+            @moveleft.started -= instance.OnMoveleft;
+            @moveleft.performed -= instance.OnMoveleft;
+            @moveleft.canceled -= instance.OnMoveleft;
         }
 
         /// <summary>
-        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RobotarmActions.UnregisterCallbacks(IRobotarmActions)" />.
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="RoboterArmActions.UnregisterCallbacks(IRoboterArmActions)" />.
         /// </summary>
-        /// <seealso cref="RobotarmActions.UnregisterCallbacks(IRobotarmActions)" />
-        public void RemoveCallbacks(IRobotarmActions instance)
+        /// <seealso cref="RoboterArmActions.UnregisterCallbacks(IRoboterArmActions)" />
+        public void RemoveCallbacks(IRoboterArmActions instance)
         {
-            if (m_Wrapper.m_RobotarmActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_RoboterArmActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
@@ -707,21 +675,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <remarks>
         /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
         /// </remarks>
-        /// <seealso cref="RobotarmActions.AddCallbacks(IRobotarmActions)" />
-        /// <seealso cref="RobotarmActions.RemoveCallbacks(IRobotarmActions)" />
-        /// <seealso cref="RobotarmActions.UnregisterCallbacks(IRobotarmActions)" />
-        public void SetCallbacks(IRobotarmActions instance)
+        /// <seealso cref="RoboterArmActions.AddCallbacks(IRoboterArmActions)" />
+        /// <seealso cref="RoboterArmActions.RemoveCallbacks(IRoboterArmActions)" />
+        /// <seealso cref="RoboterArmActions.UnregisterCallbacks(IRoboterArmActions)" />
+        public void SetCallbacks(IRoboterArmActions instance)
         {
-            foreach (var item in m_Wrapper.m_RobotarmActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_RoboterArmActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_RobotarmActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_RoboterArmActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
     /// <summary>
-    /// Provides a new <see cref="RobotarmActions" /> instance referencing this action map.
+    /// Provides a new <see cref="RoboterArmActions" /> instance referencing this action map.
     /// </summary>
-    public RobotarmActions @robotarm => new RobotarmActions(this);
+    public RoboterArmActions @RoboterArm => new RoboterArmActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Player" which allows adding and removing callbacks.
     /// </summary>
@@ -766,46 +734,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnInteract(InputAction.CallbackContext context);
     }
     /// <summary>
-    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "robot-arm" which allows adding and removing callbacks.
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RoboterArm" which allows adding and removing callbacks.
     /// </summary>
-    /// <seealso cref="RobotarmActions.AddCallbacks(IRobotarmActions)" />
-    /// <seealso cref="RobotarmActions.RemoveCallbacks(IRobotarmActions)" />
-    public interface IRobotarmActions
+    /// <seealso cref="RoboterArmActions.AddCallbacks(IRoboterArmActions)" />
+    /// <seealso cref="RoboterArmActions.RemoveCallbacks(IRoboterArmActions)" />
+    public interface IRoboterArmActions
     {
         /// <summary>
-        /// Method invoked when associated input action "move-forward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "moveforward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveforward(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "move-backward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "movebackward" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMovebackward(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "rotate-right" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "moveright" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateright(InputAction.CallbackContext context);
+        void OnMoveright(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "rotate-left" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "moveleft" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnRotateleft(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "open-and-close-fingers" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnOpenandclosefingers(InputAction.CallbackContext context);
+        void OnMoveleft(InputAction.CallbackContext context);
     }
 }
