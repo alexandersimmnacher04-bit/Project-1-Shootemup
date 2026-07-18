@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 
@@ -37,11 +38,32 @@ public class FirstPersonController : MonoBehaviour
     private float verticalRotation;
 
     private bool movementBlocked = false;
+    private bool cursorOn;
 
     public void BlockMovement(bool blocked)
     {
-        movementBlocked = blocked;
+       movementBlocked = blocked;
     }
+    public void ToggleMovement()
+    {
+        movementBlocked = !movementBlocked;
+               
+    }
+    public void ToggleCursor()
+    {
+        cursorOn = !cursorOn;
+        if (cursorOn)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
 
     //Wenn Sprint gedrückt wird, wird die Geschwindigkeit, der walkSpeed * sprintMultiplier. (Geschwindigkeit = LaufGeschwindigkeit * SprintMulitiplizierer)
     //Wenn Sprint nicht gedrückt wird die Geschwindigkeit, der walkSpeed * 1. (Geschwindigkeit = LaufGeschwindigkeit * 1).

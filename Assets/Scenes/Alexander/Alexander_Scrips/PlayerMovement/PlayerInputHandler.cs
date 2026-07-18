@@ -131,8 +131,7 @@ public class PlayerInputHandler : MonoBehaviour
     //Late Update muss gemacht werden weil bei Update jeder frame getrakt wird uns der Knopf mehere Frames gehalten wird das sorgt für ständiges hin und her springen bei der Kamera.
     private void LateUpdate()
     {
-       InteractTriggered = false;
-     
+       InteractTriggered = false; 
     }
     //OnEnable(): Ist auch eine Unity-Lebenszyklusmethode, diese wird auf gerufen wenn das Game Object, Script oder Szene aktiviert wird.
     //.Enable(): aktiviert die Action Map.

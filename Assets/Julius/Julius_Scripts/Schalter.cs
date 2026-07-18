@@ -8,44 +8,53 @@ public class Schalter : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private GameObject Absicherung;
     [SerializeField] private FirstPersonController firstPersonController;
-    private float Timer = 5;
+    private float Timer;
     private bool buttonOn = true;
+    private bool setTimer;
    
 
     private void OnMouseDown()
     { if (buttonOn == true)
+        {
+            Debug.Log("click");
+            buttonOn = false;
             AreyouSure();
+           
+        }
         else return;
     }
 
     private void AreyouSure()
     {
-        firstPersonController.BlockMovement(true);
-        Cursor.lockState = CursorLockMode.Confined;
-        Cursor.visible = true;
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
         Absicherung.SetActive(true);
     }
      
     public void Yes()
     {
-        buttonOn = false;
-        Absicherung.SetActive(false); 
-        while (Timer > 0)
-        {
-            Debug.Log("tick");
-            Timer -= Time.deltaTime;
-        }
-        if (Timer <= 0) 
-            gameManager.Endgame();
+        Absicherung.SetActive(false);
+        setTimer = true;
+        Timer = 5f;
       
     }
 
     public void No()
     {
-        firstPersonController.BlockMovement(false);
+        buttonOn = true;
         Absicherung.SetActive(false);
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
+    }
+    private void Update()
+    {
+        if (setTimer)
+        {
+            Timer -= Time.deltaTime;
+            if (Timer <= 0)
+                gameManager.Endgame();
+        }
+        
     }
 
     //private void Checkgame()
