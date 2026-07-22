@@ -8,36 +8,37 @@ public class CameraSwitchZone : MonoBehaviour
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private FirstPersonController playerController;
     [SerializeField] private PlayerInputHandler inputHandler;
-    
-    private bool playerInside = false;
-    //neu
-    private bool roboterInside = false;
-    //neu
-    //Hier wird geschaut ob der Player in der TriggerBox ist oder nicht.
-    private void Update()
-    {
-        if (!playerInside) return;
 
-        if (inputHandler.InteractTriggered)
-        {
-            HandleInteract();
-        }
-        if (roboterInside && cameraManager.IncamMode)
-        {
-            cameraManager.SwitchTo02();
-        }
+    private bool playerInside = false;
+    private bool roboterInside = false;
+
+    public void HandlePrimary()
+    {
+        HandleSecondary();
     }
+
+    public void InteractSecondary()
+    {
+        HandleSecondary();
+    }
+   
     // Wenn der Spieler Interacted dann wird das Movement Blockiert. Wenn der Spieler nicht mehr interacted dann hört es auf.
-    private void HandleInteract()
+    private void HandleSecondary()
     {
         if (!cameraManager.IncamMode)
         {
+
             cameraManager.SwitchTo01();
             playerController.BlockMovement(true);
+
+            inputHandler.SwitchToRobotMode();
+
             return;
         }
         cameraManager.SwitchToPlayer();
         playerController.BlockMovement(false);
+
+        inputHandler.SwitchToPlayerMode();
     }
     // Wenn der Player in der TriggerBox ist dan wird PlayerInside auf true gestzt.
     // Der Tag "Player" wird hier wieder verglichen.
