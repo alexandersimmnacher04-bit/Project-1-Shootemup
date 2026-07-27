@@ -1,4 +1,6 @@
+
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RoboterArmController : MonoBehaviour
@@ -20,8 +22,9 @@ public class RoboterArmController : MonoBehaviour
         public GelenkAchse[] achsen;
     }
 
-    [Header("Rotation Speeds")]
+    [Header("Rotation Speeds / Movement Speeds")]
     [SerializeField] private float speed = 20f;
+    [SerializeField] private float schienenSpeed = 2f;
 
     private int currentGroupIndex = 0;
 
@@ -30,6 +33,7 @@ public class RoboterArmController : MonoBehaviour
 
     private void Update()
     {
+       
         if (!cameraManager.IncamMode)
             return;
 
@@ -38,6 +42,12 @@ public class RoboterArmController : MonoBehaviour
         HandleGroupMovement();
 
     }
+
+    private void Start()
+    {
+        currentGroupIndex = 0;
+    }
+
 
     private void HandleDirectGroupSelection()
     {
@@ -75,6 +85,20 @@ public class RoboterArmController : MonoBehaviour
     }
     private void HandleMovementForGelenk(int gelenkIndex)
     {
+
+        if (gelenkIndex == 99)
+        {
+            HandleSchienenBewegung();
+            return;
+        }
+
+
+        if (gelenkIndex < 0 || gelenkIndex >= gelenke.Length)
+            return;
+
+        if (gelenkIndex >= gelenkAchsen.Length)
+            return; 
+
         Transform gelenk = gelenke[gelenkIndex];
 
        foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
@@ -108,8 +132,6 @@ public class RoboterArmController : MonoBehaviour
                         RotateWithCollisionCheck(gelenk, Vector3.forward * -1f, speed);
                     break;
 
-
-
             }
 
        }
@@ -119,7 +141,8 @@ public class RoboterArmController : MonoBehaviour
     {
         DrehenY,
         NeigenX,
-        KippenZ
+        KippenZ,
+        SchieneZ
     }
     
     private float NormalizeAngle(float angle)
@@ -127,13 +150,14 @@ public class RoboterArmController : MonoBehaviour
         if (angle > 180f) angle -= 360f;
         return angle;
     }
-    
-    private bool CheckCollision (Transform gelenk, Vector3 direction, float distance = 0.2f)
+
+    private bool CheckCollision(Transform gelenk, Vector3 direction, float distance = 0.2f)
     {
+        int mask = ~LayerMask.GetMask("RoboterArm");
         RaycastHit hit;
-        return Physics.Raycast(gelenk.position, direction, out hit, distance);
+        return Physics.Raycast(gelenk.position, direction, out hit, distance, mask);
     }
-    
+
     private void RotateWithCollisionCheck(Transform gelenk, Vector3 axis, float speed)
     {
         Vector3 direction = gelenk.TransformDirection(axis);
@@ -144,6 +168,19 @@ public class RoboterArmController : MonoBehaviour
         {
             gelenk.Rotate(axis * speed * Time.deltaTime);
         }
+    }
+
+    private void HandleSchienenBewegung()
+    {
+        float move = 0f;
+
+        if (input.MoveForward)
+            move = 1f;
+
+        if (input.MoveBackward)
+            move = -1f;
+
+        transform.Translate(Vector3.forward * move * schienenSpeed * Time.deltaTime);
     }
 
 }

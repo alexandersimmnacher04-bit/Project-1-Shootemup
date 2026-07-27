@@ -50,6 +50,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Interactsecondary",
+                    "type": "Button",
+                    "id": "4f1d8ce7-ca3c-41f7-adbe-bc5921f3c1aa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -144,11 +153,22 @@
                 {
                     "name": "",
                     "id": "0002c890-d790-428b-930b-ebb8c518458f",
-                    "path": "<Keyboard>/f",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2063e1db-a25a-4b91-be2a-d88c7177fb1f",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interactsecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -195,7 +215,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "selcetgroup1",
+                    "name": "selectgroup1",
                     "type": "Button",
                     "id": "b32d1b40-b889-44b6-a19c-a02ddd132b5e",
                     "expectedControlType": "",
@@ -327,7 +347,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "selcetgroup1",
+                    "action": "selectgroup1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
