@@ -136,6 +136,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interactsecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f1d8ce7-ca3c-41f7-adbe-bc5921f3c1aa"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -230,11 +239,22 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""0002c890-d790-428b-930b-ebb8c518458f"",
-                    ""path"": ""<Keyboard>/f"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2063e1db-a25a-4b91-be2a-d88c7177fb1f"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interactsecondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -281,7 +301,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""selcetgroup1"",
+                    ""name"": ""selectgroup1"",
                     ""type"": ""Button"",
                     ""id"": ""b32d1b40-b889-44b6-a19c-a02ddd132b5e"",
                     ""expectedControlType"": """",
@@ -413,7 +433,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""selcetgroup1"",
+                    ""action"": ""selectgroup1"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -474,13 +494,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_Rotation = m_Player.FindAction("Rotation", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_Interactsecondary = m_Player.FindAction("Interactsecondary", throwIfNotFound: true);
         // RoboterArm
         m_RoboterArm = asset.FindActionMap("RoboterArm", throwIfNotFound: true);
         m_RoboterArm_moveforward = m_RoboterArm.FindAction("moveforward", throwIfNotFound: true);
         m_RoboterArm_movebackward = m_RoboterArm.FindAction("movebackward", throwIfNotFound: true);
         m_RoboterArm_moveright = m_RoboterArm.FindAction("moveright", throwIfNotFound: true);
         m_RoboterArm_moveleft = m_RoboterArm.FindAction("moveleft", throwIfNotFound: true);
-        m_RoboterArm_selcetgroup1 = m_RoboterArm.FindAction("selcetgroup1", throwIfNotFound: true);
+        m_RoboterArm_selectgroup1 = m_RoboterArm.FindAction("selectgroup1", throwIfNotFound: true);
         m_RoboterArm_selectgroup2 = m_RoboterArm.FindAction("selectgroup2", throwIfNotFound: true);
         m_RoboterArm_selectgroup3 = m_RoboterArm.FindAction("selectgroup3", throwIfNotFound: true);
         m_RoboterArm_nextgroup = m_RoboterArm.FindAction("nextgroup", throwIfNotFound: true);
@@ -570,6 +591,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Rotation;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_Interactsecondary;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -601,6 +623,10 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Interact".
         /// </summary>
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Interactsecondary".
+        /// </summary>
+        public InputAction @Interactsecondary => m_Wrapper.m_Player_Interactsecondary;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -642,6 +668,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @Interactsecondary.started += instance.OnInteractsecondary;
+            @Interactsecondary.performed += instance.OnInteractsecondary;
+            @Interactsecondary.canceled += instance.OnInteractsecondary;
         }
 
         /// <summary>
@@ -668,6 +697,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @Interactsecondary.started -= instance.OnInteractsecondary;
+            @Interactsecondary.performed -= instance.OnInteractsecondary;
+            @Interactsecondary.canceled -= instance.OnInteractsecondary;
         }
 
         /// <summary>
@@ -709,7 +741,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_RoboterArm_movebackward;
     private readonly InputAction m_RoboterArm_moveright;
     private readonly InputAction m_RoboterArm_moveleft;
-    private readonly InputAction m_RoboterArm_selcetgroup1;
+    private readonly InputAction m_RoboterArm_selectgroup1;
     private readonly InputAction m_RoboterArm_selectgroup2;
     private readonly InputAction m_RoboterArm_selectgroup3;
     private readonly InputAction m_RoboterArm_nextgroup;
@@ -741,9 +773,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @moveleft => m_Wrapper.m_RoboterArm_moveleft;
         /// <summary>
-        /// Provides access to the underlying input action "RoboterArm/selcetgroup1".
+        /// Provides access to the underlying input action "RoboterArm/selectgroup1".
         /// </summary>
-        public InputAction @selcetgroup1 => m_Wrapper.m_RoboterArm_selcetgroup1;
+        public InputAction @selectgroup1 => m_Wrapper.m_RoboterArm_selectgroup1;
         /// <summary>
         /// Provides access to the underlying input action "RoboterArm/selectgroup2".
         /// </summary>
@@ -794,9 +826,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @moveleft.started += instance.OnMoveleft;
             @moveleft.performed += instance.OnMoveleft;
             @moveleft.canceled += instance.OnMoveleft;
-            @selcetgroup1.started += instance.OnSelcetgroup1;
-            @selcetgroup1.performed += instance.OnSelcetgroup1;
-            @selcetgroup1.canceled += instance.OnSelcetgroup1;
+            @selectgroup1.started += instance.OnSelectgroup1;
+            @selectgroup1.performed += instance.OnSelectgroup1;
+            @selectgroup1.canceled += instance.OnSelectgroup1;
             @selectgroup2.started += instance.OnSelectgroup2;
             @selectgroup2.performed += instance.OnSelectgroup2;
             @selectgroup2.canceled += instance.OnSelectgroup2;
@@ -829,9 +861,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @moveleft.started -= instance.OnMoveleft;
             @moveleft.performed -= instance.OnMoveleft;
             @moveleft.canceled -= instance.OnMoveleft;
-            @selcetgroup1.started -= instance.OnSelcetgroup1;
-            @selcetgroup1.performed -= instance.OnSelcetgroup1;
-            @selcetgroup1.canceled -= instance.OnSelcetgroup1;
+            @selectgroup1.started -= instance.OnSelectgroup1;
+            @selectgroup1.performed -= instance.OnSelectgroup1;
+            @selectgroup1.canceled -= instance.OnSelectgroup1;
             @selectgroup2.started -= instance.OnSelectgroup2;
             @selectgroup2.performed -= instance.OnSelectgroup2;
             @selectgroup2.canceled -= instance.OnSelectgroup2;
@@ -929,6 +961,13 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interactsecondary" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteractsecondary(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "RoboterArm" which allows adding and removing callbacks.
@@ -966,12 +1005,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMoveleft(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "selcetgroup1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "selectgroup1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSelcetgroup1(InputAction.CallbackContext context);
+        void OnSelectgroup1(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "selectgroup2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
