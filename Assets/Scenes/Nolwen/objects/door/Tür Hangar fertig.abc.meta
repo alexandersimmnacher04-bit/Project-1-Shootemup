@@ -1,8 +1,13 @@
 fileFormatVersion: 2
-guid: 933141b0ecffa094f8ea539820bba445
+guid: 2fb9db3e6ad18b346b46a053e789090a
 ScriptedImporter:
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: "Hangar_T\xFCr/Cube_004:000:"
+    second: {fileID: 2100000, guid: db0535879c1e51b4b9e06eb7bf60e1f6, type: 2}
   serializedVersion: 2
   userData: 
   assetBundleName: 
@@ -29,10 +34,10 @@ ScriptedImporter:
     importPoints: 0
     importCurves: 1
     createCurveRenderers: 0
-  abcStartTime: 0
-  abcEndTime: 0
-  startTime: 0
-  endTime: 0
+  abcStartTime: 0.041666666666666664
+  abcEndTime: 0.041666666666666664
+  startTime: 0.041666666666666664
+  endTime: 0.041666666666666664
   importWarning: 
   firstImport: 0
   isHDF5: 0
