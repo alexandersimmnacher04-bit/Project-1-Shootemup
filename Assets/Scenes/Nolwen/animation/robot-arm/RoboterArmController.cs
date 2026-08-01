@@ -1,14 +1,25 @@
 
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class RoboterArmController : MonoBehaviour
 {
-    [Header("Gelenke des Roboters")]
-    [SerializeField] private Transform[] gelenke;
-    [SerializeField] private GelenkList[] gelenkAchsen;
-    [SerializeField] private GelenkGruppe[] gruppen;
+    public enum GelenkAchse
+    {
+        DrehenY,
+        NeigenX,
+        KippenZ,
+        SchieneZ
+    }
+
+    private enum SchienenModus
+    {
+        HangarSchiene,
+        Junction,
+        LagerSchiene,
+    }
 
     [System.Serializable]
     public class GelenkGruppe
@@ -22,32 +33,59 @@ public class RoboterArmController : MonoBehaviour
         public GelenkAchse[] achsen;
     }
 
+    [Header("Gelenke des Roboters")]
+    [SerializeField] private Transform[] gelenke;
+    [SerializeField] private GelenkList[] gelenkAchsen;
+    [SerializeField] private GelenkGruppe[] gruppen;
+
     [Header("Rotation Speeds / Movement Speeds")]
     [SerializeField] private float speed = 20f;
     [SerializeField] private float schienenSpeed = 2f;
 
-    private int currentGroupIndex = 0;
+    [Header("Winkellimits für alle Gelenke")]
+    [SerializeField] private float minWinkel = -80f;
+    [SerializeField] private float maxWinkel = 80f;
 
+    [Header("Kollisionsschutz")]
+    [SerializeField] private LayerMask hindernisLayer;
+    [SerializeField] private float kollisionsPruefRadius = 0.15f;
+
+    [Header("Referenzen")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
 
-    private void Update()
-    {
-       
-        if (!cameraManager.IncamMode)
-            return;
-
-        HandleDirectGroupSelection();
-        HandleGroupCycling();
-        HandleGroupMovement();
-
-    }
+    private int currentGroupIndex = 0;
+    private SchienenModus currentSchienenModus = SchienenModus.HangarSchiene;
+    private float[] aktuelleWinkel;
 
     private void Start()
     {
         currentGroupIndex = 0;
+        aktuelleWinkel = new float[gelenke.Length];
     }
 
+    private void Update()
+    {
+        if(!cameraManager.IncamMode)
+        return;
+
+        HandleDirectGroupSelection();
+        HandleGroupCycling();
+        HandleGroupMovement();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.CompareTag("HangarSchiene"))
+            currentSchienenModus = SchienenModus.HangarSchiene;
+
+        if (other.CompareTag("Junction"))
+            currentSchienenModus = SchienenModus.Junction;
+
+        if (other.CompareTag("LagerSchiene"))
+            currentSchienenModus = SchienenModus.LagerSchiene;
+    }
 
     private void HandleDirectGroupSelection()
     {
@@ -108,79 +146,124 @@ public class RoboterArmController : MonoBehaviour
                 case GelenkAchse.NeigenX:
 
                     if (input.MoveForward)
-                        RotateWithCollisionCheck(gelenk, Vector3.right, speed);
+                        RotateWithLimit(gelenk, Vector3.right, 1f, gelenkIndex);
 
                     if (input.MoveBackward)
-                        RotateWithCollisionCheck(gelenk, Vector3.right * -1f, speed);
+                        RotateWithLimit(gelenk, Vector3.right, -1f, gelenkIndex);
                     break;
 
                 case GelenkAchse.DrehenY:
                     
                     if (input.MoveRight)
-                        RotateWithCollisionCheck(gelenk, Vector3.up, speed);
+                        RotateWithoutLimit(gelenk, Vector3.up, 1f);
 
                     if(input.MoveLeft)
-                        RotateWithCollisionCheck(gelenk, Vector3.up * -1f, speed);
+                        RotateWithoutLimit(gelenk, Vector3.up, -1f);
                     break;
 
                 case GelenkAchse.KippenZ:
 
                     if (input.MoveRight)
-                        RotateWithCollisionCheck(gelenk, Vector3.forward, speed);
+                        RotateWithLimit(gelenk, Vector3.forward, 1f, gelenkIndex);
 
                     if (input.MoveLeft)
-                        RotateWithCollisionCheck(gelenk, Vector3.forward * -1f, speed);
+                        RotateWithLimit(gelenk, Vector3.forward, -1f, gelenkIndex);
                     break;
 
             }
-
        }
     }
 
-    public enum GelenkAchse
+    private void RotateWithoutLimit(Transform gelenk, Vector3 axis, float direction)
     {
-        DrehenY,
-        NeigenX,
-        KippenZ,
-        SchieneZ
-    }
-    
-    private float NormalizeAngle(float angle)
-    {
-        if (angle > 180f) angle -= 360f;
-        return angle;
+        if (IstWandImWeg(gelenk))
+            return;
+
+        gelenk.Rotate(axis, direction * speed * Time.deltaTime, Space.Self);
     }
 
-    private bool CheckCollision(Transform gelenk, Vector3 direction, float distance = 0.2f)
+    private void RotateWithLimit(Transform gelenk, Vector3 axis, float direction, int gelenkIndex)
     {
-        int mask = ~LayerMask.GetMask("RoboterArm");
-        RaycastHit hit;
-        return Physics.Raycast(gelenk.position, direction, out hit, distance, mask);
-    }
+        if (IstWandImWeg(gelenk))
+            return;
 
-    private void RotateWithCollisionCheck(Transform gelenk, Vector3 axis, float speed)
-    {
-        Vector3 direction = gelenk.TransformDirection(axis);
+        float delta = direction * speed * Time.deltaTime;
+        float zielWinkel = Mathf.Clamp(aktuelleWinkel[gelenkIndex] + delta, minWinkel, maxWinkel);
+        float tatsaechlicheAenderung = zielWinkel - aktuelleWinkel[gelenkIndex];
 
-        bool blocked = CheckCollision(gelenk, direction);
-
-        if (!blocked)
+        if (Mathf.Abs(tatsaechlicheAenderung) > 0.001f)
         {
-            gelenk.Rotate(axis * speed * Time.deltaTime);
+            gelenk.Rotate(axis, tatsaechlicheAenderung, Space.Self);
+            aktuelleWinkel[gelenkIndex] = zielWinkel;
         }
     }
 
-    private void HandleSchienenBewegung()
+    private bool IstWandImWeg(Transform gelenk)
     {
-        float move = 0f;
-
-        if (input.MoveForward)
-            move = 1f;
-
-        if (input.MoveBackward)
-            move = -1f;
-
-        transform.Translate(Vector3.forward * move * schienenSpeed * Time.deltaTime);
+        return Physics.CheckSphere(gelenk.position, kollisionsPruefRadius, hindernisLayer);
     }
 
+    //private float NormalizeAngle(float angle)
+    //{
+    //    if (angle > 180f) angle -= 360f;
+    //    return angle;
+    //}
+
+    //private bool CheckCollision(Transform gelenk, Vector3 direction, float distance = 0.2f)
+    //{
+    //    int mask = ~LayerMask.GetMask("RoboterArm");
+    //    RaycastHit hit;
+    //    return Physics.Raycast(gelenk.position, direction, out hit, distance, mask);
+    //}
+
+    //private void RotateWithCollisionCheck(Transform gelenk, Vector3 axis, float speed)
+    //{
+    //    Vector3 direction = gelenk.TransformDirection(axis);
+
+    //    bool blocked = CheckCollision(gelenk, direction);
+
+    //    if (!blocked)
+    //    {
+    //        gelenk.Rotate(axis * speed * Time.deltaTime);
+    //    }
+    //}
+
+    private void HandleSchienenBewegung()
+    {
+        float moveZ = 0f;
+        float moveX = 0f;
+
+        if (input.MoveForward)
+            moveZ = 1f;
+
+        if (input.MoveBackward)
+            moveZ = -1f;
+
+        if (input.MoveRight)
+            moveX = 1f;
+
+        if (input.MoveLeft)
+            moveX = -1f;
+
+        Vector3 zielPosition = transform.position;
+
+        switch (currentSchienenModus)
+        {
+            case SchienenModus.HangarSchiene:
+                zielPosition.z += moveZ * schienenSpeed * Time.deltaTime;
+                break;
+
+            case SchienenModus.Junction:
+                zielPosition.z += moveZ * schienenSpeed * Time.deltaTime;
+                zielPosition.x += moveX * schienenSpeed * Time.deltaTime;
+                break;
+
+            case SchienenModus.LagerSchiene:
+                zielPosition.x += moveX * schienenSpeed * Time.deltaTime;
+                break;
+        }
+
+        if(!Physics.CheckSphere(zielPosition, kollisionsPruefRadius, hindernisLayer))
+        transform.position = zielPosition;
+    }
 }
