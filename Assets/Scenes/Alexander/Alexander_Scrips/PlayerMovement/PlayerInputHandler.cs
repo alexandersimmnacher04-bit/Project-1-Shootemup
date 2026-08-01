@@ -207,10 +207,4 @@ public class PlayerInputHandler : MonoBehaviour
         playerControls.FindActionMap(playeractionMapName).Disable();
         robotControls.FindActionMap(robotactionMapName).Enable();
     }
-    void Update()
-    {
-        Debug.Log("RobotMap Enabled: " + robotControls.FindActionMap(robotactionMapName).enabled);
-        Debug.Log("MoveRight exists: " + (robotControls.FindActionMap(robotactionMapName).FindAction(moveright) != null));
-        Debug.Log("MoveRight pressed: " + MoveRight);
-    }
 }
