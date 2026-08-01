@@ -27,8 +27,9 @@ public class FillUpTank : MonoBehaviour
     // public Slider tankSlider;
 
 
-    void Start()
+   private void Start()
     {
+        
         tankSolved = false;
         currentTank = Random.Range(20, 70);
         //tankSlider.minValue = 0;
@@ -36,15 +37,16 @@ public class FillUpTank : MonoBehaviour
         //tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
-    void OnMouseDown()
+   
+    private void OnMouseDown()
     {
 
-            isFilling = true;
+        isFilling = true;
         Debug.Log("Hallo");
 
     }
 
-    void OnMouseUp()
+   private void OnMouseUp()
     {
         //stop filling up tank when mouse button is released
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
@@ -57,7 +59,7 @@ public class FillUpTank : MonoBehaviour
         isFilling = false;
     }
 
-    void Update()
+   private void Update()
     { 
         //if (finished) return;  
         if (isFilling)

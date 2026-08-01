@@ -15,7 +15,7 @@ public class InteractionZone : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-
+            Debug.Log("Test");
             var handle = other.GetComponentInChildren<PlayerInputHandler>();
             if (handle != null)
                 handle.SetCurrentZone(this);
