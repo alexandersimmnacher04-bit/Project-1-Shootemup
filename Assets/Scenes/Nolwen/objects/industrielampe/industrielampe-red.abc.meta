@@ -1,0 +1,43 @@
+fileFormatVersion: 2
+guid: b2d234acde02f03458f186cd79c51e6a
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'industrielampe/industrielampeShape:000:'
+    second: {fileID: 2100000, guid: 9fb15b948a35be640b1dd40713de6639, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: f53f5fc499d31e44b9deee84d28a9ee8, type: 3}
+  rootGameObjectId: mari_industrielampe02 1
+  rootGameObjectName: mari_industrielampe02 1
+  importerVersion: 1
+  streamSettings:
+    normals: 1
+    tangents: 1
+    cameraAspectRatio: 2
+    importVisibility: 1
+    scaleFactor: 0.01
+    swapHandedness: 1
+    flipFaces: 0
+    interpolateSamples: 1
+    importPointPolygon: 1
+    importLinePolygon: 1
+    importTrianglePolygon: 1
+    importXform: 1
+    importCameras: 1
+    importMeshes: 1
+    importPoints: 0
+    importCurves: 1
+    createCurveRenderers: 0
+  abcStartTime: 3.875
+  abcEndTime: 3.875
+  startTime: 3.875
+  endTime: 3.875
+  importWarning: 
+  firstImport: 0
+  isHDF5: 0
