@@ -1,0 +1,53 @@
+fileFormatVersion: 2
+guid: 88cfa70922c8fd846b3555e847034264
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'button/buttonShape:000:'
+    second: {fileID: 2100000, guid: e9e00f5972cf50d48ac19588e56f7dc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'button_insurance/button_insuranceShape:000:'
+    second: {fileID: 2100000, guid: 85b2b61151b5ac546ae36e48e3f3ab79, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 'unterteil_button/unterteil_buttonShape:000:'
+    second: {fileID: 2100000, guid: ed66038d2099fa84ea685fe800b59c08, type: 2}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: f53f5fc499d31e44b9deee84d28a9ee8, type: 3}
+  rootGameObjectId: 
+  rootGameObjectName: 
+  importerVersion: 1
+  streamSettings:
+    normals: 1
+    tangents: 1
+    cameraAspectRatio: 2
+    importVisibility: 1
+    scaleFactor: 0.01
+    swapHandedness: 1
+    flipFaces: 0
+    interpolateSamples: 1
+    importPointPolygon: 1
+    importLinePolygon: 1
+    importTrianglePolygon: 1
+    importXform: 1
+    importCameras: 1
+    importMeshes: 1
+    importPoints: 0
+    importCurves: 1
+    createCurveRenderers: 0
+  abcStartTime: 3.875
+  abcEndTime: 3.875
+  startTime: 3.875
+  endTime: 3.875
+  importWarning: 
+  firstImport: 0
+  isHDF5: 0
