@@ -52639,7 +52639,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 
   m_DirectAudioMutes: 
   m_ControlledAudioTrackCount: 0
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 0
@@ -64102,7 +64102,7 @@ Transform:
   m_GameObject: {fileID: 1389315082}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.005290244, z: -0, w: 0.99998605}
-  m_LocalPosition: {x: 13.474319, y: -2.6068501, z: -3.7968292}
+  m_LocalPosition: {x: 13.474319, y: -2.643, z: -3.7968292}
   m_LocalScale: {x: 45.70284, y: 45.702843, z: 45.70284}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -108987,13 +108987,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5519181469330609997}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.0009, y: -0, z: -0.00034}
+  m_LocalScale: {x: 1.1591, y: 1.1591, z: 1.1591}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6484076171543943533}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &3718389496673784772
 Transform:
   m_ObjectHideFlags: 0
