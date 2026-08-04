@@ -24,7 +24,7 @@ public class FillUpTank : MonoBehaviour
     private bool isFilling = false;
     //private bool finished = false;
     public bool tankSolved {  get; private set; }
-    // public Slider tankSlider;
+    public Slider tankSlider;
 
 
    private void Start()
@@ -32,13 +32,13 @@ public class FillUpTank : MonoBehaviour
         
         tankSolved = false;
         currentTank = Random.Range(20, 70);
-        //tankSlider.minValue = 0;
-        //tankSlider.maxValue = maxTank + graceAmount;
-        //tankSlider.value = currentTank;
+        tankSlider.minValue = 0;
+        tankSlider.maxValue = maxTank + graceAmount;
+        tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
    
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
 
         isFilling = true;
@@ -46,7 +46,7 @@ public class FillUpTank : MonoBehaviour
 
     }
 
-   private void OnMouseUp()
+   public void OnMouseUp()
     {
         //stop filling up tank when mouse button is released
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
@@ -65,7 +65,7 @@ public class FillUpTank : MonoBehaviour
         if (isFilling)
         {
             currentTank += fillRate * Time.deltaTime;
-            //  tankSlider.value = currentTank;
+              tankSlider.value = currentTank;
             if (currentTank < threshHold)
             {
                 Debug.Log(currentTank);
@@ -76,14 +76,13 @@ public class FillUpTank : MonoBehaviour
                 Debug.Log(currentTank);
             }
             if (currentTank > maxTank + graceAmount)
-            {
-                //Lose();
+            { 
                 tankSolved = false;
             }
             
                 
         }
-    }
+   }
 
     //void Win()
     //{
