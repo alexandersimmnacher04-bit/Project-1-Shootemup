@@ -55,7 +55,6 @@ public class RoboterArmController : MonoBehaviour
     [Header("Junction-Einstellung")]
     [SerializeField] private float abbiegeToleranz = 0.8f;
 
-
     private int currentGroupIndex = 0;
     private float[] aktuelleWinkel;
     private Collider[] armCollider;
