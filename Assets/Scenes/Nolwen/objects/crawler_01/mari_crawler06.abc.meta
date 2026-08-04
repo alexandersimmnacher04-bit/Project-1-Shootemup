@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 397ccc101ee2060418a52e04511648fc
+guid: 8b8567d33407c7a4a94f82df1556514e
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'crawler/traeger/traegerShape:000:'
+      name: 'crawler/crawler_traeger/crawler_traegerShape:000:'
     second: {fileID: 2100000, guid: d3c3c7b187f66be41a9e1ac720e65fb2, type: 2}
   - first:
       type: UnityEngine:Material
@@ -16,7 +16,7 @@ ScriptedImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: 'crawler/wagen03/wagen03Shape:000:'
+      name: 'crawler/wagen02/wagen02Shape:000:'
     second: {fileID: 2100000, guid: ebb5d089b282edf42b05683ce1ececfd, type: 2}
   serializedVersion: 2
   userData: 
