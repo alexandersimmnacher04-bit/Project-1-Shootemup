@@ -21,16 +21,19 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float graceAmount = 5f;
     [SerializeField] private float threshHold = 110f;
     [SerializeField] private float emptyRate = 5f;
+    private float currentTank = 0f;
     private int fillCount;
     private int emptyCount;
-    private float currentTank = 0f;
     private bool isFilling = false;
     private bool emptyTank = false;
     //private bool finished = false;
     public bool tankSolved { get; private set; }
+    [Header("Objects and Scripts")]
     public Slider tankSlider;
     public OpenTank openTank;
     public GameObject emptyButton;
+    public GameObject fillButton;
+    public Lamp lamp;
 
 
     private void Start()
@@ -79,6 +82,7 @@ public class FillUpTank : MonoBehaviour
 
         if (emptyTank)
         {
+            fillButton.SetActive(false);
             currentTank -= emptyRate * Time.deltaTime;
             tankSlider.value = currentTank;
             if (currentTank > 0)
@@ -91,6 +95,7 @@ public class FillUpTank : MonoBehaviour
                 Debug.Log(currentTank);
             }
         }
+        else fillButton.SetActive(true);
     }
 
     private void Fill()
@@ -98,6 +103,7 @@ public class FillUpTank : MonoBehaviour
         //if (finished) return;  
         if (isFilling)
         {
+            emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
             if (currentTank < threshHold)
@@ -115,8 +121,10 @@ public class FillUpTank : MonoBehaviour
             if (currentTank > maxTank + graceAmount)
             {
                 tankSolved = false;
+                lamp.Colorchange();
             }
         }
+        else emptyButton.SetActive(true);
     }
     private void ButtonStop()
     { //stop filling up tank when button is pressed 2nd time
@@ -137,11 +145,6 @@ public class FillUpTank : MonoBehaviour
         {
             fillCount = 0;
             emptyCount = 0;
-        }
-        while (isFilling)
-        {
-            emptyButton.SetActive(false);
-
         }
     }
     //void Win()
