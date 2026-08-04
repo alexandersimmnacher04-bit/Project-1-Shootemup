@@ -39,6 +39,8 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string selectgroup1 = "selectgroup1";
     [SerializeField] private string selectgroup2 = "selectgroup2";
     [SerializeField] private string selectgroup3 = "selectgroup3";
+    [SerializeField] private string selectgroup4 = "selectgroup4";
+    [SerializeField] private string selectgroup5 = "selectgroup5";
     [SerializeField] private string nextgroup = "nextgroup";
 
 
@@ -61,6 +63,8 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction selectgroup1Action;
     private InputAction selectgroup2Action;
     private InputAction selectgroup3Action;
+    private InputAction selectgroup4Action;
+    private InputAction selectgroup5Action;
     private InputAction nextgroupAction;
 
     //Property: Ist quasi wie eine Variable mit eingebauter Kontrolle.
@@ -84,6 +88,8 @@ public class PlayerInputHandler : MonoBehaviour
     public bool SelectGroup1Triggered { get; private set; }
     public bool SelectGroup2Triggered { get; private set; }
     public bool SelectGroup3Triggered { get; private set; }
+    public bool SelectGroup4Triggered { get; private set; }
+    public bool SelectGroup5Triggered { get; private set; }
     public bool NextGroupTriggered { get; private set; }
 
 
@@ -112,6 +118,8 @@ public class PlayerInputHandler : MonoBehaviour
         selectgroup1Action = robotmapReference.FindAction(selectgroup1);
         selectgroup2Action = robotmapReference.FindAction(selectgroup2);
         selectgroup3Action = robotmapReference.FindAction(selectgroup3);
+        selectgroup4Action = robotmapReference.FindAction(selectgroup4);
+        selectgroup5Action = robotmapReference.FindAction(selectgroup5);
         nextgroupAction = robotmapReference.FindAction(nextgroup);
 
         SubscribeActionValuesToInputEvents();
@@ -151,6 +159,12 @@ public class PlayerInputHandler : MonoBehaviour
         selectgroup3Action.performed += inputInfo => SelectGroup3Triggered = true;
         selectgroup3Action.canceled += inputInfo => SelectGroup3Triggered = false;
 
+        selectgroup4Action.performed += inputInfo => SelectGroup4Triggered = true;
+        selectgroup4Action.canceled += inputInfo => SelectGroup4Triggered = false;
+
+        selectgroup5Action.performed += inputInfo => SelectGroup5Triggered = true;
+        selectgroup5Action.canceled += inputInfo => SelectGroup5Triggered = false;
+
         nextgroupAction.performed += inputInfo => NextGroupTriggered = true;
         nextgroupAction.canceled += inputInfo => NextGroupTriggered = false;
     }
@@ -173,6 +187,13 @@ public class PlayerInputHandler : MonoBehaviour
 
         InteractTriggered = false;
         InteractSecondaryTriggered = false;
+
+        SelectGroup1Triggered = false;
+        SelectGroup2Triggered = false;  
+        SelectGroup3Triggered = false;
+        SelectGroup4Triggered = false;
+        SelectGroup5Triggered = false;
+        NextGroupTriggered = false;
     }
 
     public void SwitchToRobotMode()

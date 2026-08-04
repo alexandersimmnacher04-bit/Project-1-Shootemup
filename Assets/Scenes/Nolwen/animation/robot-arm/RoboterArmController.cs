@@ -13,13 +13,6 @@ public class RoboterArmController : MonoBehaviour
         SchieneZ
     }
 
-    private enum SchienenModus
-    {
-        HangarSchiene,
-        Junction,
-        LagerSchiene,
-    }
-
     [System.Serializable]
     public class GelenkGruppe
     {
@@ -51,27 +44,25 @@ public class RoboterArmController : MonoBehaviour
     [SerializeField] private LayerMask hindernisLayer;
     [SerializeField] private float kollisionsMargin;
 
+    [Header("Schienen Begranzung")]
+    [SerializeField] private LayerMask schienenbegrenzungsLayer;
+    [SerializeField] private BoxCollider basisCollider;
+
     [Header("Referenzen")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
 
-    [Header("Debug Status")]
-    [SerializeField] private SchienenModus currentSchienenModus = SchienenModus.HangarSchiene;
+    [Header("Junction-Einstellung")]
+    [SerializeField] private float abbiegeToleranz = 0.8f;
 
     private int currentGroupIndex = 0;
     private float[] aktuelleWinkel;
-
     private Collider[] armCollider;
 
-    private int junctionCount = 0;
-    private int lagerCount = 0;
-    private int hangarCount = 0;
-   
     private void Start()
     {
         currentGroupIndex = 0;
         aktuelleWinkel = new float[gelenke.Length];
-
         armCollider = GetComponentsInChildren<Collider>();
     }
 
@@ -85,45 +76,6 @@ public class RoboterArmController : MonoBehaviour
         HandleGroupMovement();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Junction"))
-            junctionCount++;
-        else if (other.CompareTag("LagerSchiene"))
-            lagerCount++;
-        else if (other.CompareTag("HangarSchiene"))
-            hangarCount++;
-
-        EvaluateSchienenModus();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Junction"))
-            junctionCount = Mathf.Max(0, junctionCount - 1);
-        else if (other.CompareTag("LagerSchiene")) 
-            lagerCount = Mathf.Max(0, lagerCount - 1);
-        else if (other.CompareTag("HangarSchiene")) 
-            hangarCount = Mathf.Max(0, hangarCount -1);
-
-        EvaluateSchienenModus();
-    }
-
-    private void EvaluateSchienenModus()
-    {
-        if (junctionCount > 0)
-        {
-            currentSchienenModus = SchienenModus.Junction;
-        }
-        else if (lagerCount > 0)
-        {
-            currentSchienenModus = SchienenModus.LagerSchiene;
-        }
-        else if (hangarCount > 0)
-        {
-            currentSchienenModus = SchienenModus.HangarSchiene;
-        }
-    }
     private void HandleDirectGroupSelection()
     {
         if (input.SelectGroup1Triggered)
@@ -137,6 +89,14 @@ public class RoboterArmController : MonoBehaviour
         if (input.SelectGroup3Triggered)
         {
             currentGroupIndex = 2;
+        }
+        if (input.SelectGroup4Triggered)
+        {
+            currentGroupIndex = 3;
+        }
+        if (input.SelectGroup5Triggered)
+        {
+            currentGroupIndex = 4;
         }
     }
     
@@ -196,7 +156,6 @@ public class RoboterArmController : MonoBehaviour
             switch (achse)
             {
                 case GelenkAchse.NeigenX:
-                    // ...und hier nutzt du sie jetzt auch!
                     if (movePlus)
                         RotateWithLimit(gelenk, Vector3.right, 1f * richtungsmodifikator, gelenkIndex);
 
@@ -264,43 +223,30 @@ public class RoboterArmController : MonoBehaviour
         float moveZ = 0f;
         float moveX = 0f;
 
-        if (input.MoveForward)
-            moveZ = 1f;
-
-        if (input.MoveBackward)
-            moveZ = -1f;
-
-        if (input.MoveRight)
-            moveX = 1f;
-
-        if (input.MoveLeft)
-            moveX = -1f;
+        if (input.MoveForward) moveZ = 1f;
+        if (input.MoveBackward) moveZ = -1f;
+        if (input.MoveRight) moveX = 1f;
+        if (input.MoveLeft) moveX = -1f;
 
         Vector3 altePos = transform.position;
-        Vector3 neuePos = altePos;
 
-        switch (currentSchienenModus)
+        if (moveZ != 0f)
         {
-            case SchienenModus.HangarSchiene:
-                neuePos.z += moveZ * schienenSpeed * Time.deltaTime;
-                break;
-
-            case SchienenModus.Junction:
-                neuePos.z += moveZ * schienenSpeed * Time.deltaTime;
-                neuePos.x += moveX * schienenSpeed * Time.deltaTime;
-                break;
-
-            case SchienenModus.LagerSchiene:
-                neuePos.x += moveX * schienenSpeed * Time.deltaTime;
-                break;
+            transform.position += new Vector3(0f, 0f, moveZ * schienenSpeed * Time.deltaTime);
+            if (IstKollisionVorhanden() || IstSchienenBegrenzungErreicht())
+            {
+                transform.position = new Vector3(transform.position.x, transform.position.y, altePos.z);
+            }
         }
 
-        transform.position = neuePos;
-
-        if (IstKollisionVorhanden())
+        Vector3 posNachZ = transform.position;
+        if (moveX != 0f)
         {
-            transform.position = altePos;
-            Physics.SyncTransforms();
+            transform.position += new Vector3(moveX * schienenSpeed * Time.deltaTime, 0f, 0f);
+            if (IstKollisionVorhanden() || IstSchienenBegrenzungErreicht())
+            {
+                transform.position = new Vector3(posNachZ.x, transform.position.y, transform.position.z);
+            }
         }
     }
 
@@ -338,32 +284,24 @@ public class RoboterArmController : MonoBehaviour
         return false;
     }
 
-    //    private void OnDrawGizmos()
-    //    {
-    //        if (armCollider == null) return;
+    private bool IstSchienenBegrenzungErreicht()
+    {
+        if (basisCollider == null)
+            return false;
 
-    //        Gizmos.color = Color.red;
-    //        foreach (Collider col in armCollider)
-    //        {
-    //            if (col is BoxCollider box && !box.isTrigger)
-    //            {
-    //                Vector3 center = box.transform.TransformPoint(box.center);
+        Physics.SyncTransforms();
 
-    //                Vector3 trueScale = new Vector3(
-    //                    box.transform.TransformVector(Vector3.right).magnitude,
-    //                    box.transform.TransformVector(Vector3.up).magnitude,
-    //                    box.transform.TransformVector(Vector3.forward).magnitude
-    //                );
+        Vector3 center = basisCollider.transform.TransformPoint(basisCollider.center);
 
-    //                Vector3 halfExtents = Vector3.Scale(box.size * 0.5f, trueScale);
-    //                halfExtents -= Vector3.one * kollisionsMargin;
-    //                halfExtents = Vector3.Max(halfExtents, Vector3.one * 0.001f);
+        Vector3 trueScale = new Vector3
+        (
+            basisCollider.transform.TransformVector(Vector3.right).magnitude,
+            basisCollider.transform.TransformVector(Vector3.up).magnitude,
+            basisCollider.transform.TransformVector(Vector3.forward).magnitude
+        );
 
-    //                // Zeichnet exakt die Test-Box aus Physics.CheckBox
-    //                Matrix4x4 matrix = Matrix4x4.TRS(center, box.transform.rotation, Vector3.one);
-    //                Gizmos.matrix = matrix;
-    //                Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2f);
-    //            }
-    //        }
-    //    }
+        Vector3 halfExtents = Vector3.Scale(basisCollider.size * 0.5f, trueScale);
+
+        return Physics.CheckBox(center, halfExtents, basisCollider.transform.rotation, schienenbegrenzungsLayer, QueryTriggerInteraction.Ignore);
+    }
 }

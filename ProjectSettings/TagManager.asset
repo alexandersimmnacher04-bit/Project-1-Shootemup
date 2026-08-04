@@ -10,6 +10,7 @@ TagManager:
   - HangarSchiene
   - LagerSchiene
   - Junction
+  - Greifbar
   layers:
   - Default
   - TransparentFX
@@ -22,8 +23,8 @@ TagManager:
   - RoboterArm
   - Interaction
   - Hindernis
-  - 
-  - 
+  - Schienen
+  - Greifbar
   - 
   - 
   - 

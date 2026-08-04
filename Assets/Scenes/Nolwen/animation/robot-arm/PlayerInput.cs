@@ -328,6 +328,24 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""selectgroup4"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f53f1ce-a61a-4977-860c-53934cdeba26"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""selectgroup5"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c5f951e-bd59-4317-9632-cb815a28362d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""nextgroup"",
                     ""type"": ""Button"",
                     ""id"": ""6637988d-4f8f-4ee5-b162-f3948860a37d"",
@@ -469,6 +487,28 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""nextgroup"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""45e02442-3f8e-4b06-bf53-bddf62399e06"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""selectgroup4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""16d7279f-c17c-4826-a439-60aece76f949"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""selectgroup5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -504,6 +544,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_RoboterArm_selectgroup1 = m_RoboterArm.FindAction("selectgroup1", throwIfNotFound: true);
         m_RoboterArm_selectgroup2 = m_RoboterArm.FindAction("selectgroup2", throwIfNotFound: true);
         m_RoboterArm_selectgroup3 = m_RoboterArm.FindAction("selectgroup3", throwIfNotFound: true);
+        m_RoboterArm_selectgroup4 = m_RoboterArm.FindAction("selectgroup4", throwIfNotFound: true);
+        m_RoboterArm_selectgroup5 = m_RoboterArm.FindAction("selectgroup5", throwIfNotFound: true);
         m_RoboterArm_nextgroup = m_RoboterArm.FindAction("nextgroup", throwIfNotFound: true);
     }
 
@@ -744,6 +786,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_RoboterArm_selectgroup1;
     private readonly InputAction m_RoboterArm_selectgroup2;
     private readonly InputAction m_RoboterArm_selectgroup3;
+    private readonly InputAction m_RoboterArm_selectgroup4;
+    private readonly InputAction m_RoboterArm_selectgroup5;
     private readonly InputAction m_RoboterArm_nextgroup;
     /// <summary>
     /// Provides access to input actions defined in input action map "RoboterArm".
@@ -784,6 +828,14 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "RoboterArm/selectgroup3".
         /// </summary>
         public InputAction @selectgroup3 => m_Wrapper.m_RoboterArm_selectgroup3;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/selectgroup4".
+        /// </summary>
+        public InputAction @selectgroup4 => m_Wrapper.m_RoboterArm_selectgroup4;
+        /// <summary>
+        /// Provides access to the underlying input action "RoboterArm/selectgroup5".
+        /// </summary>
+        public InputAction @selectgroup5 => m_Wrapper.m_RoboterArm_selectgroup5;
         /// <summary>
         /// Provides access to the underlying input action "RoboterArm/nextgroup".
         /// </summary>
@@ -835,6 +887,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @selectgroup3.started += instance.OnSelectgroup3;
             @selectgroup3.performed += instance.OnSelectgroup3;
             @selectgroup3.canceled += instance.OnSelectgroup3;
+            @selectgroup4.started += instance.OnSelectgroup4;
+            @selectgroup4.performed += instance.OnSelectgroup4;
+            @selectgroup4.canceled += instance.OnSelectgroup4;
+            @selectgroup5.started += instance.OnSelectgroup5;
+            @selectgroup5.performed += instance.OnSelectgroup5;
+            @selectgroup5.canceled += instance.OnSelectgroup5;
             @nextgroup.started += instance.OnNextgroup;
             @nextgroup.performed += instance.OnNextgroup;
             @nextgroup.canceled += instance.OnNextgroup;
@@ -870,6 +928,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @selectgroup3.started -= instance.OnSelectgroup3;
             @selectgroup3.performed -= instance.OnSelectgroup3;
             @selectgroup3.canceled -= instance.OnSelectgroup3;
+            @selectgroup4.started -= instance.OnSelectgroup4;
+            @selectgroup4.performed -= instance.OnSelectgroup4;
+            @selectgroup4.canceled -= instance.OnSelectgroup4;
+            @selectgroup5.started -= instance.OnSelectgroup5;
+            @selectgroup5.performed -= instance.OnSelectgroup5;
+            @selectgroup5.canceled -= instance.OnSelectgroup5;
             @nextgroup.started -= instance.OnNextgroup;
             @nextgroup.performed -= instance.OnNextgroup;
             @nextgroup.canceled -= instance.OnNextgroup;
@@ -1025,6 +1089,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelectgroup3(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "selectgroup4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectgroup4(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "selectgroup5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectgroup5(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "nextgroup" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
