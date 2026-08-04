@@ -1,7 +1,6 @@
 
 using Unity.Mathematics;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class RoboterArmController : MonoBehaviour
@@ -25,6 +24,8 @@ public class RoboterArmController : MonoBehaviour
     public class GelenkGruppe
     {
         public int[] gelenkIndizes;
+        public float[] richtungen;
+        public bool steuerungMitLinksRechts = false;
     }
 
     [System.Serializable]
@@ -48,20 +49,30 @@ public class RoboterArmController : MonoBehaviour
 
     [Header("Kollisionsschutz")]
     [SerializeField] private LayerMask hindernisLayer;
-    [SerializeField] private float kollisionsPruefRadius = 0.15f;
+    [SerializeField] private float kollisionsMargin;
 
     [Header("Referenzen")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
 
+    [Header("Debug Status")]
+    [SerializeField] private SchienenModus currentSchienenModus = SchienenModus.HangarSchiene;
+
     private int currentGroupIndex = 0;
-    private SchienenModus currentSchienenModus = SchienenModus.HangarSchiene;
     private float[] aktuelleWinkel;
 
+    private Collider[] armCollider;
+
+    private int junctionCount = 0;
+    private int lagerCount = 0;
+    private int hangarCount = 0;
+   
     private void Start()
     {
         currentGroupIndex = 0;
         aktuelleWinkel = new float[gelenke.Length];
+
+        armCollider = GetComponentsInChildren<Collider>();
     }
 
     private void Update()
@@ -76,17 +87,43 @@ public class RoboterArmController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.CompareTag("HangarSchiene"))
-            currentSchienenModus = SchienenModus.HangarSchiene;
-
         if (other.CompareTag("Junction"))
-            currentSchienenModus = SchienenModus.Junction;
+            junctionCount++;
+        else if (other.CompareTag("LagerSchiene"))
+            lagerCount++;
+        else if (other.CompareTag("HangarSchiene"))
+            hangarCount++;
 
-        if (other.CompareTag("LagerSchiene"))
-            currentSchienenModus = SchienenModus.LagerSchiene;
+        EvaluateSchienenModus();
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Junction"))
+            junctionCount = Mathf.Max(0, junctionCount - 1);
+        else if (other.CompareTag("LagerSchiene")) 
+            lagerCount = Mathf.Max(0, lagerCount - 1);
+        else if (other.CompareTag("HangarSchiene")) 
+            hangarCount = Mathf.Max(0, hangarCount -1);
+
+        EvaluateSchienenModus();
+    }
+
+    private void EvaluateSchienenModus()
+    {
+        if (junctionCount > 0)
+        {
+            currentSchienenModus = SchienenModus.Junction;
+        }
+        else if (lagerCount > 0)
+        {
+            currentSchienenModus = SchienenModus.LagerSchiene;
+        }
+        else if (hangarCount > 0)
+        {
+            currentSchienenModus = SchienenModus.HangarSchiene;
+        }
+    }
     private void HandleDirectGroupSelection()
     {
         if (input.SelectGroup1Triggered)
@@ -116,12 +153,24 @@ public class RoboterArmController : MonoBehaviour
 
     private void HandleGroupMovement()
     {
-        foreach (int gelenkIndex in gruppen[currentGroupIndex].gelenkIndizes)
+        GelenkGruppe gruppe = gruppen[currentGroupIndex];
+
+        for (int i = 0; i < gruppe.gelenkIndizes.Length; i++)
         {
-            HandleMovementForGelenk(gelenkIndex);
+            int gelenkIndex = gruppe.gelenkIndizes[i];
+
+            float richtung = 1f;
+
+            if(gruppe.richtungen != null && i < gruppe.richtungen.Length)
+            {
+                richtung = gruppe.richtungen[i];
+            }
+
+            HandleMovementForGelenk(gelenkIndex, richtung, gruppe.steuerungMitLinksRechts);
         }
     }
-    private void HandleMovementForGelenk(int gelenkIndex)
+
+    private void HandleMovementForGelenk(int gelenkIndex, float richtungsmodifikator, bool nutzeLinksRechts)
     {
 
         if (gelenkIndex == 99)
@@ -129,7 +178,6 @@ public class RoboterArmController : MonoBehaviour
             HandleSchienenBewegung();
             return;
         }
-
 
         if (gelenkIndex < 0 || gelenkIndex >= gelenke.Length)
             return;
@@ -141,52 +189,56 @@ public class RoboterArmController : MonoBehaviour
 
        foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
        {
+
+            bool movePlus = nutzeLinksRechts ? input.MoveRight : (achse == GelenkAchse.NeigenX ? input.MoveForward : input.MoveRight);
+            bool moveMinus = nutzeLinksRechts ? input.MoveLeft : (achse == GelenkAchse.NeigenX ? input.MoveBackward : input.MoveLeft);
+
             switch (achse)
             {
                 case GelenkAchse.NeigenX:
+                    // ...und hier nutzt du sie jetzt auch!
+                    if (movePlus)
+                        RotateWithLimit(gelenk, Vector3.right, 1f * richtungsmodifikator, gelenkIndex);
 
-                    if (input.MoveForward)
-                        RotateWithLimit(gelenk, Vector3.right, 1f, gelenkIndex);
-
-                    if (input.MoveBackward)
-                        RotateWithLimit(gelenk, Vector3.right, -1f, gelenkIndex);
+                    if (moveMinus)
+                        RotateWithLimit(gelenk, Vector3.right, -1f * richtungsmodifikator, gelenkIndex);
                     break;
 
                 case GelenkAchse.DrehenY:
-                    
-                    if (input.MoveRight)
-                        RotateWithoutLimit(gelenk, Vector3.up, 1f);
+                    if (movePlus)
+                        RotateWithoutLimit(gelenk, Vector3.up, 1f * richtungsmodifikator);
 
-                    if(input.MoveLeft)
-                        RotateWithoutLimit(gelenk, Vector3.up, -1f);
+                    if (moveMinus)
+                        RotateWithoutLimit(gelenk, Vector3.up, -1f * richtungsmodifikator);
                     break;
 
                 case GelenkAchse.KippenZ:
+                    if (movePlus)
+                        RotateWithLimit(gelenk, Vector3.forward, 1f * richtungsmodifikator, gelenkIndex);
 
-                    if (input.MoveRight)
-                        RotateWithLimit(gelenk, Vector3.forward, 1f, gelenkIndex);
-
-                    if (input.MoveLeft)
-                        RotateWithLimit(gelenk, Vector3.forward, -1f, gelenkIndex);
+                    if (moveMinus)
+                        RotateWithLimit(gelenk, Vector3.forward, -1f * richtungsmodifikator, gelenkIndex);
                     break;
-
             }
-       }
+        }
     }
 
     private void RotateWithoutLimit(Transform gelenk, Vector3 axis, float direction)
     {
-        if (IstWandImWeg(gelenk))
-            return;
+        float delta = direction * speed * Time.deltaTime;
 
-        gelenk.Rotate(axis, direction * speed * Time.deltaTime, Space.Self);
+        gelenk.Rotate(axis, delta, Space.Self);
+
+       if (IstKollisionVorhanden())
+        {
+            gelenk.Rotate(axis , -delta, Space.Self);
+            Physics.SyncTransforms();
+        }
     }
 
     private void RotateWithLimit(Transform gelenk, Vector3 axis, float direction, int gelenkIndex)
     {
-        if (IstWandImWeg(gelenk))
-            return;
-
+        
         float delta = direction * speed * Time.deltaTime;
         float zielWinkel = Mathf.Clamp(aktuelleWinkel[gelenkIndex] + delta, minWinkel, maxWinkel);
         float tatsaechlicheAenderung = zielWinkel - aktuelleWinkel[gelenkIndex];
@@ -194,39 +246,18 @@ public class RoboterArmController : MonoBehaviour
         if (Mathf.Abs(tatsaechlicheAenderung) > 0.001f)
         {
             gelenk.Rotate(axis, tatsaechlicheAenderung, Space.Self);
-            aktuelleWinkel[gelenkIndex] = zielWinkel;
+            
+            if (IstKollisionVorhanden())
+            {
+                gelenk.Rotate(axis, -tatsaechlicheAenderung, Space.Self);
+                Physics.SyncTransforms();
+            }
+            else
+            {
+                aktuelleWinkel[gelenkIndex] = zielWinkel;
+            }
         }
     }
-
-    private bool IstWandImWeg(Transform gelenk)
-    {
-        return Physics.CheckSphere(gelenk.position, kollisionsPruefRadius, hindernisLayer);
-    }
-
-    //private float NormalizeAngle(float angle)
-    //{
-    //    if (angle > 180f) angle -= 360f;
-    //    return angle;
-    //}
-
-    //private bool CheckCollision(Transform gelenk, Vector3 direction, float distance = 0.2f)
-    //{
-    //    int mask = ~LayerMask.GetMask("RoboterArm");
-    //    RaycastHit hit;
-    //    return Physics.Raycast(gelenk.position, direction, out hit, distance, mask);
-    //}
-
-    //private void RotateWithCollisionCheck(Transform gelenk, Vector3 axis, float speed)
-    //{
-    //    Vector3 direction = gelenk.TransformDirection(axis);
-
-    //    bool blocked = CheckCollision(gelenk, direction);
-
-    //    if (!blocked)
-    //    {
-    //        gelenk.Rotate(axis * speed * Time.deltaTime);
-    //    }
-    //}
 
     private void HandleSchienenBewegung()
     {
@@ -245,25 +276,94 @@ public class RoboterArmController : MonoBehaviour
         if (input.MoveLeft)
             moveX = -1f;
 
-        Vector3 zielPosition = transform.position;
+        Vector3 altePos = transform.position;
+        Vector3 neuePos = altePos;
 
         switch (currentSchienenModus)
         {
             case SchienenModus.HangarSchiene:
-                zielPosition.z += moveZ * schienenSpeed * Time.deltaTime;
+                neuePos.z += moveZ * schienenSpeed * Time.deltaTime;
                 break;
 
             case SchienenModus.Junction:
-                zielPosition.z += moveZ * schienenSpeed * Time.deltaTime;
-                zielPosition.x += moveX * schienenSpeed * Time.deltaTime;
+                neuePos.z += moveZ * schienenSpeed * Time.deltaTime;
+                neuePos.x += moveX * schienenSpeed * Time.deltaTime;
                 break;
 
             case SchienenModus.LagerSchiene:
-                zielPosition.x += moveX * schienenSpeed * Time.deltaTime;
+                neuePos.x += moveX * schienenSpeed * Time.deltaTime;
                 break;
         }
 
-        if(!Physics.CheckSphere(zielPosition, kollisionsPruefRadius, hindernisLayer))
-        transform.position = zielPosition;
+        transform.position = neuePos;
+
+        if (IstKollisionVorhanden())
+        {
+            transform.position = altePos;
+            Physics.SyncTransforms();
+        }
     }
+
+    private bool IstKollisionVorhanden()
+    {
+        Physics.SyncTransforms();
+
+        foreach (Collider col in armCollider)
+        {
+            if (col == null || col.isTrigger) continue;
+
+            if (col is BoxCollider box)
+            {
+                Vector3 center = box.transform.TransformPoint(box.center);
+
+                Vector3 trueScale = new Vector3
+                    (
+                    box.transform.TransformVector(Vector3.right).magnitude,
+                    box.transform.TransformVector(Vector3.up).magnitude,
+                    box.transform.TransformVector(Vector3.forward).magnitude
+                    );
+
+                Vector3 halfExtents = Vector3.Scale(box.size * 0.5f, trueScale);
+
+                halfExtents -= Vector3.one * kollisionsMargin;
+                halfExtents = Vector3.Max(halfExtents, Vector3.one * 0.001f);
+
+                if (Physics.CheckBox(center, halfExtents, col.transform.rotation, hindernisLayer, QueryTriggerInteraction.Ignore))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //    private void OnDrawGizmos()
+    //    {
+    //        if (armCollider == null) return;
+
+    //        Gizmos.color = Color.red;
+    //        foreach (Collider col in armCollider)
+    //        {
+    //            if (col is BoxCollider box && !box.isTrigger)
+    //            {
+    //                Vector3 center = box.transform.TransformPoint(box.center);
+
+    //                Vector3 trueScale = new Vector3(
+    //                    box.transform.TransformVector(Vector3.right).magnitude,
+    //                    box.transform.TransformVector(Vector3.up).magnitude,
+    //                    box.transform.TransformVector(Vector3.forward).magnitude
+    //                );
+
+    //                Vector3 halfExtents = Vector3.Scale(box.size * 0.5f, trueScale);
+    //                halfExtents -= Vector3.one * kollisionsMargin;
+    //                halfExtents = Vector3.Max(halfExtents, Vector3.one * 0.001f);
+
+    //                // Zeichnet exakt die Test-Box aus Physics.CheckBox
+    //                Matrix4x4 matrix = Matrix4x4.TRS(center, box.transform.rotation, Vector3.one);
+    //                Gizmos.matrix = matrix;
+    //                Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2f);
+    //            }
+    //        }
+    //    }
 }
