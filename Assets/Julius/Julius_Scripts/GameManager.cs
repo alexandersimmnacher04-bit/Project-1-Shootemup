@@ -6,25 +6,24 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool gameState{ get; private set; } = false;
+    public int TaskIndex { get; private set; }
+    [Header("GameObjects")]
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private GameObject rocket;
     [SerializeField] private FillUpTank tank;
     [SerializeField] private GameObject Canvas;
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
-
-    //[SerializeField] private GameObject task1;
-    //[SerializeField] private GameObject task2;
+    
     
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
-    { 
+    {
+        TaskIndex = 0;
         gameState = true;
         rocket.SetActive(true);
-        //task1.SetActive(true);
-        //task2.SetActive(true);
         
     }
 
