@@ -13,7 +13,7 @@ public class Schalter : MonoBehaviour
     private bool setTimer;
    
 
-    private void OnMouseDown()
+    private void Click()
     { if (buttonOn == true)
         {
             Debug.Log("click");

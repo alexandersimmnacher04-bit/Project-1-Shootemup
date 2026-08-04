@@ -20,18 +20,26 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float maxTank = 100f;
     [SerializeField] private float graceAmount = 5f;
     [SerializeField] private float threshHold = 110f;
-    private int pressedCount;
+    [SerializeField] private float emptyRate = 5f;
     private float currentTank = 0f;
+    private int fillCount;
+    private int emptyCount;
     private bool isFilling = false;
+    private bool emptyTank = false;
     //private bool finished = false;
-    public bool tankSolved {  get; private set; }
+    public bool tankSolved { get; private set; }
+    [Header("Objects and Scripts")]
     public Slider tankSlider;
     public OpenTank openTank;
+    public GameObject emptyButton;
+    public GameObject fillButton;
+    public Lamp lamp;
 
 
-   private void Start()
+    private void Start()
     {
-        pressedCount = 0;
+        fillCount = 0;
+        emptyCount = 0;
         tankSolved = false;
         currentTank = Random.Range(20, 70);
         tankSlider.minValue = 0;
@@ -39,19 +47,19 @@ public class FillUpTank : MonoBehaviour
         tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
-   
+
     public void Fillstart()
     {
 
         //isFilling = true;
         Debug.Log("Hallo");
-        pressedCount++;
+        fillCount++;
 
     }
 
-   private void Fillstop()
+
+    private void Fillstop()
     {
-        //stop filling up tank when mouse button is released
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
         if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
         {
@@ -59,16 +67,45 @@ public class FillUpTank : MonoBehaviour
             Debug.Log("Tank is full! You can move on to the next puzzle.");
             // Win();
         }
-        
+
     }
 
-   private void Update()
-    { 
+    public void Emptystart()
+    {
+        emptyCount++;
+        emptyRate = emptyRate + Random.Range(0, 5);
+        Debug.Log(emptyRate);
+    }
+
+    private void Empty()
+    {
+
+        if (emptyTank)
+        {
+            fillButton.SetActive(false);
+            currentTank -= emptyRate * Time.deltaTime;
+            tankSlider.value = currentTank;
+            if (currentTank > 0)
+            {
+                Debug.Log(currentTank);
+            }
+            else if (currentTank <= 0)
+            {
+                currentTank = 0;
+                Debug.Log(currentTank);
+            }
+        }
+        else fillButton.SetActive(true);
+    }
+
+    private void Fill()
+    {
         //if (finished) return;  
         if (isFilling)
         {
+            emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
-              tankSlider.value = currentTank;
+            tankSlider.value = currentTank;
             if (currentTank < threshHold)
             {
                 Debug.Log(currentTank);
@@ -77,22 +114,39 @@ public class FillUpTank : MonoBehaviour
             {
                 currentTank = threshHold;
                 Debug.Log(currentTank);
+
+
             }
 
             if (currentTank > maxTank + graceAmount)
-            { 
+            {
                 tankSolved = false;
-            }    
+                lamp.Colorchange();
+            }
         }
-        if (pressedCount % 2 == 0)
+        else emptyButton.SetActive(true);
+    }
+    private void ButtonStop()
+    { //stop filling up tank when button is pressed 2nd time
+        if (fillCount % 2 == 0)
             isFilling = false;
         else isFilling = true;
-
-        if (!openTank.Taskactive)
-             pressedCount = 0;
-        Fillstop();
+        if (emptyCount % 2 == 0)
+            emptyTank = false;
+        else emptyTank = true;
     }
-
+    private void Update()
+    {
+        Fill();
+        Empty();
+        ButtonStop();
+        Fillstop();
+        if (!openTank.Taskactive)
+        {
+            fillCount = 0;
+            emptyCount = 0;
+        }
+    }
     //void Win()
     //{
     //    finished = true;
