@@ -20,9 +20,12 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float maxTank = 100f;
     [SerializeField] private float graceAmount = 5f;
     [SerializeField] private float threshHold = 110f;
-    private int pressedCount;
+    [SerializeField] private float emptyRate = 5f;
+    private int fillCount;
+    private int emptyCount;
     private float currentTank = 0f;
     private bool isFilling = false;
+    private bool emptyTank = false;
     //private bool finished = false;
     public bool tankSolved {  get; private set; }
     public Slider tankSlider;
@@ -30,28 +33,29 @@ public class FillUpTank : MonoBehaviour
 
 
    private void Start()
-    {
-        pressedCount = 0;
+   {
+        fillCount = 0;
+        emptyCount = 0;
         tankSolved = false;
         currentTank = Random.Range(20, 70);
         tankSlider.minValue = 0;
         tankSlider.maxValue = maxTank + graceAmount;
         tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
-    }
+   }
    
     public void Fillstart()
     {
 
         //isFilling = true;
         Debug.Log("Hallo");
-        pressedCount++;
+        fillCount++;
 
     }
 
+
    private void Fillstop()
-    {
-        //stop filling up tank when mouse button is released
+   {
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
         if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
         {
@@ -60,15 +64,41 @@ public class FillUpTank : MonoBehaviour
             // Win();
         }
         
-    }
+   }
 
-   private void Update()
-    { 
+   public void Emptystart()
+    {
+        emptyCount++;
+        emptyRate = emptyRate + Random.Range(0, 5);
+        Debug.Log(emptyRate);
+    }
+   
+   private void Empty()
+   {
+      
+      if (emptyTank)
+      {
+        currentTank -= emptyRate * Time.deltaTime;
+        tankSlider.value = currentTank;
+         if (currentTank > 0)
+         {
+            Debug.Log(currentTank);
+         }
+         else if (currentTank <= 0)
+         {
+                currentTank = 0;
+                Debug.Log(currentTank);
+         }
+      }
+   }
+
+    private void Fill()
+    {
         //if (finished) return;  
         if (isFilling)
         {
             currentTank += fillRate * Time.deltaTime;
-              tankSlider.value = currentTank;
+            tankSlider.value = currentTank;
             if (currentTank < threshHold)
             {
                 Debug.Log(currentTank);
@@ -80,17 +110,31 @@ public class FillUpTank : MonoBehaviour
             }
 
             if (currentTank > maxTank + graceAmount)
-            { 
+            {
                 tankSolved = false;
-            }    
+            }
         }
-        if (pressedCount % 2 == 0)
+    }
+    private void ButtonStop()
+    { //stop filling up tank when button is pressed 2nd time
+        if (fillCount % 2 == 0)
             isFilling = false;
         else isFilling = true;
-
-        if (!openTank.Taskactive)
-             pressedCount = 0;
+        if (emptyCount % 2 == 0)
+            emptyTank = false;
+        else emptyTank = true;
+    }
+   private void Update()
+    { 
+        Fill();
+        Empty();
+        ButtonStop();
         Fillstop();
+        if (!openTank.Taskactive)
+        {
+            fillCount = 0;
+            emptyCount = 0;
+        }
     }
 
     //void Win()
