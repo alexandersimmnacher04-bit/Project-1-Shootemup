@@ -26,8 +26,8 @@ public class InteractionZone : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
-        {
-            var handler = other.GetComponentInParent<PlayerInputHandler>();
+        { Debug.Log("Test");
+            var handler = other.GetComponentInChildren<PlayerInputHandler>();
             if (handler != null)
                 handler.SetCurrentZone(null);
         }

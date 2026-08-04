@@ -5,7 +5,7 @@ public class OpenTank : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject TankCanvas;
-    private bool Taskactive;
+    public bool Taskactive { get; private set; }
     public FirstPersonController firstPersonController;
     public void Interact()
     {

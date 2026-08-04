@@ -5,21 +5,13 @@ using UnityEngine;
 //Gewährt zugriff auf das Unit Input System.
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
-
-//public: Die KLasse ist überall im Project zu finden. 
-//class: Es wird eine neue Klasse definiert
-//PlayerInputHandler: Der Name der Klasse
-//MonoBehavior: Dadurch kann das Script an Objecte hängen, die Unity Engine kann spezielle Methoden direkt aufrufen, die Klasse kann mit der Unity Engne interagiern. 
 public class PlayerInputHandler : MonoBehaviour
 {
     private InteractionZone currentZone;
     public void SetCurrentZone(InteractionZone zone) => currentZone = zone;
-    //Header: Im Unity Inspector erscheinten eine Überschrift über der Variable. (Dient zur Lesbarkeit/Ordnung)
-    //[SerializeField]: Die Variable bleibt Privat, trotzdem wird sie im Inspector angezeigt. Unity speichert den Wert der Variable in der Szene.
-    //private: Die Variable nicht im Project nicht zu finden.
     //InputActionAsset: Ist der name des Tpy der Variable für Unity
     //playerControls: Ist der Name der Variable
-    [Header("Imput Action Asset")]
+    [Header("Input Action Asset")]
     [SerializeField] private InputActionAsset playerControls;
     [SerializeField] private InputActionAsset robotControls;
 
