@@ -20,33 +20,36 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float maxTank = 100f;
     [SerializeField] private float graceAmount = 5f;
     [SerializeField] private float threshHold = 110f;
+    private int pressedCount;
     private float currentTank = 0f;
     private bool isFilling = false;
     //private bool finished = false;
     public bool tankSolved {  get; private set; }
-    // public Slider tankSlider;
+    public Slider tankSlider;
+    public OpenTank openTank;
 
 
    private void Start()
     {
-        
+        pressedCount = 0;
         tankSolved = false;
         currentTank = Random.Range(20, 70);
-        //tankSlider.minValue = 0;
-        //tankSlider.maxValue = maxTank + graceAmount;
-        //tankSlider.value = currentTank;
+        tankSlider.minValue = 0;
+        tankSlider.maxValue = maxTank + graceAmount;
+        tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
     }
    
-    private void OnMouseDown()
+    public void Fillstart()
     {
 
-        isFilling = true;
+        //isFilling = true;
         Debug.Log("Hallo");
+        pressedCount++;
 
     }
 
-   private void OnMouseUp()
+   private void Fillstop()
     {
         //stop filling up tank when mouse button is released
         //if current tank amount is equal to max tank capacity, player can move on to next puzzle
@@ -56,7 +59,7 @@ public class FillUpTank : MonoBehaviour
             Debug.Log("Tank is full! You can move on to the next puzzle.");
             // Win();
         }
-        isFilling = false;
+        
     }
 
    private void Update()
@@ -65,7 +68,7 @@ public class FillUpTank : MonoBehaviour
         if (isFilling)
         {
             currentTank += fillRate * Time.deltaTime;
-            //  tankSlider.value = currentTank;
+              tankSlider.value = currentTank;
             if (currentTank < threshHold)
             {
                 Debug.Log(currentTank);
@@ -75,14 +78,19 @@ public class FillUpTank : MonoBehaviour
                 currentTank = threshHold;
                 Debug.Log(currentTank);
             }
+
             if (currentTank > maxTank + graceAmount)
-            {
-                //Lose();
+            { 
                 tankSolved = false;
-            }
-            
-                
+            }    
         }
+        if (pressedCount % 2 == 0)
+            isFilling = false;
+        else isFilling = true;
+
+        if (!openTank.Taskactive)
+             pressedCount = 0;
+        Fillstop();
     }
 
     //void Win()
