@@ -18,14 +18,10 @@ public class GreiferTriggerHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // TEST 1: Reagiert der Trigger überhaupt auf Irgendwas?
-        Debug.Log("Trigger berührt: " + other.gameObject.name + " mit Tag: " + other.tag);
-
         if (gehaltenesObjekt == null && pickupSpeereTime <= 0f)
         {
             if (other.CompareTag("Greifbar"))
             {
-                Debug.Log("Greifbares Objekt erkannt -> Aufnehmen gestartet!");
                 GreifObjekt(other.gameObject);
                 return;
             }
@@ -44,6 +40,8 @@ public class GreiferTriggerHandler : MonoBehaviour
     private void GreifObjekt(GameObject obj)
     {
         gehaltenesObjekt = obj;
+
+        gehaltenesObjekt.layer = LayerMask.NameToLayer("Default");
 
         Rigidbody rb = gehaltenesObjekt.GetComponent<Rigidbody>();
         if(rb != null)
@@ -69,6 +67,10 @@ public class GreiferTriggerHandler : MonoBehaviour
         {
             rb.isKinematic = true;
         }
+
+
+
+        gehaltenesObjekt.tag = "Untagged";
 
         gehaltenesObjekt = null;
 

@@ -2817,8 +2817,6 @@ MonoBehaviour:
   input: {fileID: 7142385591608776700}
   cameraManager: {fileID: 1013556037}
   abbiegeToleranz: 2
-  greiferHandler: {fileID: 0}
-  greiferHoldPoint: {fileID: 0}
 --- !u!54 &81468865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7682,7 +7680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9584a0fc3c910be42961eba6771b56fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AblageZone
-  snapPunkt: {fileID: 0}
+  snapPunkt: {fileID: 1821718882}
 --- !u!65 &265042194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45788,7 +45786,7 @@ GameObject:
   - component: {fileID: 1707787539}
   - component: {fileID: 1707787538}
   - component: {fileID: 1707787537}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GreifObject
   m_TagString: Greifbar
   m_Icon: {fileID: 0}
@@ -45841,8 +45839,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1707787539
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58032,6 +58030,8 @@ MonoBehaviour:
   selectgroup1: selectgroup1
   selectgroup2: selectgroup2
   selectgroup3: selectgroup3
+  selectgroup4: selectgroup4
+  selectgroup5: selectgroup5
   nextgroup: nextgroup
 --- !u!81 &7731273812459433633
 AudioListener:

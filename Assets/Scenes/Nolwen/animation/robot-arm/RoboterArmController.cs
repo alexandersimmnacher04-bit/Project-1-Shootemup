@@ -76,45 +76,6 @@ public class RoboterArmController : MonoBehaviour
         HandleGroupMovement();
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Junction"))
-    //        junctionCount++;
-    //    else if (other.CompareTag("LagerSchiene"))
-    //        lagerCount++;
-    //    else if (other.CompareTag("HangarSchiene"))
-    //        hangarCount++;
-
-    //    EvaluateSchienenModus();
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Junction"))
-    //        junctionCount = Mathf.Max(0, junctionCount - 1);
-    //    else if (other.CompareTag("LagerSchiene")) 
-    //        lagerCount = Mathf.Max(0, lagerCount - 1);
-    //    else if (other.CompareTag("HangarSchiene")) 
-    //        hangarCount = Mathf.Max(0, hangarCount -1);
-
-    //    EvaluateSchienenModus();
-    //}
-
-    //private void EvaluateSchienenModus()
-    //{
-    //    if (junctionCount > 0)
-    //    {
-    //        currentSchienenModus = SchienenModus.Junction;
-    //    }
-    //    else if (lagerCount > 0)
-    //    {
-    //        currentSchienenModus = SchienenModus.LagerSchiene;
-    //    }
-    //    else if (hangarCount > 0)
-    //    {
-    //        currentSchienenModus = SchienenModus.HangarSchiene;
-    //    }
-    //}
     private void HandleDirectGroupSelection()
     {
         if (input.SelectGroup1Triggered)
@@ -128,6 +89,14 @@ public class RoboterArmController : MonoBehaviour
         if (input.SelectGroup3Triggered)
         {
             currentGroupIndex = 2;
+        }
+        if (input.SelectGroup4Triggered)
+        {
+            currentGroupIndex = 3;
+        }
+        if (input.SelectGroup5Triggered)
+        {
+            currentGroupIndex = 4;
         }
     }
     
@@ -315,34 +284,6 @@ public class RoboterArmController : MonoBehaviour
         return false;
     }
 
-    //    private void OnDrawGizmos()
-    //    {
-    //        if (armCollider == null) return;
-
-    //        Gizmos.color = Color.red;
-    //        foreach (Collider col in armCollider)
-    //        {
-    //            if (col is BoxCollider box && !box.isTrigger)
-    //            {
-    //                Vector3 center = box.transform.TransformPoint(box.center);
-
-    //                Vector3 trueScale = new Vector3(
-    //                    box.transform.TransformVector(Vector3.right).magnitude,
-    //                    box.transform.TransformVector(Vector3.up).magnitude,
-    //                    box.transform.TransformVector(Vector3.forward).magnitude
-    //                );
-
-    //                Vector3 halfExtents = Vector3.Scale(box.size * 0.5f, trueScale);
-    //                halfExtents -= Vector3.one * kollisionsMargin;
-    //                halfExtents = Vector3.Max(halfExtents, Vector3.one * 0.001f);
-
-    //                // Zeichnet exakt die Test-Box aus Physics.CheckBox
-    //                Matrix4x4 matrix = Matrix4x4.TRS(center, box.transform.rotation, Vector3.one);
-    //                Gizmos.matrix = matrix;
-    //                Gizmos.DrawWireCube(Vector3.zero, halfExtents * 2f);
-    //            }
-    //        }
-    //    }
     private bool IstSchienenBegrenzungErreicht()
     {
         if (basisCollider == null)
