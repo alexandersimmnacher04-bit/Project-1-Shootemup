@@ -15,14 +15,14 @@ public class InteractionZone : MonoBehaviour
     public HighlightObject highlightObject;
     private Material Outline;
     private float intensity = 10.0f;
-    public bool inTriggerzone { get; private set; } = false;
+    //public bool inTriggerzone { get; private set; } = false;
   
     
    
     private void OnTriggerEnter(Collider other)
     {  
             if (other.CompareTag("Player"))
-            {
+            {  
                 Debug.Log("Test");
                 var handle = other.GetComponentInChildren<PlayerInputHandler>();
                 if (handle != null)
