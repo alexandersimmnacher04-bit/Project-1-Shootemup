@@ -12,6 +12,7 @@ public class OpenTank : MonoBehaviour
         toggletask();
         firstPersonController.ToggleMovement();
         firstPersonController.ToggleCursor();
+      
     }
 
     private void toggletask()
