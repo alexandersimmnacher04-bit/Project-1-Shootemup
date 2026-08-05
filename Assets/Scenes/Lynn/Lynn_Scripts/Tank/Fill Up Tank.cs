@@ -51,9 +51,10 @@ public class FillUpTank : MonoBehaviour
     public void Fillstart()
     {
 
-        //isFilling = true;
+       
         Debug.Log("Hallo");
         fillCount++;
+       
 
     }
 
@@ -128,12 +129,24 @@ public class FillUpTank : MonoBehaviour
     }
     private void ButtonStop()
     { //stop filling up tank when button is pressed 2nd time
-        if (fillCount % 2 == 0)
-            isFilling = false;
-        else isFilling = true;
+        if (fillCount % 2 == 0) 
+        {
+          isFilling = false; 
+        }
+         else
+        { 
+            isFilling = true;
+            
+        }
+
         if (emptyCount % 2 == 0)
+        {
             emptyTank = false;
-        else emptyTank = true;
+        }
+        else 
+        {
+            emptyTank = true; 
+        }
     }
     private void Update()
     {
@@ -144,7 +157,7 @@ public class FillUpTank : MonoBehaviour
         if (!openTank.Taskactive)
         {
             fillCount = 0;
-            emptyCount = 0;
+           emptyCount = 0;
         }
     }
     //void Win()
