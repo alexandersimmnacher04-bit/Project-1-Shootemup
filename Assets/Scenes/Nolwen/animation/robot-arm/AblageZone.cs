@@ -10,4 +10,5 @@ public class AblageZone : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(pos, new Vector3(0.3f, 0.3f, 0.3f));
     }
+
 }

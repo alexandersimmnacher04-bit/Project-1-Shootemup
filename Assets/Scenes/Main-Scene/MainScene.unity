@@ -55769,7 +55769,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171695343}
   - component: {fileID: 1171695344}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: handgelenk_collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60352,7 +60352,6 @@ MonoBehaviour:
   basisCollider: {fileID: 1469008703}
   input: {fileID: 7142385591686667942}
   cameraManager: {fileID: 1495868143}
-  abbiegeToleranz: 0.8
 --- !u!54 &1265713165
 Rigidbody:
   m_ObjectHideFlags: 0
