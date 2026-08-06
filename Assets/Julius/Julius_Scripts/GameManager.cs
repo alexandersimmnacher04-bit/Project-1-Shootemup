@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool gameState { get; private set; } = false;
-    public int TaskIndex { get; private set; }
     [Header("GameObjects")]
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private GameObject rocket;
@@ -15,10 +14,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
     
-
-
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
