@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class RoboterArmController : MonoBehaviour
 {
+    #region InspectorFelder/enums/Daten
+    // Enum: Ein Datentp mit festen Wort-Optionen
+    // Legt hier fest welche Bewegungstp-Optionenen ein Gelenk im Inspectorhaben kann
     public enum GelenkAchse
     {
         DrehenY,
@@ -13,6 +16,9 @@ public class RoboterArmController : MonoBehaviour
         SchieneZ
     }
 
+    // gelenkIndizes: Welche Gelnk IDs gehören zu einer Gruppe
+    // richtungen: Soll ein Gelenk in einer Gruppe umgedreht drehen
+    // steuerungMitLinksRechts: Schaltet um ob eine gruppe Links/rechts oder oben/unten für die Steuerung nutzen soll.
     [System.Serializable]
     public class GelenkGruppe
     {
@@ -21,44 +27,56 @@ public class RoboterArmController : MonoBehaviour
         public bool steuerungMitLinksRechts = false;
     }
 
+    // Dient dazu das ein Gelenk im Inspector mehrere Achsen haben kann
     [System.Serializable]
     public class GelenkList
     {
         public GelenkAchse[] achsen;
     }
 
+    // Speichert für alle Gelenke deren Transformkomponenten und AchsenKonfigurationen
     [Header("Gelenke des Roboters")]
     [SerializeField] private Transform[] gelenke;
     [SerializeField] private GelenkList[] gelenkAchsen;
     [SerializeField] private GelenkGruppe[] gruppen;
 
+    //Bewegungsgeschwindogkeit der Achsen
     [Header("Rotation Speeds / Movement Speeds")]
     [SerializeField] private float speed = 20f;
     [SerializeField] private float schienenSpeed = 2f;
 
+    //Winkelgrenzen der Gelenke
     [Header("Winkellimits für alle Gelenke")]
     [SerializeField] private float minWinkel = -80f;
     [SerializeField] private float maxWinkel = 80f;
 
+    //Layer fürs Blockieren von Bewegungen
+    //AbstandsPuffer 
     [Header("Kollisionsschutz")]
     [SerializeField] private LayerMask hindernisLayer;
     [SerializeField] private float kollisionsMargin;
 
+    //Layer für die Schienenbegrezung
+    //Collider des Roboterarms für die Schiene
     [Header("Schienen Begranzung")]
     [SerializeField] private LayerMask schienenbegrenzungsLayer;
     [SerializeField] private BoxCollider basisCollider;
 
+    //PlayerImputHandler für die Steuerung
+    //CameraManager für den Kamera Wechsel
     [Header("Referenzen")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
 
-    [Header("Junction-Einstellung")]
-    [SerializeField] private float abbiegeToleranz = 0.8f;
+    [Header("Audio")]
+    [SerializeField] private AudioSource motorAudioSource;
 
+    private bool isMovingThisFrame = false;
     private int currentGroupIndex = 0;
     private float[] aktuelleWinkel;
     private Collider[] armCollider;
-
+    #endregion
+    #region Lebenszklus
     private void Start()
     {
         currentGroupIndex = 0;
@@ -68,14 +86,25 @@ public class RoboterArmController : MonoBehaviour
 
     private void Update()
     {
-        if(!cameraManager.IncamMode)
-        return;
+        if (!cameraManager.IncamMode)
+        {
+            if (motorAudioSource != null && motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Stop();
+            }
+            return;
+        }
+
+        isMovingThisFrame = false;
 
         HandleDirectGroupSelection();
         HandleGroupCycling();
         HandleGroupMovement();
+        HandleAudio();
     }
-
+    #endregion
+    #region GruppenHandling
+    //Wechsel zwischen den Gelenk Gruppen 
     private void HandleDirectGroupSelection()
     {
         if (input.SelectGroup1Triggered)
@@ -99,7 +128,8 @@ public class RoboterArmController : MonoBehaviour
             currentGroupIndex = 4;
         }
     }
-    
+
+    //Durchcyclen der Gelenkgruppen
     private void HandleGroupCycling()
     {
         if (input.NextGroupTriggered)
@@ -110,7 +140,8 @@ public class RoboterArmController : MonoBehaviour
                 currentGroupIndex = 0;
         }
     }
-
+    //holt die aktive Gruppe
+    //Geht die gleneke der Gruppe druch und übergint Richtungsmodifakor und Steuerungstyp
     private void HandleGroupMovement()
     {
         GelenkGruppe gruppe = gruppen[currentGroupIndex];
@@ -121,7 +152,7 @@ public class RoboterArmController : MonoBehaviour
 
             float richtung = 1f;
 
-            if(gruppe.richtungen != null && i < gruppe.richtungen.Length)
+            if (gruppe.richtungen != null && i < gruppe.richtungen.Length)
             {
                 richtung = gruppe.richtungen[i];
             }
@@ -129,7 +160,11 @@ public class RoboterArmController : MonoBehaviour
             HandleMovementForGelenk(gelenkIndex, richtung, gruppe.steuerungMitLinksRechts);
         }
     }
-
+    #endregion
+    #region HandleMovementForGelenk
+    //Index99 leitet an die Schienenlogik weiter
+    //Prüft welche Tasten gedückt wurden / Sonderfall steuerungMitLinksRechts
+    //Je nach Achse wird außerdem RoteteWithLimit  oder RotateWithoutLimit aufgerufen
     private void HandleMovementForGelenk(int gelenkIndex, float richtungsmodifikator, bool nutzeLinksRechts)
     {
 
@@ -143,12 +178,12 @@ public class RoboterArmController : MonoBehaviour
             return;
 
         if (gelenkIndex >= gelenkAchsen.Length)
-            return; 
+            return;
 
         Transform gelenk = gelenke[gelenkIndex];
 
-       foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
-       {
+        foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
+        {
 
             bool movePlus = nutzeLinksRechts ? input.MoveRight : (achse == GelenkAchse.NeigenX ? input.MoveForward : input.MoveRight);
             bool moveMinus = nutzeLinksRechts ? input.MoveLeft : (achse == GelenkAchse.NeigenX ? input.MoveBackward : input.MoveLeft);
@@ -181,23 +216,30 @@ public class RoboterArmController : MonoBehaviour
             }
         }
     }
-
+    #endregion
+    #region RotationsHandling
+    //Dreht das Gelenk, prüft mit IstKollisionVorhanden ob der arm nach der Drehung in einem Hindernis stecken würde und setzt bei einem Hindernis den den wert im Frame um den selben wert wieder zurück. 
     private void RotateWithoutLimit(Transform gelenk, Vector3 axis, float direction)
     {
         float delta = direction * speed * Time.deltaTime;
 
         gelenk.Rotate(axis, delta, Space.Self);
 
-       if (IstKollisionVorhanden())
+        if (IstKollisionVorhanden())
         {
-            gelenk.Rotate(axis , -delta, Space.Self);
+            gelenk.Rotate(axis, -delta, Space.Self);
             Physics.SyncTransforms();
+        }
+        else
+        {
+            isMovingThisFrame = true;
         }
     }
 
+    //Rotation mit Winkelbegrenzung, macht ebenfalls den KollisionCheck
     private void RotateWithLimit(Transform gelenk, Vector3 axis, float direction, int gelenkIndex)
     {
-        
+
         float delta = direction * speed * Time.deltaTime;
         float zielWinkel = Mathf.Clamp(aktuelleWinkel[gelenkIndex] + delta, minWinkel, maxWinkel);
         float tatsaechlicheAenderung = zielWinkel - aktuelleWinkel[gelenkIndex];
@@ -205,7 +247,7 @@ public class RoboterArmController : MonoBehaviour
         if (Mathf.Abs(tatsaechlicheAenderung) > 0.001f)
         {
             gelenk.Rotate(axis, tatsaechlicheAenderung, Space.Self);
-            
+
             if (IstKollisionVorhanden())
             {
                 gelenk.Rotate(axis, -tatsaechlicheAenderung, Space.Self);
@@ -214,10 +256,14 @@ public class RoboterArmController : MonoBehaviour
             else
             {
                 aktuelleWinkel[gelenkIndex] = zielWinkel;
+                isMovingThisFrame = true;
             }
         }
     }
-
+    #endregion
+    #region SchienenBewegung
+    //Der Roboterarm wird nur auf der X undY Achse bewegt
+    //Hier wird wieder auf Kollision überprüft
     private void HandleSchienenBewegung()
     {
         float moveZ = 0f;
@@ -237,6 +283,10 @@ public class RoboterArmController : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, altePos.z);
             }
+            else
+            {
+                isMovingThisFrame = true;
+            }
         }
 
         Vector3 posNachZ = transform.position;
@@ -247,9 +297,18 @@ public class RoboterArmController : MonoBehaviour
             {
                 transform.position = new Vector3(posNachZ.x, transform.position.y, transform.position.z);
             }
+            else
+            {
+                isMovingThisFrame = true;
+            }
         }
     }
-
+    #endregion
+    #region IstKollisionVorhanden
+    //Kollision wird berprüft
+    //Physics.SyncTransform(): aktualisiert alle Objectpositionen im Physik System
+    //Mit TransformVector() wird die größe der Box Collider Ermittelt
+    //Phsics.CheckBox(): Macht eine PrüfBox wenn diese ein Objekt mit Hindernis Layer berührt gibt diese true zurück.
     private bool IstKollisionVorhanden()
     {
         Physics.SyncTransforms();
@@ -283,7 +342,9 @@ public class RoboterArmController : MonoBehaviour
 
         return false;
     }
-
+    #endregion
+    #region IstSchienenBegrenzungErreicht
+    //Hier passiert in etwa das gleiche wie bei IstKollisionVorhanden
     private bool IstSchienenBegrenzungErreicht()
     {
         if (basisCollider == null)
@@ -303,5 +364,26 @@ public class RoboterArmController : MonoBehaviour
         Vector3 halfExtents = Vector3.Scale(basisCollider.size * 0.5f, trueScale);
 
         return Physics.CheckBox(center, halfExtents, basisCollider.transform.rotation, schienenbegrenzungsLayer, QueryTriggerInteraction.Ignore);
+    }
+    #endregion
+    private void HandleAudio()
+    {
+        if (motorAudioSource == null)
+            return;
+
+        if (isMovingThisFrame)
+        {
+            if (!motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Play();
+            }
+        }
+        else
+        {
+            if (motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Stop();
+            }
+        }
     }
 }

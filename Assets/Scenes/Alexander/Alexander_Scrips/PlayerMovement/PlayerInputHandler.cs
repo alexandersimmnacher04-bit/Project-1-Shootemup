@@ -29,6 +29,7 @@ public class PlayerInputHandler : MonoBehaviour
     [SerializeField] private string sprint = "Sprint";
     [SerializeField] private string interact = "Interact";
     [SerializeField] private string interactsecondary = "Interactsecondary";
+    [SerializeField] private string escape = "Escape";
 
     [Header("Roboter Actionen")]
     [SerializeField] private string moveforward = "moveforward";
@@ -54,6 +55,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction sprintAction;
     private InputAction interactAction;
     private InputAction interactsecondaryAction;
+    private InputAction escapeAction;
 
     private InputAction moveforwardAction;
     private InputAction movebackwardAction;
@@ -78,6 +80,7 @@ public class PlayerInputHandler : MonoBehaviour
     public bool SprintTriggered { get; private set; }
     public bool InteractTriggered { get; private set; }
     public bool InteractSecondaryTriggered { get; private set; }
+    public bool EscapeTriggered { get; private set; }
 
 
     public bool MoveForward => moveforwardAction.IsPressed();
@@ -109,6 +112,7 @@ public class PlayerInputHandler : MonoBehaviour
         sprintAction = playermapReference.FindAction(sprint);
         interactAction = playermapReference.FindAction(interact);
         interactsecondaryAction = playermapReference.FindAction(interactsecondary);
+        escapeAction = playermapReference.FindAction(escape);
 
         moveforwardAction = robotmapReference.FindAction(moveforward);
         movebackwardAction = robotmapReference.FindAction(movebackward);
@@ -148,6 +152,9 @@ public class PlayerInputHandler : MonoBehaviour
 
         interactsecondaryAction.performed += inputInfo => InteractSecondaryTriggered = true;
         interactsecondaryAction.canceled += inputInfo => InteractSecondaryTriggered = false;
+
+        escapeAction.performed += inputInfo => EscapeTriggered = true;
+        escapeAction.canceled += inputInfo => EscapeTriggered = false;
 
 
         selectgroup1Action.performed += inputInfo => SelectGroup1Triggered = true;
@@ -217,7 +224,6 @@ public class PlayerInputHandler : MonoBehaviour
     //.Disable(): deaktiviert die Action Map.
     private void EnableRobotInput()
     {
-        playerControls.FindActionMap(playeractionMapName).Disable();
         robotControls.FindActionMap(robotactionMapName).Enable();
     }
 }

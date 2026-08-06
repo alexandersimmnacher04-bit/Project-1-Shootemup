@@ -11,6 +11,7 @@ TagManager:
   - LagerSchiene
   - Junction
   - Greifbar
+  - Interactable
   layers:
   - Default
   - TransparentFX

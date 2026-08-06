@@ -6,12 +6,23 @@ public class OpenTank : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public GameObject TankCanvas;
     public bool Taskactive { get; private set; }
+    public float interactDistance = 5f;
+    public Camera Playercamera;
     public FirstPersonController firstPersonController;
     public void Interact()
     {
-        toggletask();
-        firstPersonController.ToggleMovement();
-        firstPersonController.ToggleCursor();
+        Ray ray = new Ray(Playercamera.transform.position, Playercamera.transform.forward);
+
+        if (Physics.Raycast(ray,out RaycastHit hit, interactDistance))
+        {
+            if (hit.collider.CompareTag("Interactable"))
+            {
+                toggletask();
+                firstPersonController.ToggleMovement();
+                firstPersonController.ToggleCursor();
+            }
+        }
+        
     }
 
     private void toggletask()
