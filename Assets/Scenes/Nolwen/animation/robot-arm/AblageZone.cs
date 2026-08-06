@@ -6,7 +6,7 @@ public class AblageZone : MonoBehaviour
 
     public bool raeselSolved = false;
 
-    public void RegistriereAblage(GameManager abgelegtesObjekt)
+    public void RegistriereAblage()
     {
         raeselSolved = true;
     }
