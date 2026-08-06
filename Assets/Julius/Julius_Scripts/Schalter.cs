@@ -8,20 +8,32 @@ public class Schalter : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private GameObject Absicherung;
     [SerializeField] private FirstPersonController firstPersonController;
+    [SerializeField] private Camera Playercamera;
+    public OpenTank openTank;
     private float Timer;
     private bool buttonOn = true;
     private bool setTimer;
    
 
     private void Click()
-    { if (buttonOn == true)
+    {
+        Ray ray = new Ray(Playercamera.transform.position, Playercamera.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, openTank.interactDistance))
         {
-            Debug.Log("click");
-            buttonOn = false;
-            AreyouSure();
-           
+            if (hit.collider.CompareTag("Interactable"))
+            {
+                if (buttonOn == true)
+                {
+                    Debug.Log("click");
+                    buttonOn = false;
+                    AreyouSure();
+
+                }
+                else return;
+            }
         }
-        else return;
+        
     }
 
     private void AreyouSure()
@@ -31,7 +43,7 @@ public class Schalter : MonoBehaviour
         Absicherung.SetActive(true);
     }
      
-    public void Yes()
+    public void OnButtonYes()
     {
         Absicherung.SetActive(false);
         setTimer = true;
@@ -39,7 +51,7 @@ public class Schalter : MonoBehaviour
       
     }
 
-    public void No()
+    public void OnButtonNo()
     {
         buttonOn = true;
         Absicherung.SetActive(false);

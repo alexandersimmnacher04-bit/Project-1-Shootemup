@@ -44,10 +44,10 @@ public class CameraSwitchZone : MonoBehaviour
     // Der Tag "Player" wird hier wieder verglichen.
     private void OnTriggerEnter(Collider other)
     {
-        //    if (other.CompareTag("Player"))
-        //    {
-        //        playerInside = true;
-        //    }
+        if (other.CompareTag("Player"))
+        {
+            playerInside = true;
+        }
         if (other.CompareTag("RoboterArm"))
         {
 
@@ -62,12 +62,12 @@ public class CameraSwitchZone : MonoBehaviour
     //// Der Tag "Player" wird hier wieder verglichen.
     private void OnTriggerExit(Collider other)
     {
-        //    if (other.CompareTag("Player"))
-        //    {
-        //        playerInside = false;
-        //        cameraManager.SwitchToPlayer();
-        //        playerController.BlockMovement(false);
-        //    }
+        if (other.CompareTag("Player"))
+        {
+            playerInside = false;
+            cameraManager.SwitchToPlayer();
+            playerController.BlockMovement(false);
+        }
         if (other.CompareTag("RoboterArm"))
         {
             roboterInside = false;

@@ -34,6 +34,7 @@ public class FillUpTank : MonoBehaviour
     public GameObject emptyButton;
     public GameObject fillButton;
     public Lamp lamp;
+    public Play_Sound_Tank_Fill playSoundTankFill;
 
 
     private void Start()
@@ -104,6 +105,7 @@ public class FillUpTank : MonoBehaviour
         //if (finished) return;  
         if (isFilling)
         {
+            playSoundTankFill.PlayFillFuelSound();
             emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
@@ -136,7 +138,8 @@ public class FillUpTank : MonoBehaviour
          else
         { 
             isFilling = true;
-            
+           
+
         }
 
         if (emptyCount % 2 == 0)

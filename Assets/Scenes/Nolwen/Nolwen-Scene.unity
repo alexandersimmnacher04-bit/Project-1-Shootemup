@@ -2816,7 +2816,6 @@ MonoBehaviour:
   basisCollider: {fileID: 1448084215}
   input: {fileID: 7142385591608776700}
   cameraManager: {fileID: 1013556037}
-  abbiegeToleranz: 2
 --- !u!54 &81468865
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7681,6 +7680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AblageZone
   snapPunkt: {fileID: 1821718882}
+  raeselSolved: 0
 --- !u!65 &265042194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34310,7 +34310,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  primaryScript: {fileID: 0}
+  primaryScript: {fileID: 643527421}
   primaryMethode: Interact
   secondaryScript: {fileID: 643527421}
   secondaryMethode: InteractSecondary
@@ -58023,6 +58023,7 @@ MonoBehaviour:
   sprint: Sprint
   interact: interact
   interactsecondary: interactsecondary
+  escape: Escape
   moveforward: moveforward
   movebackward: movebackward
   moveright: moveright
