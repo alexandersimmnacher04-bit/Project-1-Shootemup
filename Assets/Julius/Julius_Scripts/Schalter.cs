@@ -13,7 +13,8 @@ public class Schalter : MonoBehaviour
     private float Timer;
     private bool buttonOn = true;
     private bool setTimer;
-   
+    public PlaySoundButton PlaySoundButton;
+
 
     private void Click()
     {
@@ -25,6 +26,7 @@ public class Schalter : MonoBehaviour
             {
                 if (buttonOn == true)
                 {
+                    PlaySoundButton.PlaySound();
                     Debug.Log("click");
                     buttonOn = false;
                     AreyouSure();
