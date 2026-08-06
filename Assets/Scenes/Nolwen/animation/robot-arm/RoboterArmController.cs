@@ -67,7 +67,11 @@ public class RoboterArmController : MonoBehaviour
     [Header("Referenzen")]
     [SerializeField] private PlayerInputHandler input;
     [SerializeField] private CameraManager cameraManager;
-    
+
+    [Header("Audio")]
+    [SerializeField] private AudioSource motorAudioSource;
+
+    private bool isMovingThisFrame = false;
     private int currentGroupIndex = 0;
     private float[] aktuelleWinkel;
     private Collider[] armCollider;
@@ -82,12 +86,21 @@ public class RoboterArmController : MonoBehaviour
 
     private void Update()
     {
-        if(!cameraManager.IncamMode)
-        return;
+        if (!cameraManager.IncamMode)
+        {
+            if (motorAudioSource != null && motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Stop();
+            }
+            return;
+        }
+
+        isMovingThisFrame = false;
 
         HandleDirectGroupSelection();
         HandleGroupCycling();
         HandleGroupMovement();
+        HandleAudio();
     }
     #endregion
     #region GruppenHandling
@@ -115,7 +128,7 @@ public class RoboterArmController : MonoBehaviour
             currentGroupIndex = 4;
         }
     }
-    
+
     //Durchcyclen der Gelenkgruppen
     private void HandleGroupCycling()
     {
@@ -139,7 +152,7 @@ public class RoboterArmController : MonoBehaviour
 
             float richtung = 1f;
 
-            if(gruppe.richtungen != null && i < gruppe.richtungen.Length)
+            if (gruppe.richtungen != null && i < gruppe.richtungen.Length)
             {
                 richtung = gruppe.richtungen[i];
             }
@@ -165,12 +178,12 @@ public class RoboterArmController : MonoBehaviour
             return;
 
         if (gelenkIndex >= gelenkAchsen.Length)
-            return; 
+            return;
 
         Transform gelenk = gelenke[gelenkIndex];
 
-       foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
-       {
+        foreach (var achse in gelenkAchsen[gelenkIndex].achsen)
+        {
 
             bool movePlus = nutzeLinksRechts ? input.MoveRight : (achse == GelenkAchse.NeigenX ? input.MoveForward : input.MoveRight);
             bool moveMinus = nutzeLinksRechts ? input.MoveLeft : (achse == GelenkAchse.NeigenX ? input.MoveBackward : input.MoveLeft);
@@ -212,17 +225,21 @@ public class RoboterArmController : MonoBehaviour
 
         gelenk.Rotate(axis, delta, Space.Self);
 
-       if (IstKollisionVorhanden())
+        if (IstKollisionVorhanden())
         {
-            gelenk.Rotate(axis , -delta, Space.Self);
+            gelenk.Rotate(axis, -delta, Space.Self);
             Physics.SyncTransforms();
+        }
+        else
+        {
+            isMovingThisFrame = true;
         }
     }
 
     //Rotation mit Winkelbegrenzung, macht ebenfalls den KollisionCheck
     private void RotateWithLimit(Transform gelenk, Vector3 axis, float direction, int gelenkIndex)
     {
-        
+
         float delta = direction * speed * Time.deltaTime;
         float zielWinkel = Mathf.Clamp(aktuelleWinkel[gelenkIndex] + delta, minWinkel, maxWinkel);
         float tatsaechlicheAenderung = zielWinkel - aktuelleWinkel[gelenkIndex];
@@ -230,7 +247,7 @@ public class RoboterArmController : MonoBehaviour
         if (Mathf.Abs(tatsaechlicheAenderung) > 0.001f)
         {
             gelenk.Rotate(axis, tatsaechlicheAenderung, Space.Self);
-            
+
             if (IstKollisionVorhanden())
             {
                 gelenk.Rotate(axis, -tatsaechlicheAenderung, Space.Self);
@@ -239,6 +256,7 @@ public class RoboterArmController : MonoBehaviour
             else
             {
                 aktuelleWinkel[gelenkIndex] = zielWinkel;
+                isMovingThisFrame = true;
             }
         }
     }
@@ -265,6 +283,10 @@ public class RoboterArmController : MonoBehaviour
             {
                 transform.position = new Vector3(transform.position.x, transform.position.y, altePos.z);
             }
+            else
+            {
+                isMovingThisFrame = true;
+            }
         }
 
         Vector3 posNachZ = transform.position;
@@ -274,6 +296,10 @@ public class RoboterArmController : MonoBehaviour
             if (IstKollisionVorhanden() || IstSchienenBegrenzungErreicht())
             {
                 transform.position = new Vector3(posNachZ.x, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                isMovingThisFrame = true;
             }
         }
     }
@@ -340,4 +366,24 @@ public class RoboterArmController : MonoBehaviour
         return Physics.CheckBox(center, halfExtents, basisCollider.transform.rotation, schienenbegrenzungsLayer, QueryTriggerInteraction.Ignore);
     }
     #endregion
+    private void HandleAudio()
+    {
+        if (motorAudioSource == null)
+            return;
+
+        if (isMovingThisFrame)
+        {
+            if (!motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Play();
+            }
+        }
+        else
+        {
+            if (motorAudioSource.isPlaying)
+            {
+                motorAudioSource.Stop();
+            }
+        }
+    }
 }
