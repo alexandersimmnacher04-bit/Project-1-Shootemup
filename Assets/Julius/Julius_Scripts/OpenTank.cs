@@ -25,7 +25,7 @@ public class OpenTank : MonoBehaviour
         
     }
 
-    public void toggletask()
+    private void toggletask()
     {
         Taskactive = !Taskactive;
        

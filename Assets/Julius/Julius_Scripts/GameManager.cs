@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public bool gameState{ get; private set; } = false;
+    public bool gameState { get; private set; } = false;
     public int TaskIndex { get; private set; }
     [Header("GameObjects")]
     [SerializeField] private FirstPersonController firstPersonController;
@@ -15,16 +15,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
     
-    
+
+
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        TaskIndex = 0;
         gameState = true;
         rocket.SetActive(true);
-        
+
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        
+
     }
 
     public void Restart()
@@ -43,27 +43,30 @@ public class GameManager : MonoBehaviour
     }
 
     public void Endgame()
-    { if (tank.tankSolved == true)
+    {
+        if (tank.tankSolved == true /*&&*/)
         {
             Win.SetActive(true);
         }
         else
         {
             Lose.SetActive(true);
-        }  
+        }
         gameState = false;
         Canvas.SetActive(true);
 
-        
-        
+
+
 
 
     }
-    public void OpenMenu()
+    public void OpenTitle()
     {
         SceneManager.LoadScene(0);
     }
 
-   
-
+    public void CloseMenu()
+    {
+        Canvas.SetActive(false);
+    }
 }
