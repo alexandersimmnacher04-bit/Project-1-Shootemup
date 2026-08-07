@@ -24,7 +24,7 @@ public class FillUpTank : MonoBehaviour
     private float currentTank = 0f;
     private int fillCount;
     private int emptyCount;
-    private bool isFilling = false;
+    public bool isFilling = false;
     private bool emptyTank = false;
     //private bool finished = false;
     public bool tankSolved { get; private set; }
