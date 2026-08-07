@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private GameObject rocket;
     [SerializeField] private FillUpTank tank;
+    [SerializeField] private AblageZone ablageZone;
     [SerializeField] private GameObject Canvas;
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Endgame()
     {
-        if (tank.tankSolved == true /*&&*/)
+        if (tank.tankSolved == true && ablageZone.raetselSolved)
         {
             Win.SetActive(true);
         }
