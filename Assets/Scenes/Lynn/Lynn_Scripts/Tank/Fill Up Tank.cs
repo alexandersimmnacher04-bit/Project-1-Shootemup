@@ -20,7 +20,7 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float maxTank = 100f;
     [SerializeField] private float graceAmount = 5f;
     [SerializeField] private float threshHold = 110f;
-    [SerializeField] private float emptyRate = 5f;
+    [SerializeField] private float emptyRate = 10f;
     private float currentTank = 0f;
     private int fillCount;
     private int emptyCount;
@@ -66,9 +66,9 @@ public class FillUpTank : MonoBehaviour
         if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
         {
             tankSolved = true;
-            Debug.Log("Tank is full! You can move on to the next puzzle.");
             // Win();
         }
+        else tankSolved = false;
 
     }
 
@@ -77,6 +77,7 @@ public class FillUpTank : MonoBehaviour
         emptyCount++;
         emptyRate = emptyRate + Random.Range(0, 5);
         Debug.Log(emptyRate);
+        Debug.Log(tankSolved);
     }
 
     private void Empty()

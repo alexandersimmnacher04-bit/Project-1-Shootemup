@@ -13,7 +13,7 @@ public class InteractionZone : MonoBehaviour
 
     [Header("Objects")]
     private Material Outline;
-    private float intensity = 10.0f;
+    private float intensity = 15.0f;
     public OpenTank openTank;
     public Camera Playercamera;
     public FirstPersonController firstPersonController;

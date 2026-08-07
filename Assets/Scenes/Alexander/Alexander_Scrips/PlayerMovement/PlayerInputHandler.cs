@@ -8,6 +8,9 @@ using UnityEngine.InputSystem.LowLevel;
 public class PlayerInputHandler : MonoBehaviour
 {
     private InteractionZone currentZone;
+   [SerializeField] GameObject canvas;
+   [SerializeField] FirstPersonController firstPersonController;
+    private bool canvasOn;
     public void SetCurrentZone(InteractionZone zone) => currentZone = zone;
     //InputActionAsset: Ist der name des Tpy der Variable für Unity
     //playerControls: Ist der Name der Variable
@@ -191,6 +194,13 @@ public class PlayerInputHandler : MonoBehaviour
         {
             currentZone.TriggerSecondary();
         }
+        if(EscapeTriggered)
+        {
+            ToggleCanvas();
+            firstPersonController.ToggleMovement();
+            firstPersonController.ToggleCursor();
+
+        }
 
         InteractTriggered = false;
         InteractSecondaryTriggered = false;
@@ -226,4 +236,13 @@ public class PlayerInputHandler : MonoBehaviour
     {
         robotControls.FindActionMap(robotactionMapName).Enable();
     }
+   private void ToggleCanvas()
+    {
+        canvasOn = !canvasOn;
+        if (canvasOn) 
+        {
+            canvas.SetActive(true);
+        }
+        else canvas.SetActive(false);
+   }
 }
