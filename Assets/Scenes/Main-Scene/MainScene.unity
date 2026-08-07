@@ -3221,6 +3221,7 @@ GameObject:
   - component: {fileID: 56675279}
   - component: {fileID: 56675278}
   - component: {fileID: 56675277}
+  - component: {fileID: 56675281}
   m_Layer: 0
   m_Name: Cube_004
   m_TagString: Untagged
@@ -3258,12 +3259,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.02059439, y: 0.02, z: 0.015030945}
-  m_Center: {x: 0.0031121746, y: 0.0004818756, z: -0.00006891255}
+  m_Size: {x: 0.03556338, y: 0.02, z: 0.17591408}
+  m_Center: {x: -0.0009661148, y: 0.00048187556, z: -0.014975338}
 --- !u!114 &56675278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3335,6 +3336,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56675275}
   m_Mesh: {fileID: 0}
+--- !u!114 &56675281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56675275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
+  primaryScript: {fileID: 1477273645}
+  primaryMethode: Interact
+  secondaryScript: {fileID: 0}
+  secondaryMethode: InteractSecondary
+  openTank: {fileID: 591095456}
+  Playercamera: {fileID: 1907731036456777426}
+  firstPersonController: {fileID: 2831114941739712196}
 --- !u!1 &56824054
 GameObject:
   m_ObjectHideFlags: 0
@@ -14526,6 +14546,7 @@ GameObject:
   - component: {fileID: 295153645}
   - component: {fileID: 295153648}
   - component: {fileID: 295153649}
+  - component: {fileID: 295153650}
   m_Layer: 0
   m_Name: Cube_004
   m_TagString: Untagged
@@ -14634,12 +14655,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.020594386, y: 0.02, z: 0.015030941}
-  m_Center: {x: 0.0031122335, y: 0.00048188027, z: -0.000069866204}
+  m_Size: {x: 0.039502714, y: 0.02, z: 0.14617264}
+  m_Center: {x: -0.006341917, y: 0.00048188036, z: 0.008645612}
 --- !u!64 &295153649
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14662,6 +14683,25 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &295153650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295153643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
+  primaryScript: {fileID: 273288930}
+  primaryMethode: Interact
+  secondaryScript: {fileID: 0}
+  secondaryMethode: InteractSecondary
+  openTank: {fileID: 591095456}
+  Playercamera: {fileID: 1907731036456777426}
+  firstPersonController: {fileID: 2831114941739712196}
 --- !u!1 &295288186
 GameObject:
   m_ObjectHideFlags: 0
@@ -17875,6 +17915,8 @@ GameObject:
   - component: {fileID: 351932360}
   - component: {fileID: 351932359}
   - component: {fileID: 351932362}
+  - component: {fileID: 351932364}
+  - component: {fileID: 351932363}
   m_Layer: 0
   m_Name: Cube_004
   m_TagString: Untagged
@@ -17983,12 +18025,53 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.020594386, y: 0.02, z: 0.015030941}
-  m_Center: {x: 0.0031121739, y: 0.00048188027, z: -0.000067958856}
+  m_Size: {x: 0.044373076, y: 0.02, z: 0.15882446}
+  m_Center: {x: 0.004243758, y: 0.00048188036, z: 0.0031569926}
+--- !u!64 &351932363
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351932357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
+--- !u!114 &351932364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 351932357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
+  primaryScript: {fileID: 797033731}
+  primaryMethode: Interact
+  secondaryScript: {fileID: 0}
+  secondaryMethode: InteractSecondary
+  openTank: {fileID: 591095456}
+  Playercamera: {fileID: 1907731036456777426}
+  firstPersonController: {fileID: 2831114941739712196}
 --- !u!1 &352449162
 GameObject:
   m_ObjectHideFlags: 0
@@ -23664,7 +23747,6 @@ GameObject:
   m_Component:
   - component: {fileID: 452629630}
   - component: {fileID: 452629632}
-  - component: {fileID: 452629631}
   m_Layer: 9
   m_Name: DoorTriggerZone
   m_TagString: Untagged
@@ -23687,25 +23769,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 315728290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &452629631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 452629629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  primaryScript: {fileID: 315728291}
-  primaryMethode: Interact
-  secondaryScript: {fileID: 0}
-  secondaryMethode: InteractSecondary
-  openTank: {fileID: 0}
-  Playercamera: {fileID: 0}
-  firstPersonController: {fileID: 0}
 --- !u!65 &452629632
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23721,12 +23784,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2759839, y: 2, z: 0.16328044}
+  m_Center: {x: 0.012007949, y: 0, z: -0.011499402}
 --- !u!1 &458335621
 GameObject:
   m_ObjectHideFlags: 0
@@ -50990,7 +51053,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1015940718}
   - component: {fileID: 1015940720}
-  - component: {fileID: 1015940719}
   m_Layer: 9
   m_Name: DoorTriggerZone
   m_TagString: Untagged
@@ -51013,25 +51075,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 273288929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1015940719
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1015940717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  primaryScript: {fileID: 273288930}
-  primaryMethode: Interact
-  secondaryScript: {fileID: 0}
-  secondaryMethode: InteractSecondary
-  openTank: {fileID: 591095456}
-  Playercamera: {fileID: 1907731036456777426}
-  firstPersonController: {fileID: 2831114941739712196}
 --- !u!65 &1015940720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51047,12 +51090,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.3, y: 2, z: 0.16944116}
+  m_Center: {x: 0.0000000016464481, y: 0, z: -0.0069057047}
 --- !u!1 &1018656584
 GameObject:
   m_ObjectHideFlags: 0
@@ -68538,37 +68581,6 @@ MonoBehaviour:
   endTime: 3.875
   currentTime: 0
   vertexMotionScale: 1
---- !u!1 &1409459458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1409459459}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1409459459
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1409459458}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 360.2648, y: 51.35015, z: -89.7964}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1409604454
 GameObject:
   m_ObjectHideFlags: 0
@@ -75755,7 +75767,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1572261574}
   - component: {fileID: 1572261576}
-  - component: {fileID: 1572261575}
   m_Layer: 9
   m_Name: DoorTriggerZone
   m_TagString: Untagged
@@ -75778,25 +75789,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1477273644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1572261575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1572261573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  primaryScript: {fileID: 1477273645}
-  primaryMethode: Interact
-  secondaryScript: {fileID: 0}
-  secondaryMethode: InteractSecondary
-  openTank: {fileID: 0}
-  Playercamera: {fileID: 0}
-  firstPersonController: {fileID: 0}
 --- !u!65 &1572261576
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -75812,12 +75804,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.3, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.0027996, y: 2, z: 0.2260131}
+  m_Center: {x: 0.03265643, y: 0, z: 0.008126453}
 --- !u!1 &1573230180
 GameObject:
   m_ObjectHideFlags: 0
@@ -85927,7 +85919,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1799449484}
   - component: {fileID: 1799449486}
-  - component: {fileID: 1799449485}
   m_Layer: 9
   m_Name: DoorTriggerZone
   m_TagString: Untagged
@@ -85950,25 +85941,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 797033730}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1799449485
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1799449483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
-  primaryScript: {fileID: 797033731}
-  primaryMethode: Interact
-  secondaryScript: {fileID: 0}
-  secondaryMethode: InteractSecondary
-  openTank: {fileID: 0}
-  Playercamera: {fileID: 0}
-  firstPersonController: {fileID: 0}
 --- !u!65 &1799449486
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -85984,9 +85956,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1.3, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -91059,6 +91031,7 @@ GameObject:
   - component: {fileID: 1905210761}
   - component: {fileID: 1905210760}
   - component: {fileID: 1905210763}
+  - component: {fileID: 1905210764}
   m_Layer: 0
   m_Name: Cube_004
   m_TagString: Untagged
@@ -91167,12 +91140,31 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.02059439, y: 0.02, z: 0.015030945}
-  m_Center: {x: 0.0031121746, y: 0.0004818756, z: -0.00006891255}
+  m_Size: {x: 0.045227233, y: 0.02, z: 0.16324075}
+  m_Center: {x: 0.0030813285, y: 0.00048187556, z: -0.0015901187}
+--- !u!114 &1905210764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905210758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eaa186c2dd6b0df4091e35eea63defae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionZone
+  primaryScript: {fileID: 315728291}
+  primaryMethode: Interact
+  secondaryScript: {fileID: 0}
+  secondaryMethode: InteractSecondary
+  openTank: {fileID: 591095456}
+  Playercamera: {fileID: 1907731036456777426}
+  firstPersonController: {fileID: 0}
 --- !u!1 &1907274421
 GameObject:
   m_ObjectHideFlags: 0
@@ -92438,7 +92430,7 @@ Transform:
   m_GameObject: {fileID: 1937562189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.64265, y: 0.78311, z: 28.16644}
+  m_LocalPosition: {x: 121.221, y: 7.803, z: 35.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -133158,4 +133150,3 @@ SceneRoots:
   - {fileID: 799304172}
   - {fileID: 1937562191}
   - {fileID: 251772331}
-  - {fileID: 1409459459}
