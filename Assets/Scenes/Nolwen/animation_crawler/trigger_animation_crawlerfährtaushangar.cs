@@ -7,8 +7,10 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     // Ich lade erst alle Gameobjects rein. Ist eigentlich egal ob public oder private. Hab einfach private genommen, das klingt cool und geheim.
    
 
-    [SerializeField] private GameObject industrielamep_redlight;
-    [SerializeField] private GameObject industrielampe_greenlight;
+    [SerializeField] private GameObject redlight;
+    [SerializeField] private GameObject greenlight;
+    [SerializeField] private GameObject redlight01;
+    [SerializeField] private GameObject greenlight01;
     [SerializeField] private Transform torinput;
     [SerializeField] private GameObject crawlerinput;
     [SerializeField] private GameObject door01triggerzone;
@@ -114,26 +116,30 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     // Diese Methode schaltet das rote Industrielicht an. 
     void turnredlighton()
     {
-        industrielamep_redlight.SetActive(true);
+        redlight.SetActive(true);
+        redlight01.SetActive(true);
 
     }
 
     // Diese Methode schaltet das rote Industrielicht aus.
     void turnredlightoff()
     {
-        industrielamep_redlight.SetActive(false);
+        redlight.SetActive(false);
+        redlight01.SetActive(false);
     }
 
     // Diese Methode schaltet das grüne Industrielicht an.
     void turngreenlighton()
     {
-        industrielampe_greenlight.SetActive(true);
+        greenlight.SetActive(true);
+        greenlight01.SetActive(true);
     }
 
     //´Diese Methode schaltet das grüne Industrielicht aus. 
     void turngreenlightoff()
     {
-        industrielampe_greenlight.SetActive(false);
+        greenlight.SetActive(false);
+        greenlight01.SetActive(false);
 
     }
     #endregion
