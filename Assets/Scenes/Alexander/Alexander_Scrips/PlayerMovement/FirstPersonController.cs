@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -31,6 +32,9 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject buttonClose;
+   
 
 
     //currentMovement: Speichert die Bewegung in den Vector3 Koordinaten X,Y,Z. Wird  später an characterController.Move() übergeben.
@@ -40,6 +44,8 @@ public class FirstPersonController : MonoBehaviour
 
     private bool movementBlocked = false;
     private bool cursorOn;
+
+    public bool canvasOn;
 
     public void BlockMovement(bool blocked)
     {
@@ -91,6 +97,14 @@ public class FirstPersonController : MonoBehaviour
        
         HandleMovement();
         HandleRotation();
+
+        if (playerInputHandler.EscapeTriggered)
+        {
+            ToggleCanvas();
+            ToggleMovement();
+            ToggleCursor();
+
+        }
     }
 
     //MovementInput ist ein Vector2 aus dem InputHandler, dieser wird in einem Vector3 umgewandelt um disen in die inputDirection umzuwandeln.
@@ -172,5 +186,19 @@ public class FirstPersonController : MonoBehaviour
 
         ApplyHorizontalRotation(mouseXRotation);
         ApplyVerticalRotation(mouseYRotation);
+    }
+     public void ToggleCanvas()
+     {
+        canvasOn = !canvasOn;
+        if (canvasOn)
+        {
+            canvas.SetActive(true);
+            buttonClose.SetActive(true);
+        }
+        else
+        {
+            canvas.SetActive(false);
+            buttonClose.SetActive(false);
+        }
     }
 }
