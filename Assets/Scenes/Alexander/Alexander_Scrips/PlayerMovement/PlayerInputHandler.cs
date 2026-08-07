@@ -224,7 +224,6 @@ public class PlayerInputHandler : MonoBehaviour
     //.Disable(): deaktiviert die Action Map.
     private void EnableRobotInput()
     {
-        playerControls.FindActionMap(playeractionMapName).Disable();
         robotControls.FindActionMap(robotactionMapName).Enable();
     }
 }
