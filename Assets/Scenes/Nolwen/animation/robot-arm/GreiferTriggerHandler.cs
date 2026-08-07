@@ -44,14 +44,25 @@ public class GreiferTriggerHandler : MonoBehaviour
         gehaltenesObjekt.layer = LayerMask.NameToLayer("Default");
 
         Rigidbody rb = gehaltenesObjekt.GetComponent<Rigidbody>();
-        if(rb != null)
+        if (rb != null)
         {
             rb.isKinematic = true;
         }
 
-        gehaltenesObjekt.transform.SetParent(holdPoint);
-        gehaltenesObjekt.transform.localPosition = Vector3.zero;
-        gehaltenesObjekt.transform.localRotation = Quaternion.identity;
+        Collider col = gehaltenesObjekt.GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = false;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (gehaltenesObjekt != null && holdPoint != null)
+        {
+            gehaltenesObjekt.transform.position = holdPoint.position;
+            gehaltenesObjekt.transform.rotation = holdPoint.rotation * Quaternion.Euler(0f, 0f, 90f);
+        }
     }
 
     private void LegeObjektAbInZone(AblageZone zone)
@@ -60,7 +71,7 @@ public class GreiferTriggerHandler : MonoBehaviour
 
         gehaltenesObjekt.transform.SetParent(null);
         gehaltenesObjekt.transform.position = zielPunkt.position;
-        gehaltenesObjekt.transform.rotation = zielPunkt.rotation;
+        gehaltenesObjekt.transform.rotation = zielPunkt.rotation * Quaternion.Euler(90f, 0f, 0f);
 
         Rigidbody rb = gehaltenesObjekt.GetComponent<Rigidbody>();
         if (rb != null)
@@ -68,9 +79,15 @@ public class GreiferTriggerHandler : MonoBehaviour
             rb.isKinematic = true;
         }
 
-
+        Collider col = gehaltenesObjekt.GetComponent<Collider>();
+        if (col != null)
+        {
+            col.enabled = true;
+        }
 
         gehaltenesObjekt.tag = "Untagged";
+
+        zone.RegistriereAblage();
 
         gehaltenesObjekt = null;
 
