@@ -48,7 +48,9 @@ public class Schalter : MonoBehaviour
         Absicherung.SetActive(false);
         setTimer = true;
         Timer = 5f;
-      
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
+
     }
 
     public void OnButtonNo()
