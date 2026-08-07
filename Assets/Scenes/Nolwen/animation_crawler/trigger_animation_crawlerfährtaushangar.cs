@@ -140,12 +140,12 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     #region closedoors
     void closedoor01()
     {
-        door01triggerzone.SetActive(false);
+        door01triggerzone.GetComponent<BoxCollider>().enabled = false;       
     }
 
     void closedoor02()
     {
-        door02triggerzone.SetActive(false);
+        door02triggerzone.GetComponent<BoxCollider>().enabled = false;
     }
     #endregion
     #region videoplayer
