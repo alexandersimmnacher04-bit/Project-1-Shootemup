@@ -652,7 +652,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 27.2, y: 59.3}
+  m_AnchoredPosition: {x: 8.5, y: 82}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8526540
@@ -21330,7 +21330,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.4, y: 3.7}
+  m_AnchoredPosition: {x: 0, y: 40}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &407963345
@@ -25149,6 +25149,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1237012377}
+  - {fileID: 1233025160}
   - {fileID: 5964324672009218094}
   - {fileID: 8355745519505799138}
   - {fileID: 2624321300870067353}
@@ -25724,7 +25725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3.1, y: 60.1}
+  m_AnchoredPosition: {x: 8.6, y: 81.6}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &504980420
@@ -59832,6 +59833,59 @@ Transform:
   - {fileID: 1950188253}
   m_Father: {fileID: 1616289844}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1233025159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233025160}
+  - component: {fileID: 1233025161}
+  m_Layer: 0
+  m_Name: Schalterraycastbox
+  m_TagString: Interactable
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233025160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233025159}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -16.561, y: 6.153, z: 11.665}
+  m_LocalScale: {x: 52.614494, y: 52.614494, z: 52.614494}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 499192805}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1233025161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233025159}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.013166641, y: 0.019603144, z: 0.009618254}
+  m_Center: {x: 0.015548286, y: -0.024179664, z: -0.010646805}
 --- !u!1 &1234377972
 GameObject:
   m_ObjectHideFlags: 0
@@ -71052,7 +71106,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6, y: -40}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1457466074
@@ -78231,7 +78285,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1628871704
@@ -78278,13 +78332,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1937562190}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CloseMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -79465,7 +79519,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AblageZone
   snapPunkt: {fileID: 1088724686}
-  raeselSolved: 0
+  raetselSolved: 0
 --- !u!4 &1649171808
 Transform:
   m_ObjectHideFlags: 0
@@ -89753,7 +89807,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: ' Close Menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -89762,7 +89816,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281479730
   m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -89775,7 +89829,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -92419,9 +92473,11 @@ MonoBehaviour:
   firstPersonController: {fileID: 2831114941739712196}
   rocket: {fileID: 521714072}
   tank: {fileID: 591095457}
+  ablageZone: {fileID: 1649171807}
   Canvas: {fileID: 1343588488}
   Win: {fileID: 8526538}
   Lose: {fileID: 504862974}
+  buttonClose: {fileID: 1628871702}
 --- !u!4 &1937562191
 Transform:
   m_ObjectHideFlags: 0
@@ -111441,6 +111497,9 @@ MonoBehaviour:
   characterController: {fileID: 5190656397819598257}
   mainCamera: {fileID: 1907731036456777426}
   playerInputHandler: {fileID: 7142385591686667942}
+  canvas: {fileID: 1343588488}
+  buttonClose: {fileID: 1628871702}
+  canvasOn: 0
 --- !u!1 &2835588477289086940
 GameObject:
   m_ObjectHideFlags: 0
@@ -125159,7 +125218,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96dfc9f8891e29147be7a7aa16903cec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInputHandler
-  canvas: {fileID: 1343588488}
   firstPersonController: {fileID: 2831114941739712196}
   playerControls: {fileID: -944628639613478452, guid: cb880d97548f3e1498ef5c36f9a6a258, type: 3}
   robotControls: {fileID: -944628639613478452, guid: cb880d97548f3e1498ef5c36f9a6a258, type: 3}
@@ -126184,8 +126242,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.06987335, y: 0.02681809, z: 0.09733254}
-  m_Center: {x: 0.02773471, y: 0.013401682, z: 0.035122596}
+  m_Size: {x: 0.06987335, y: 0.03704825, z: 0.09733254}
+  m_Center: {x: 0.02773471, y: 0.018516762, z: 0.035122596}
 --- !u!114 &7345941305144079578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131041,8 +131099,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.00608853, y: 0.015911536, z: 0.022649912}
-  m_Center: {x: -0.047190167, y: 0.024915557, z: 0.038893018}
+  m_Size: {x: 0.011827742, y: 0.014899716, z: 0.031252615}
+  m_Center: {x: -0.046695698, y: 0.024409687, z: 0.034591682}
 --- !u!114 &8642692269712829017
 MonoBehaviour:
   m_ObjectHideFlags: 0
