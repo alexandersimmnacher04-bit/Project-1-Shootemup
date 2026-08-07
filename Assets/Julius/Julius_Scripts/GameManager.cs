@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
         Canvas.SetActive(true);
 
 
-
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
 
 
     }
