@@ -7,7 +7,7 @@ public class TitleManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void ExitGame()
+    public void ExitGame()  
     {
         Application.Quit();
     }
