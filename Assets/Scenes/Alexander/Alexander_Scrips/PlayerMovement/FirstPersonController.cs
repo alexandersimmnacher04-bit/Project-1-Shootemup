@@ -31,6 +31,7 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    [SerializeField] private GameManager gameManager;
 
     //currentMovement: Speichert die Bewegung in den Vector3 Koordinaten X,Y,Z. Wird  später an characterController.Move() übergeben.
     //verticalRotation: Speichert die vertikale Kamerarotation. Wird benutzt um die Kamera hoch/runter zu drehen.
@@ -87,7 +88,11 @@ public class FirstPersonController : MonoBehaviour
     {
         if (movementBlocked)
             return;
-
+        if (!gameManager.gameState)
+        {
+            ToggleCursor();
+            return;
+        }
         HandleMovement();
         HandleRotation();
     }
