@@ -106,7 +106,7 @@ public class FillUpTank : MonoBehaviour
         //if (finished) return;  
         if (isFilling)
         {
-            playSoundTankFill.PlayFillFuelSound();
+            //playSoundTankFill.PlayFillFuelSound();
             emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
