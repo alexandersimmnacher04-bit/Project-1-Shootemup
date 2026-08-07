@@ -4,11 +4,11 @@ public class AblageZone : MonoBehaviour
 {
     public Transform snapPunkt;
 
-    public bool raeselSolved = false;
+    public bool raetselSolved = false;
 
     public void RegistriereAblage()
     {
-        raeselSolved = true;
+        raetselSolved = true;
     }
 
 }
