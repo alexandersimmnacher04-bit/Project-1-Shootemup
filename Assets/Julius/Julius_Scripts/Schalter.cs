@@ -67,6 +67,8 @@ public class Schalter : MonoBehaviour
             Timer -= Time.deltaTime;
             if (Timer <= 0)
                 gameManager.Endgame();
+            firstPersonController.ToggleMovement();
+            firstPersonController.ToggleCursor();
         }
         
     }
