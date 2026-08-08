@@ -1,9 +1,12 @@
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
+//-----------------------------------------------------------------------
 
+    #region Deklaration  und SerializeField
     // Ich lade erst alle Gameobjects rein. Ist eigentlich egal ob public oder private. Hab einfach private genommen, das klingt cool und geheim.
 
 
@@ -17,14 +20,18 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     [SerializeField] private GameObject door02triggerzone;
     [SerializeField] private GameObject screenshape;
 
-    // Variablen deklaration für die Animation (Steuert den Animatinosspeed)
+    // Variablen deklaration für die Animation
     private float animationtor = 0f;
     private float animationcrawler = 0f;
+    private bool doorisopen = false;
+    private bool crawlerisoutofhangar= false;
+    private bool playvideoscreen = false;
 
+    #endregion
 
+//-----------------------------------------------------------------------
 
-
-    // Die Start Methode ist der Trigger durch den Button an der Console.
+// Die Start Methode ist der Trigger durch den Button an der Console.
     private void Start()
     {
 
@@ -36,34 +43,65 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         turngreenlightoff();
         turnredlighton();
 
-        // Das Tor öffnet sich.            
-        hangartor_animationopen();
-
-        // Nach einer Zeit fährt der Crawler aus dem Hangar. 
-        crawler_animation();
-
-        // Wenn der Crawler aus dem Hangar gefahren ist. Geht das Tor wieder zu. 
-        //hangartor_animationclose();
-
-        // Das Licht wechselt von rot auf grün, wenn das Hangar Tor geschlossen ist.
-        //turnredlightoff();
-        //turngreenlighton();
-
-        // Und dann wenn das Licht grün ist, schaltet der Fernseher sich ein und spielt die jeweilige Animation ab. 
-        //entweder:
-        videosuccessanimationstart();
-
-        //oder:
-        //videofailanimationstart();
 
     }
 
-    // Die Update Funktion ist nur zum testen.
+// Die Update Funktion ruft die Methoden nach timing auf. 
     private void Update()
     {
-        crawler_animation();
-    }
+        if (animationtor <= 0.015f)
+        {
+            hangartor_animationopen();
+            
 
+            if (animationtor >= 0.015f)
+            {
+                doorisopen = true;
+            }
+        }
+        
+
+        if (animationcrawler <= 0.05f && doorisopen == true)
+        {
+            crawler_animation();
+            
+            if (animationcrawler >= 0.038f)
+            {
+                crawlerisoutofhangar = true;
+                
+                
+            }
+        }
+
+        if (animationtor <= 0.0213f && crawlerisoutofhangar == true)
+            {
+                hangartor_animationclose();
+            
+
+                if (animationtor >= 0.0213f)
+                {
+                    playvideoscreen = true;
+                
+                    
+                }
+            }
+
+            if (playvideoscreen == true)
+            {
+                videosuccessanimationstart();
+                playvideoscreen = false;
+            }   
+
+            // Methoden aufruf für fail animation fehlt
+
+
+            
+        
+
+
+    }
+//-----------------------------------------------------------------------
+// Die Methoden
 
     #region Methoden Animation
     // Diese Methode startet und führt die Animation für den Crawler aus
@@ -80,34 +118,17 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     // Diese Methode startet und führt die Animation für das Hangar Tor aus.
     void hangartor_animationopen()
     {
-         //11.72
-        
-            animationtor = animationtor + 0.1f;
+            animationtor = animationtor + 0.00001f;
 
             torinput.transform.position += new Vector3(0f, animationtor, 0f);
 
-            Debug.Log(animationcrawler);
-
-            
-        
     }
 
     void hangartor_animationclose()
     {
-        animationtor = 11.72f;
+            animationtor = animationtor + 0.00001f;
 
-         //11.72
-        
-            animationtor = animationtor - 0.00001f;
-
-            torinput.transform.position += new Vector3(0f, animationtor, 0f);
-
-            Debug.Log("Ja geht");
-
-        
-
-
-
+            torinput.transform.position -= new Vector3(0f, animationtor, 0f);
 
     }
 
@@ -163,8 +184,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         // Index 1 ist der zweite Video Player, das ist die fail aniation deshalb false
         // Beide Index müssen aufgelistet sein, damit es funktioniert. 
         VideoPlayer[] animations = screenshape.GetComponents<VideoPlayer>();
-        animations[0].enabled = true;
-        animations[1].enabled = false;
+        animations[0].Play();
+        animations[1].Play();
 
 
     }
@@ -175,8 +196,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         // Index 1 ist der zweite Video Player, das ist die fail aniation deshalb true
         // Beide Index müssen aufgelistet sein, damit es funktioniert. 
         VideoPlayer[] animations = screenshape.GetComponents<VideoPlayer>();
-        animations[0].enabled = false;
-        animations[1].enabled = true;
+        animations[0].Play();
+        animations[1].Play();
 
 
     }
