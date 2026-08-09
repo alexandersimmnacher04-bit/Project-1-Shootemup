@@ -23595,6 +23595,7 @@ MonoBehaviour:
   greenlight01: {fileID: 1561227727}
   torinput: {fileID: 361920933}
   crawlerinput: {fileID: 521714073}
+  abdeckungtraeger: {fileID: 7091549196631033937}
   door01triggerzone: {fileID: 295153643}
   door02triggerzone: {fileID: 351932357}
   screenshape: {fileID: 2167925208114048488}
@@ -123745,7 +123746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &7095351663580785632
 GameObject:
   m_ObjectHideFlags: 0
