@@ -16,6 +16,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     [SerializeField] private GameObject greenlight01;
     [SerializeField] private Transform torinput;
     [SerializeField] private Transform crawlerinput;
+    [SerializeField] private GameObject abdeckungtraeger;
     [SerializeField] private GameObject door01triggerzone;
     [SerializeField] private GameObject door02triggerzone;
     [SerializeField] private GameObject screenshape;
@@ -43,6 +44,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         turngreenlightoff();
         turnredlighton();
 
+        // Der Trägerbereich für den Satelliten wird zugedeckt. 
+        abdeckungtraegervisible();
 
     }
 
@@ -201,5 +204,12 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 
 
     }
-    #endregion 
+    #endregion
+    #region weitere...
+    void abdeckungtraegervisible()
+    {
+        abdeckungtraeger.SetActive(true);
+    }
+
+    #endregion
 }
