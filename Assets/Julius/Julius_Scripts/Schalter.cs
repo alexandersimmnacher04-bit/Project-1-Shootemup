@@ -13,8 +13,7 @@ public class Schalter : MonoBehaviour
     private float Timer;
     private bool buttonOn = true;
     private bool setTimer;
-    public PlaySoundButton PlaySoundButton;
-    public Play_Sound_Display Play_Sound_Display;
+   
 
     private void Click()
     {
@@ -26,7 +25,6 @@ public class Schalter : MonoBehaviour
             {
                 if (buttonOn == true)
                 {
-                    PlaySoundButton.PlaySound();
                     Debug.Log("click");
                     buttonOn = false;
                     AreyouSure();
@@ -50,7 +48,9 @@ public class Schalter : MonoBehaviour
         Absicherung.SetActive(false);
         setTimer = true;
         Timer = 5f;
-      Play_Sound_Display.PlayDisplaySound();  
+        //firstPersonController.ToggleMovement();
+        //firstPersonController.ToggleCursor();
+
     }
 
     public void OnButtonNo()

@@ -10,9 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private GameObject rocket;
     [SerializeField] private FillUpTank tank;
+    [SerializeField] private AblageZone ablageZone;
     [SerializeField] private GameObject Canvas;
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
+    [SerializeField] private GameObject buttonClose;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -38,8 +40,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void Endgame()
-    {
-        if (tank.tankSolved == true /*&&*/)
+    {    
+        
+        if (tank.tankSolved == true && ablageZone.raetselSolved)
         {
             Win.SetActive(true);
         }
@@ -51,9 +54,6 @@ public class GameManager : MonoBehaviour
         Canvas.SetActive(true);
 
 
-
-
-
     }
     public void OpenTitle()
     {
@@ -62,6 +62,10 @@ public class GameManager : MonoBehaviour
 
     public void CloseMenu()
     {
-        Canvas.SetActive(false);
+        firstPersonController.ToggleCanvas();
+        buttonClose.SetActive(false);
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
+        
     }
 }
