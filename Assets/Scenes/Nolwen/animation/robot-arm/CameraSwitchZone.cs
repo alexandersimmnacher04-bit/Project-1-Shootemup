@@ -9,6 +9,7 @@ public class CameraSwitchZone : MonoBehaviour
     [SerializeField] private FirstPersonController playerController;
     [SerializeField] private PlayerInputHandler inputHandler;
 
+
     private bool playerInside = false;
     private bool roboterInside = false;
 
