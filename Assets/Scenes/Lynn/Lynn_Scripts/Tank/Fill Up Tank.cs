@@ -24,7 +24,7 @@ public class FillUpTank : MonoBehaviour
     private float currentTank = 0f;
     private int fillCount;
     private int emptyCount;
-    private bool isFilling = false;
+    public bool isFilling = false;
     private bool emptyTank = false;
     //private bool finished = false;
     public bool tankSolved { get; private set; }
@@ -106,7 +106,7 @@ public class FillUpTank : MonoBehaviour
         //if (finished) return;  
         if (isFilling)
         {
-            playSoundTankFill.PlayFillFuelSound();
+            //playSoundTankFill.PlayFillFuelSound();
             emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
