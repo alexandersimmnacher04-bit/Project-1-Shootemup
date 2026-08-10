@@ -4,7 +4,7 @@ using UnityEngine.Video;
 
 public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
-//-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 
     #region Deklaration  und SerializeField
     // Ich lade erst alle Gameobjects rein. Ist eigentlich egal ob public oder private. Hab einfach private genommen, das klingt cool und geheim.
