@@ -18,6 +18,7 @@ public class Schalter : MonoBehaviour
     public Play_Sound_Display Play_Sound_Display;
     public GameObject Lampe1;
     public GameObject Lampe2;
+    public GameObject Lampe3;
 
 
     private void Click()
@@ -62,7 +63,8 @@ public class Schalter : MonoBehaviour
         firstPersonController.ToggleCursor();
         Console.GetComponent<BoxCollider>().enabled = false;
         Lampe1.SetActive(false);
-        Lampe2.SetActive(false);       
+        Lampe2.SetActive(false);
+        Lampe3.SetActive(false);
 
 
     }

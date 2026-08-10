@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Play_Sound_Display play_Sound_Display;
     [SerializeField] private GameObject Lampe1;
     [SerializeField] private GameObject Lampe2;
+    [SerializeField] private GameObject Lampe3;
     private float Timer = 47;
     private bool setTimer = false;
     
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour
                     animationmanager.turngreenlighton();
                     Lampe1.SetActive(true);
                     Lampe2.SetActive(true);
+                    Lampe3.SetActive(true);
                 }
                 else
                 {
