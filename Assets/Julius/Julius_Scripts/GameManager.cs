@@ -46,7 +46,9 @@ public class GameManager : MonoBehaviour
 
             if (Timer <= 0)
             {
-                if (tank.tankSolved == true && ablageZone.raetselSolved)
+                
+
+                if (tank.tankSolved == true && ablageZone.raetselSolved == true)
                 {
                     Win.SetActive(true);
                     animationmanager.turnredlightoff();
@@ -54,12 +56,16 @@ public class GameManager : MonoBehaviour
                     Lampe1.SetActive(true);
                     Lampe2.SetActive(true);
                     Lampe3.SetActive(true);
+                    
+                    
                 }
                 else
                 {
                     Lose.SetActive(true);
+                   
                 }
 
+                
                 gameState = false;
                 Canvas.SetActive(true);
                 buttonUi.SetActive(true);
