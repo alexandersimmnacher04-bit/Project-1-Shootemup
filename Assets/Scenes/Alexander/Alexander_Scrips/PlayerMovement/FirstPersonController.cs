@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 
 public class FirstPersonController : MonoBehaviour
@@ -34,6 +35,8 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private PlayerInputHandler playerInputHandler;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject buttonClose;
+    [SerializeField] GameManager gameManager;
+    public GameObject Background;
    
 
 
@@ -97,6 +100,14 @@ public class FirstPersonController : MonoBehaviour
        
         HandleMovement();
         HandleRotation();
+
+        if (!gameManager.gameState)
+        {
+            walkSpeed = 0;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            movementBlocked = true;  
+        }
 
         if (playerInputHandler.EscapeTriggered)
         {
@@ -194,11 +205,13 @@ public class FirstPersonController : MonoBehaviour
         {
             canvas.SetActive(true);
             buttonClose.SetActive(true);
+            Background.SetActive(true);
         }
         else
         {
             canvas.SetActive(false);
             buttonClose.SetActive(false);
+            Background.SetActive(false);
         }
     }
 }
