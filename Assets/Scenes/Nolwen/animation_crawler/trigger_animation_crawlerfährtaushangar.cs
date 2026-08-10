@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Resources;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -24,6 +25,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     [SerializeField] private GameObject screenshape;
     [SerializeField] private GameManager gamemanager;
     [SerializeField] private Schalter schalter;
+    [SerializeField] private GameObject Satellit;
 
     // Variablen deklaration für die Animation
     private float animationtor = 0f;
@@ -44,6 +46,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 
         turnredlightoff();
         turngreenlighton();
+       
 
         
 
@@ -63,6 +66,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
                 if (animationtor >= 0.015f)
                 {
                     doorisopen = true;
+                    satellitoff();
                 }
             }
            
@@ -221,5 +225,9 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         abdeckungtraeger.SetActive(true);
     }
 
+   void satellitoff()
+    {
+        Satellit.SetActive(false);
+    }
     #endregion
 }
