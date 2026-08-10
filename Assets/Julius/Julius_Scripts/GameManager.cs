@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class GameManager : MonoBehaviour
 {
@@ -15,6 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Win;
     [SerializeField] private GameObject Lose;
     [SerializeField] private GameObject buttonClose;
+    [SerializeField] private trigger_animation_crawlerfährtaushangar animationmanager;
+    [SerializeField] private GameObject buttonUi;
+    [SerializeField] private Play_Sound_Display play_Sound_Display;
+    [SerializeField] private GameObject Lampe1;
+    [SerializeField] private GameObject Lampe2;
+    private float Timer = 47;
+    private bool setTimer = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
@@ -31,6 +39,31 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        if (setTimer)
+        {
+            Timer -= Time.deltaTime;
+
+            if (Timer <= 0)
+            {
+                if (tank.tankSolved == true && ablageZone.raetselSolved)
+                {
+                    Win.SetActive(true);
+                    animationmanager.turnredlightoff();
+                    animationmanager.turngreenlighton();
+                    Lampe1.SetActive(true);
+                    Lampe2.SetActive(true);
+                }
+                else
+                {
+                    Lose.SetActive(true);
+                }
+
+                gameState = false;
+                Canvas.SetActive(true);
+                buttonUi.SetActive(true);
+
+            }
+        }
 
     }
 
@@ -40,18 +73,22 @@ public class GameManager : MonoBehaviour
     }
 
     public void Endgame()
-    {    
-        
+    {
+        play_Sound_Display.PlayDisplaySound();
+        setTimer = true;
         if (tank.tankSolved == true && ablageZone.raetselSolved)
         {
-            Win.SetActive(true);
+            Timer = 44f;
+            animationmanager.videosuccessanimationstart();
         }
         else
         {
-            Lose.SetActive(true);
+           
+            animationmanager.videofailanimationstart();
+
         }
-        gameState = false;
-        Canvas.SetActive(true);
+        
+       
 
 
     }

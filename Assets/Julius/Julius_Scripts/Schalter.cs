@@ -9,12 +9,15 @@ public class Schalter : MonoBehaviour
     [SerializeField] private GameObject Absicherung;
     [SerializeField] private FirstPersonController firstPersonController;
     [SerializeField] private Camera Playercamera;
+    [SerializeField] private trigger_animation_crawlerfährtaushangar Animationmanager;
+    [SerializeField] private GameObject Console;
     public OpenTank openTank;
-    private float Timer;
     private bool buttonOn = true;
-    private bool setTimer;
+    public bool animationOn { get; private set; } = false;
     public PlaySoundButton PlaySoundButton;
     public Play_Sound_Display Play_Sound_Display;
+    public GameObject Lampe1;
+    public GameObject Lampe2;
 
 
     private void Click()
@@ -27,7 +30,7 @@ public class Schalter : MonoBehaviour
             {
                 if (buttonOn == true)
                 {
-                    PlaySoundButton.PlaySound();
+                    //PlaySoundButton.PlaySound();
                     Debug.Log("click");
                     buttonOn = false;
                     AreyouSure();
@@ -49,11 +52,18 @@ public class Schalter : MonoBehaviour
     public void OnButtonYes()
     {
         Absicherung.SetActive(false);
-        setTimer = true;
-        Timer = 5f;
-        Play_Sound_Display.PlayDisplaySound();
-        //firstPersonController.ToggleMovement();
-        //firstPersonController.ToggleCursor();
+        PlaySoundButton.PlaySound();
+        animationOn = true;
+        Animationmanager.closedoor01();
+        Animationmanager.closedoor02();
+        Animationmanager.turnredlighton();
+        Animationmanager.turngreenlightoff();
+        firstPersonController.ToggleMovement();
+        firstPersonController.ToggleCursor();
+        Console.GetComponent<BoxCollider>().enabled = false;
+        Lampe1.SetActive(false);
+        Lampe2.SetActive(false);       
+
 
     }
 
@@ -64,24 +74,7 @@ public class Schalter : MonoBehaviour
         firstPersonController.ToggleMovement();
         firstPersonController.ToggleCursor();
     }
-    private void Update()
-    {
-        if (setTimer)
-        {
-            Timer -= Time.deltaTime;
-            if (Timer <= 0)
-                gameManager.Endgame();
-        }
-        
-    }
+    
 
-    //private void Checkgame()
-    //{
-    //    if (tank.tankSolved == true)
-    //    {
-
-    //        gameManager.Wingame();
-    //    }
-    //   else gameManager.Losegame();
-    //}
+    
 }

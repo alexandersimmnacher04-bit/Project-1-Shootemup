@@ -20,6 +20,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     [SerializeField] private GameObject door01triggerzone;
     [SerializeField] private GameObject door02triggerzone;
     [SerializeField] private GameObject screenshape;
+    [SerializeField] private GameManager gamemanager;
+    [SerializeField] private Schalter schalter;
 
     // Variablen deklaration für die Animation
     private float animationtor = 0f;
@@ -36,31 +38,30 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     private void Start()
     {
 
-        // Die Türen werden geschlossen
-        closedoor01();
-        closedoor02();
+        turnredlightoff();
+        turngreenlighton();
 
-        // Das Licht ändert sich von grün in rot. 
-        turngreenlightoff();
-        turnredlighton();
-
-        // Der Trägerbereich für den Satelliten wird zugedeckt. 
-        abdeckungtraegervisible();
+        
 
     }
 
 // Die Update Funktion ruft die Methoden nach timing auf. 
     private void Update()
     {
-        if (animationtor <= 0.015f)
+        if (schalter.animationOn)
         {
-            hangartor_animationopen();
-            
-
-            if (animationtor >= 0.015f)
+            abdeckungtraegervisible(); 
+            if (animationtor <= 0.015f)
             {
-                doorisopen = true;
+                hangartor_animationopen();
+
+
+                if (animationtor >= 0.015f)
+                {
+                    doorisopen = true;
+                }
             }
+           
         }
         
 
@@ -91,8 +92,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 
             if (playvideoscreen == true)
             {
-                videosuccessanimationstart();
-                playvideoscreen = false;
+               gamemanager.Endgame();
+               playvideoscreen = false;
             }   
 
             // Methoden aufruf für fail animation fehlt
@@ -139,7 +140,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     #endregion
     #region lights
     // Diese Methode schaltet das rote Industrielicht an. 
-    void turnredlighton()
+   public void turnredlighton()
     {
         redlight.SetActive(true);
         redlight01.SetActive(true);
@@ -147,59 +148,58 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     }
 
     // Diese Methode schaltet das rote Industrielicht aus.
-    void turnredlightoff()
+   public void turnredlightoff()
     {
         redlight.SetActive(false);
         redlight01.SetActive(false);
     }
 
     // Diese Methode schaltet das grüne Industrielicht an.
-    void turngreenlighton()
+   public void turngreenlighton()
     {
         greenlight.SetActive(true);
         greenlight01.SetActive(true);
     }
 
     //´Diese Methode schaltet das grüne Industrielicht aus. 
-    void turngreenlightoff()
-    {
+  public void turngreenlightoff()
+  {
         greenlight.SetActive(false);
         greenlight01.SetActive(false);
 
-    }
+  }
     #endregion
     #region closedoors
-    void closedoor01()
+     public void closedoor01()
     {
         door01triggerzone.GetComponent<BoxCollider>().enabled = false;
     }
 
-    void closedoor02()
+   public void closedoor02()
     {
         door02triggerzone.GetComponent<BoxCollider>().enabled = false;
     }
     #endregion
     #region videoplayer
 
-    void videosuccessanimationstart() 
+   public void videosuccessanimationstart() 
     {
         //Index 0 ist der erste Video Player, das ist die succes animation deshalb true 
         // Index 1 ist der zweite Video Player, das ist die fail aniation deshalb false
         // Beide Index müssen aufgelistet sein, damit es funktioniert. 
         VideoPlayer[] animations = screenshape.GetComponents<VideoPlayer>();
         animations[0].Play();
-        animations[1].Play();
+
 
 
     }
 
-    void videofailanimationstart()
+    public void videofailanimationstart()
     {
         //Index 0 ist der erste Video Player, das ist die succes animation deshalb false
         // Index 1 ist der zweite Video Player, das ist die fail aniation deshalb true
         // Beide Index müssen aufgelistet sein, damit es funktioniert. 
         VideoPlayer[] animations = screenshape.GetComponents<VideoPlayer>();
-        animations[0].Play();
         animations[1].Play();
 
 
