@@ -4,7 +4,6 @@ using UnityEngine.Video;
 
 public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
-    public Crawler_Play_Sound crawlerPlaySound;
     //-----------------------------------------------------------------------
 
     #region Deklaration  und SerializeField
@@ -55,7 +54,6 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     {
         if (schalter.animationOn)
         {
-            crawlerPlaySound.PlaySoundCrawler();
             abdeckungtraegervisible(); 
             if (animationtor <= 0.015f)
             {
