@@ -19,6 +19,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     [SerializeField] private GameObject abdeckungtraeger;
     [SerializeField] private GameObject door01triggerzone;
     [SerializeField] private GameObject door02triggerzone;
+    [SerializeField] private Transform door01pivotvorne;
+    [SerializeField] private Transform door02pivothinten;
     [SerializeField] private GameObject screenshape;
     [SerializeField] private GameManager gamemanager;
     [SerializeField] private Schalter schalter;
@@ -29,6 +31,8 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     private bool doorisopen = false;
     private bool crawlerisoutofhangar= false;
     private bool playvideoscreen = false;
+    private float doorclosepos01 = -90f;
+    private float doorclosepos02 = 90f;
 
     #endregion
 
@@ -172,13 +176,19 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     #region closedoors
      public void closedoor01()
     {
+        
         door01triggerzone.GetComponent<BoxCollider>().enabled = false;
+        door01pivotvorne.transform.eulerAngles = new Vector3(0f, doorclosepos01, 0f);
+
     }
 
    public void closedoor02()
     {
         door02triggerzone.GetComponent<BoxCollider>().enabled = false;
+        door02pivothinten.transform.eulerAngles = new Vector3(0f, doorclosepos02, 0f);
     }
+
+    
     #endregion
     #region videoplayer
 
