@@ -1,10 +1,12 @@
 using System.Diagnostics;
 using System.Resources;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
+    public Crawler_Play_Sound playSoundcrawler;
     //-----------------------------------------------------------------------
 
     #region Deklaration  und SerializeField
@@ -30,11 +32,12 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     // Variablen deklaration für die Animation
     private float animationtor = 0f;
     private float animationcrawler = 0f;
-    private bool doorisopen = false;
+    public bool doorisopen = false;
     private bool crawlerisoutofhangar= false;
     private bool playvideoscreen = false;
     private float doorclosepos01 = -90f;
     private float doorclosepos02 = 90f;
+    private bool playsoundcrawler = false;
 
     #endregion
 
@@ -66,6 +69,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
                 if (animationtor >= 0.015f)
                 {
                     doorisopen = true;
+                    playsoundcrawler = true;
                     satellitoff();
                 }
             }
@@ -75,8 +79,15 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 
         if (animationcrawler <= 0.05f && doorisopen == true)
         {
+            if (playsoundcrawler == true)
+            {
+                playSoundcrawler.PlaySoundCrawler();
+                print("Crawler sound played.");
+                playsoundcrawler = false;
+            }
             crawler_animation();
             
+           
             if (animationcrawler >= 0.038f)
             {
                 crawlerisoutofhangar = true;
