@@ -133,7 +133,7 @@ public class FillUpTank : MonoBehaviour
             if (currentTank > maxTank + graceAmount)
             {
                 tankSolved = false;
-                lamp.Colorchange();
+               
             }
         }
         else emptyButton.SetActive(true);
@@ -177,6 +177,7 @@ public class FillUpTank : MonoBehaviour
             errorTimer -= 1f* Time.deltaTime;
             if (errorTimer <= 0)
             {
+                errorTimer = 0;
                 ToggleError();
                 sliderImage.SetActive(false);
             }

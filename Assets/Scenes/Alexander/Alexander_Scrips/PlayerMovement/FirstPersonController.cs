@@ -33,11 +33,13 @@ public class FirstPersonController : MonoBehaviour
     [SerializeField] private CharacterController characterController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private PlayerInputHandler playerInputHandler;
+    [SerializeField] private InteractionZone interactZone;
     [SerializeField] GameObject canvas;
     [SerializeField] GameObject buttonClose;
     [SerializeField] GameManager gameManager;
     public GameObject Background;
    
+
 
 
     //currentMovement: Speichert die Bewegung in den Vector3 Koordinaten X,Y,Z. Wird  später an characterController.Move() übergeben.
@@ -114,6 +116,7 @@ public class FirstPersonController : MonoBehaviour
             ToggleCanvas();
             ToggleMovement();
             ToggleCursor();
+            windowOn = true;
 
         }
     }
@@ -198,17 +201,20 @@ public class FirstPersonController : MonoBehaviour
         ApplyHorizontalRotation(mouseXRotation);
         ApplyVerticalRotation(mouseYRotation);
     }
+    public bool windowOn { get; private set; } = false;
      public void ToggleCanvas()
      {
         canvasOn = !canvasOn;
         if (canvasOn)
         {
+            windowOn = true;
             canvas.SetActive(true);
             buttonClose.SetActive(true);
             Background.SetActive(true);
         }
         else
         {
+             windowOn = false;
             canvas.SetActive(false);
             buttonClose.SetActive(false);
             Background.SetActive(false);
