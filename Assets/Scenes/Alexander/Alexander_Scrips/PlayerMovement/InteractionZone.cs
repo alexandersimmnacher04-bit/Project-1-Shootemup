@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class InteractionZone : MonoBehaviour
@@ -18,20 +19,26 @@ public class InteractionZone : MonoBehaviour
     public Camera Playercamera;
     public FirstPersonController firstPersonController;
     public bool inTriggerzone { get; private set; } = false;
+
   
     
    
     private void OnTriggerEnter(Collider other)
     {  
          inTriggerzone = true;
+        
             if (other.CompareTag("Player"))
-            {  
-                Debug.Log("Test");
+            {
+               
+
+                    Debug.Log("Test");
                 var handle = other.GetComponentInChildren<PlayerInputHandler>();
                 if (handle != null)
                     handle.SetCurrentZone(this);
 
+
             }
+        
          
             //Material Outline = GetComponent<Renderer>().material;
             //Outline.SetColor("_EmissionColor", Color.red * intensity);
@@ -56,14 +63,22 @@ public class InteractionZone : MonoBehaviour
 
     public void TriggerPrimary()
     {
-        if (primaryScript != null && !string.IsNullOrEmpty(primaryMethode))
-            primaryScript.Invoke(primaryMethode, 0f);
+        if (!firstPersonController.windowOn)
+        {
+            if (primaryScript != null && !string.IsNullOrEmpty(primaryMethode))
+                primaryScript.Invoke(primaryMethode, 0f);
+        }
     }
 
     public void TriggerSecondary()
     {
-        if (secondaryScript != null && !string.IsNullOrEmpty(secondaryMethode))
-            secondaryScript.Invoke(secondaryMethode, 0f);
+        if (!firstPersonController.windowOn)
+        {
+
+
+            if (secondaryScript != null && !string.IsNullOrEmpty(secondaryMethode))
+                secondaryScript.Invoke(secondaryMethode, 0f);
+        }
     }
 
     private void Update()
