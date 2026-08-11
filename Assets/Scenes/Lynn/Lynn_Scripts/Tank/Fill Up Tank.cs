@@ -25,7 +25,8 @@ public class FillUpTank : MonoBehaviour
     private int emptyCount;
     public bool isFilling = false;
     private bool emptyTank = false;
-    //private bool finished = false;
+    private bool errorOn = false;
+   [SerializeField] private float errorTimer = 3f;
     public bool tankSolved { get; private set; }
     [Header("Objects and Scripts")]
     public Slider tankSlider;
@@ -34,18 +35,22 @@ public class FillUpTank : MonoBehaviour
     public GameObject fillButton;
     public Lamp lamp;
     public Play_Sound_Tank_Fill playSoundTankFill;
+    public GameObject error;
+    public GameObject sliderImage;
 
 
     private void Start()
     {
         fillCount = 0;
         emptyCount = 0;
+        errorTimer = 3f;
         tankSolved = false;
-        currentTank = Random.Range(20, 70);
+        currentTank = Random.Range(20, 40);
         tankSlider.minValue = 0;
         tankSlider.maxValue = maxTank + graceAmount;
         tankSlider.value = currentTank;
         Debug.Log("Current tank amount: " + currentTank);
+
     }
 
     public void Fillstart()
@@ -54,6 +59,7 @@ public class FillUpTank : MonoBehaviour
        
         Debug.Log("Hallo");
         fillCount++;
+        Debug.Log(fillCount);
        
 
     }
@@ -65,7 +71,7 @@ public class FillUpTank : MonoBehaviour
         if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
         {
             tankSolved = true;
-            // Win();
+            
         }
         else tankSolved = false;
 
@@ -160,7 +166,34 @@ public class FillUpTank : MonoBehaviour
         if (!openTank.Taskactive)
         {
             fillCount = 0;
-           emptyCount = 0;
+            emptyCount = 0;
+        }
+
+        if (fillCount == 1 || emptyCount == 1)
+        {
+            errorTimer -= 1f* Time.deltaTime;
+            if (errorTimer <= 0)
+            {
+                ToggleError();
+                sliderImage.SetActive(false);
+            }
+
+        }
+        Debug.Log(errorTimer);
+    }
+
+   private void ToggleError()
+    { 
+        errorOn = !errorOn;
+
+        if (errorOn) 
+        
+        {
+            error.SetActive(true); 
+        }
+        else 
+        { 
+            error.SetActive(false); 
         }
     }
     //void Win()
