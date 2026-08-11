@@ -37,6 +37,9 @@ public class FillUpTank : MonoBehaviour
     public Play_Sound_Tank_Fill playSoundTankFill;
     public GameObject error;
     public GameObject sliderImage;
+   [SerializeField] public GameObject redLight;
+   [SerializeField] public GameObject greenLight;
+   [SerializeField] public GameObject yellowLight;
 
 
     private void Start()
@@ -194,6 +197,28 @@ public class FillUpTank : MonoBehaviour
         else 
         { 
             error.SetActive(false); 
+        }
+    }
+
+    private void LampChangeColor()
+    {
+        if (currentTank > maxTank + graceAmount)
+        {
+            greenLight.SetActive(false);
+            yellowLight.SetActive(true);
+            redLight.SetActive(false);
+        }
+        else if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
+        {
+            greenLight.SetActive(true);
+            yellowLight.SetActive(false);
+            redLight.SetActive(false);
+        }
+        else if (currentTank > maxTank + graceAmount)
+        {
+            greenLight.SetActive(false);
+            yellowLight.SetActive(false);
+            redLight.SetActive(true);
         }
     }
     //void Win()
