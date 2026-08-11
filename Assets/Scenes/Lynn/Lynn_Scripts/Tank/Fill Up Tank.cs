@@ -202,7 +202,7 @@ public class FillUpTank : MonoBehaviour
 
     private void LampChangeColor()
     {
-        if (currentTank > maxTank + graceAmount)
+        if (currentTank < maxTank)
         {
             greenLight.SetActive(false);
             yellowLight.SetActive(true);
