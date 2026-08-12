@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject Lampe1;
     [SerializeField] private GameObject Lampe2;
     [SerializeField] private GameObject Lampe3;
+    [SerializeField] private GameObject restartButton;
+    [SerializeField] private GameObject jobInst;
+    [SerializeField] private PlaySoundButton buttonSound;
     private float Timer = 47;
     private bool setTimer = false;
     
@@ -30,6 +33,10 @@ public class GameManager : MonoBehaviour
     {
         gameState = true;
         rocket.SetActive(true);
+        jobInst.SetActive(true);
+        firstPersonController.ToggleCursor();
+        firstPersonController.ToggleMovement();
+       
 
     }
 
@@ -69,6 +76,7 @@ public class GameManager : MonoBehaviour
                 gameState = false;
                 Canvas.SetActive(true);
                 buttonUi.SetActive(true);
+                restartButton.SetActive(false);
 
             }
         }
@@ -112,5 +120,13 @@ public class GameManager : MonoBehaviour
         firstPersonController.ToggleMovement();
         firstPersonController.ToggleCursor();
         
+    }
+    public void CloseJobInst()
+    {
+        buttonSound.PlaySound();
+        jobInst.SetActive(false);
+        firstPersonController.ToggleCursor();
+        firstPersonController.ToggleMovement();
+
     }
 }

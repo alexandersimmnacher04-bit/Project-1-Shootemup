@@ -86,11 +86,11 @@ public class FirstPersonController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     //Cursor.lockState = CursorLockMode.Locked: Der Mauszeiger wird in der Bildschrimmitte fixiert
     //Cursor.visible = false: Der Mauszeiger wird unsichtbar.
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    //void Start()
+    //{
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+    //}
 
     // Update is called once per frame.
     //HandleMovement(): Ruft die Methode HandleMovement, jeden Frame.
