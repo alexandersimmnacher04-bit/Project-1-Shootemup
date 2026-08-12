@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
+using UnityEditor.Experimental.GraphView;
 
 //making puzzle where player fills up tank when holding mouse button down
 //maxtank capacity int = 100, current tank amount random between 0 and 100
@@ -18,7 +19,7 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float fillRate = 5f;
     [SerializeField] private float maxTank = 100f;
     [SerializeField] private float graceAmount = 5f;
-    [SerializeField] private float threshHold = 110f;
+    [SerializeField] private float threshHold = 120f;
     [SerializeField] private float emptyRate = 10f;
     private float currentTank = 0f;
     private int fillCount;
@@ -33,7 +34,6 @@ public class FillUpTank : MonoBehaviour
     public OpenTank openTank;
     public GameObject emptyButton;
     public GameObject fillButton;
-    public Lamp lamp;
     public Play_Sound_Tank_Fill playSoundTankFill;
     public GameObject error;
     public GameObject sliderImage;
@@ -48,7 +48,7 @@ public class FillUpTank : MonoBehaviour
         emptyCount = 0;
         errorTimer = 3f;
         tankSolved = false;
-        currentTank = Random.Range(20, 40);
+        currentTank = Random.Range(20, 50);
         tankSlider.minValue = 0;
         tankSlider.maxValue = maxTank + graceAmount;
         tankSlider.value = currentTank;
@@ -60,7 +60,7 @@ public class FillUpTank : MonoBehaviour
     {
 
        
-        Debug.Log("Hallo");
+        
         fillCount++;
         Debug.Log(fillCount);
        
@@ -96,14 +96,11 @@ public class FillUpTank : MonoBehaviour
             fillButton.SetActive(false);
             currentTank -= emptyRate * Time.deltaTime;
             tankSlider.value = currentTank;
-            if (currentTank > 0)
-            {
-                Debug.Log(currentTank);
-            }
-            else if (currentTank <= 0)
+
+            if (currentTank <= 0)
             {
                 currentTank = 0;
-                Debug.Log(currentTank);
+                
             }
         }
         else fillButton.SetActive(true);
@@ -111,23 +108,17 @@ public class FillUpTank : MonoBehaviour
 
     private void Fill()
     {
-        //if (finished) return;  
+         
         if (isFilling)
         {
-            //playSoundTankFill.PlayFillFuelSound();
+           
             emptyButton.SetActive(false);
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
-            if (currentTank < threshHold)
-            {
-                Debug.Log(currentTank);
-            }
-            else if (currentTank >= threshHold)
+             if (currentTank >= threshHold)
             {
                 currentTank = threshHold;
-                Debug.Log(currentTank);
-
-
+               
             }
 
             if (currentTank > maxTank + graceAmount)
@@ -162,6 +153,7 @@ public class FillUpTank : MonoBehaviour
     }
     private void Update()
     {
+        
         Fill();
         Empty();
         ButtonStop();
@@ -183,7 +175,12 @@ public class FillUpTank : MonoBehaviour
             }
 
         }
-        Debug.Log(errorTimer);
+        LampChangeColor();
+
+        if (fillCount % 2 == 0 && openTank.Taskactive)
+        {
+            playSoundTankFill.PlayFillFuelSound();
+        }
     }
 
    private void ToggleError()
@@ -203,42 +200,53 @@ public class FillUpTank : MonoBehaviour
 
     private void LampChangeColor()
     {
-        if (currentTank < maxTank)
+        if (isFilling || emptyTank)
         {
-            greenLight.SetActive(false);
-            yellowLight.SetActive(true);
-            redLight.SetActive(false);
+
+            if (currentTank < maxTank)
+            {
+                greenLight.SetActive(false);
+                yellowLight.SetActive(true);
+                redLight.SetActive(false);
+            }
+            else if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
+            {
+                greenLight.SetActive(true);
+                yellowLight.SetActive(false);
+                redLight.SetActive(false);
+            }
+            else if (currentTank <= 110f && currentTank > maxTank + graceAmount)
+            {
+                greenLight.SetActive(false);
+                yellowLight.SetActive(true);
+                redLight.SetActive(false);
+
+            }
+            else if (currentTank >= 110f)
+            {
+                greenLight.SetActive(false);
+                yellowLight.SetActive(false);
+                redLight.SetActive(true);
+
+
+            }
+            else
+            {
+                greenLight.SetActive(false);
+                yellowLight.SetActive(false);
+                redLight.SetActive(false);
+
+            }
         }
-        else if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
-        {
-            greenLight.SetActive(true);
-            yellowLight.SetActive(false);
-            redLight.SetActive(false);
+        else 
+        { 
+            greenLight.SetActive(false); 
+            yellowLight.SetActive(false); 
+            redLight.SetActive(false); 
         }
-        else if (currentTank > maxTank + graceAmount)
-        {
-            greenLight.SetActive(false);
-            yellowLight.SetActive(false);
-            redLight.SetActive(true);
-        }
+       
     }
-    //void Win()
-    //{
-    //    finished = true;
-    //    currentTank = maxTank;
-    //    // tankSlider.value = currentTank;
-    //    Debug.Log("Yippie. Du hast es geschafft!");
-    //}
-    //void Lose()
-    //{
-    //    finished = true;
-    //    isFilling = false;
-    //    Debug.Log("Du Loser oder whatever");
-    //}
-    // private void Toggle()
-    //{
-    //    solved = !solved;
-    //}
+    
 }
 
 
