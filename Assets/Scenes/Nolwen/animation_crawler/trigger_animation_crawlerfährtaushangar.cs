@@ -8,6 +8,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
     public Crawler_Play_Sound playSoundcrawler;
     public Hangar_Gate_Sound playSoundtor;
+    public Gate_Close_Sound closeSoundgate;
     //-----------------------------------------------------------------------
 
     #region Deklaration  und SerializeField
@@ -84,8 +85,9 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
         }
         
 
-        if (animationcrawler <= 0.05f && doorisopen == true)
+        if (animationcrawler <= 0.038f && doorisopen == true)
         {
+            print(animationcrawler);
             if (playsoundcrawler == true)
             {
                 playSoundcrawler.PlaySoundCrawler();
@@ -99,6 +101,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
             {
                 crawlerisoutofhangar = true;
                 playsoundtorclose = true;
+                print("crawler fährt");
             }
         }
 
@@ -107,7 +110,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
             {
             if (playsoundtorclose == true)
             {
-                playSoundtor.HangarGateSound();
+                closeSoundgate.GateCloseSound();
                 print("Hangar Tor sound played.");
                 playsoundtorclose = false;
             }
