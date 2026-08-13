@@ -21,7 +21,7 @@ public class FillUpTank : MonoBehaviour
     [SerializeField] private float graceAmount = 15f;
     [SerializeField] private float threshHold = 130f;
     [SerializeField] private float emptyRate = 10f;
-    private float currentTank = 0f;
+    private float currentTank = 1f;
     private int fillCount;
     private int emptyCount;
     public bool isFilling = false;
@@ -60,8 +60,7 @@ public class FillUpTank : MonoBehaviour
     public void Fillstart()
     {
 
-       
-        
+
         fillCount++;
         Debug.Log(fillCount);
        
@@ -102,11 +101,10 @@ public class FillUpTank : MonoBehaviour
             currentTank -= emptyRate * Time.deltaTime;
             tankSlider.value = currentTank;
 
-            if (currentTank <= 0)
+            if (currentTank <= 0 && openTank.Taskactive)
             {
                 currentTank = 0;
-                sounderror.ErrorSound();
-                return;
+                
             }
         }
         else fillButton.SetActive(true);
@@ -122,17 +120,11 @@ public class FillUpTank : MonoBehaviour
             currentTank += fillRate * Time.deltaTime;
             tankSlider.value = currentTank;
              if (currentTank >= threshHold)
-            {
+             {
                 currentTank = threshHold;
-                sounderror.ErrorSound();
-                return;
-            }
+             }
 
-            if (currentTank > maxTank + graceAmount)
-            {
-                tankSolved = false;
-               
-            }
+           
         }
         else emptyButton.SetActive(true);
     }
@@ -163,7 +155,7 @@ public class FillUpTank : MonoBehaviour
     }
     private void Update()
     {
-        
+
         Fill();
         Empty();
         ButtonStop();
@@ -176,7 +168,7 @@ public class FillUpTank : MonoBehaviour
 
         if (fillCount == 1)
         {
-            errorTimer -= 1f* Time.deltaTime;
+            errorTimer -= 1f * Time.deltaTime;
             if (errorTimer <= 0)
             {
                 errorTimer = 0;
@@ -187,9 +179,18 @@ public class FillUpTank : MonoBehaviour
         }
         LampChangeColor();
 
-        if (fillCount % 2 == 0 && openTank.Taskactive)
-        {
+       if (fillCount % 2 == 0 && openTank.Taskactive)
+       {
             playSoundTankFill.PlayFillFuelSound();
+       }
+
+        if (currentTank == 0 || currentTank == threshHold)
+        {
+           sounderror.GetComponent<AudioSource>().enabled = true;
+        }
+        else
+        {
+            sounderror.GetComponent<AudioSource>().enabled = false;
         }
     }
 
