@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class Hangar_Gate_Sound : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private AudioSource audioSource;
+
+    private void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void HangarGateSound()
     {
-        
+        if (audioSource != null)
+        {
+            audioSource.Play();
+            Debug.Log("Sound played");
+        }
     }
 }
+
