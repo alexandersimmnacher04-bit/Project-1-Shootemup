@@ -32,10 +32,11 @@ public class DoorController : MonoBehaviour
         StopAllCoroutines();
         StartCoroutine(RotateDoor());
         playsounddoor.tuersound();
-
+        
         
     }
     //Ist leer wird nicht verwendet aber vielleicht später mal
+
     public void InteractSecondary() { }
 
     //Guckt ob die Tür offen oder geschlossen ist und guckt dann ob die Tür zu oder offen gedreht werden soll
