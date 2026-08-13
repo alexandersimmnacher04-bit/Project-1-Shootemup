@@ -39,6 +39,7 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     private float doorclosepos01 = -90f;
     private float doorclosepos02 = 90f;
     private bool playsoundcrawler = false;
+    private bool playsoundtorclose = false;
 
     #endregion
 
@@ -97,14 +98,20 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
             if (animationcrawler >= 0.038f)
             {
                 crawlerisoutofhangar = true;
-                
-                
+                playsoundtorclose = true;
             }
         }
 
+
         if (animationtor <= 0.0213f && crawlerisoutofhangar == true)
             {
-                hangartor_animationclose();
+            if (playsoundtorclose == true)
+            {
+                playSoundtor.HangarGateSound();
+                print("Hangar Tor sound played.");
+                playsoundtorclose = false;
+            }
+            hangartor_animationclose();
             
 
                 if (animationtor >= 0.0213f)
