@@ -41,7 +41,7 @@ public class FillUpTank : MonoBehaviour
    [SerializeField] private GameObject greenLight;
    [SerializeField] private GameObject yellowLight;
     [SerializeField] private GameObject orangeLight;
-
+    public Error_Sound sounderror;
 
     private void Start()
     {
@@ -105,7 +105,8 @@ public class FillUpTank : MonoBehaviour
             if (currentTank <= 0)
             {
                 currentTank = 0;
-                
+                sounderror.ErrorSound();
+                return;
             }
         }
         else fillButton.SetActive(true);
@@ -123,7 +124,8 @@ public class FillUpTank : MonoBehaviour
              if (currentTank >= threshHold)
             {
                 currentTank = threshHold;
-               
+                sounderror.ErrorSound();
+                return;
             }
 
             if (currentTank > maxTank + graceAmount)
