@@ -18,8 +18,8 @@ public class FillUpTank : MonoBehaviour
 {
     [SerializeField] private float fillRate = 5f;
     [SerializeField] private float maxTank = 100f;
-    [SerializeField] private float graceAmount = 5f;
-    [SerializeField] private float threshHold = 120f;
+    [SerializeField] private float graceAmount = 15f;
+    [SerializeField] private float threshHold = 130f;
     [SerializeField] private float emptyRate = 10f;
     private float currentTank = 0f;
     private int fillCount;
@@ -37,9 +37,10 @@ public class FillUpTank : MonoBehaviour
     public Play_Sound_Tank_Fill playSoundTankFill;
     public GameObject error;
     public GameObject sliderImage;
-   [SerializeField] public GameObject redLight;
-   [SerializeField] public GameObject greenLight;
-   [SerializeField] public GameObject yellowLight;
+   [SerializeField] private GameObject redLight;
+   [SerializeField] private GameObject greenLight;
+   [SerializeField] private GameObject yellowLight;
+    [SerializeField] private GameObject orangeLight;
 
 
     private void Start()
@@ -145,10 +146,16 @@ public class FillUpTank : MonoBehaviour
         if (emptyCount % 2 == 0)
         {
             emptyTank = false;
+            if (openTank.Taskactive)
+            {
+                sliderImage.SetActive(false);
+            }
+            
         }
         else 
         {
             emptyTank = true; 
+            sliderImage.SetActive(true);
         }
     }
     private void Update()
@@ -164,13 +171,13 @@ public class FillUpTank : MonoBehaviour
             emptyCount = 0;
         }
 
-        if (fillCount == 1 || emptyCount == 1)
+        if (fillCount == 1)
         {
             errorTimer -= 1f* Time.deltaTime;
             if (errorTimer <= 0)
             {
                 errorTimer = 0;
-                ToggleError();
+                error.SetActive(true);
                 sliderImage.SetActive(false);
             }
 
@@ -183,66 +190,61 @@ public class FillUpTank : MonoBehaviour
         }
     }
 
-   private void ToggleError()
-    { 
-        errorOn = !errorOn;
-
-        if (errorOn) 
-        
-        {
-            error.SetActive(true); 
-        }
-        else 
-        { 
-            error.SetActive(false); 
-        }
-    }
+  
 
     private void LampChangeColor()
     {
         if (isFilling || emptyTank)
         {
-
-            if (currentTank < maxTank)
+            if (currentTank < 50f)
+            {
+                greenLight.SetActive(false);
+                yellowLight.SetActive(false);
+                redLight.SetActive(false);
+                orangeLight.SetActive(true);
+            }
+            else if (currentTank > 50f && currentTank < maxTank)
             {
                 greenLight.SetActive(false);
                 yellowLight.SetActive(true);
                 redLight.SetActive(false);
+                orangeLight.SetActive(false);
             }
             else if (currentTank >= maxTank && currentTank <= maxTank + graceAmount)
             {
                 greenLight.SetActive(true);
                 yellowLight.SetActive(false);
                 redLight.SetActive(false);
+                orangeLight.SetActive(false);
             }
-            else if (currentTank <= 110f && currentTank > maxTank + graceAmount)
+            else if (currentTank < threshHold && currentTank > maxTank + graceAmount)
             {
                 greenLight.SetActive(false);
-                yellowLight.SetActive(true);
+                yellowLight.SetActive(false);
                 redLight.SetActive(false);
-
+                orangeLight.SetActive(true);
             }
-            else if (currentTank >= 110f)
+            else if (currentTank >= threshHold || currentTank >= 0)
             {
                 greenLight.SetActive(false);
                 yellowLight.SetActive(false);
                 redLight.SetActive(true);
-
-
+                orangeLight.SetActive(false);
             }
             else
             {
                 greenLight.SetActive(false);
                 yellowLight.SetActive(false);
                 redLight.SetActive(false);
-
+                orangeLight.SetActive(false);
             }
         }
         else 
         { 
             greenLight.SetActive(false); 
             yellowLight.SetActive(false); 
-            redLight.SetActive(false); 
+            redLight.SetActive(false);
+            orangeLight.SetActive(false);
         }
        
     }
