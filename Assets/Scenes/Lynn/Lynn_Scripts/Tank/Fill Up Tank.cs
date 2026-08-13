@@ -179,11 +179,12 @@ public class FillUpTank : MonoBehaviour
         }
         LampChangeColor();
 
-       if (fillCount % 2 == 0 && openTank.Taskactive)
+       if (fillCount % 2 != 0 && openTank.Taskactive)
        {
-            playSoundTankFill.PlayFillFuelSound();
+            GetComponent<AudioSource>().enabled = true;
        }
-
+       else 
+            GetComponent<AudioSource>().enabled = false;
         if (currentTank == 0 || currentTank == threshHold)
         {
            sounderror.GetComponent<AudioSource>().enabled = true;
