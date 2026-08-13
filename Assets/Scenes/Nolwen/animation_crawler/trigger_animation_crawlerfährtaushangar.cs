@@ -7,6 +7,7 @@ using UnityEngine.Video;
 public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 {
     public Crawler_Play_Sound playSoundcrawler;
+    public Hangar_Gate_Sound playSoundtor;
     //-----------------------------------------------------------------------
 
     #region Deklaration  und SerializeField
@@ -41,17 +42,16 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
 
     #endregion
 
-//-----------------------------------------------------------------------
+    //-----------------------------------------------------------------------
 
-// Die Start Methode ist der Trigger durch den Button an der Console.
+    // Die Start Methode ist der Trigger durch den Button an der Console.
     private void Start()
     {
 
         turnredlightoff();
         turngreenlighton();
-       
 
-        
+
 
     }
 
@@ -60,6 +60,12 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     {
         if (schalter.animationOn)
         {
+            if (schalter.playsoundtor == true)
+            {
+                playSoundtor.HangarGateSound();
+                print("Hangar Tor sound played.");
+                schalter.playsoundtor = false;
+            }
             abdeckungtraegervisible(); 
             if (animationtor <= 0.015f)
             {
@@ -163,7 +169,6 @@ public class trigger_animation_crawlerfährtaushangar : MonoBehaviour
     {
         redlight.SetActive(true);
         redlight01.SetActive(true);
-        
     }
 
     // Diese Methode schaltet das rote Industrielicht aus.

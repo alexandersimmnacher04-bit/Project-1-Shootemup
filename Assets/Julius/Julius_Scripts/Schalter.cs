@@ -19,7 +19,8 @@ public class Schalter : MonoBehaviour
     public GameObject Lampe1;
     public GameObject Lampe2;
     public GameObject Lampe3;
-
+    trigger_animation_crawlerfährtaushangar playsoundtor1;
+    public bool playsoundtor = false;
 
     private void Click()
     {
@@ -55,6 +56,7 @@ public class Schalter : MonoBehaviour
         Absicherung.SetActive(false);
         PlaySoundButton.PlaySound();
         animationOn = true;
+        playsoundtor = true;
         Animationmanager.closedoor01();
         Animationmanager.closedoor02();
         Animationmanager.turnredlighton();
