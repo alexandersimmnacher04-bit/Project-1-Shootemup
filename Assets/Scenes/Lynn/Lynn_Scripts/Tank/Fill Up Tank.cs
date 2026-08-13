@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using UnityEngine.UI;
-using UnityEditor.Experimental.GraphView;
+
 
 //making puzzle where player fills up tank when holding mouse button down
 //maxtank capacity int = 100, current tank amount random between 0 and 100
@@ -166,17 +166,7 @@ public class FillUpTank : MonoBehaviour
             emptyCount = 0;
         }
 
-        if (fillCount == 1)
-        {
-            errorTimer -= 1f * Time.deltaTime;
-            if (errorTimer <= 0)
-            {
-                errorTimer = 0;
-                error.SetActive(true);
-                sliderImage.SetActive(false);
-            }
-
-        }
+        
         LampChangeColor();
 
        if (fillCount % 2 != 0 && openTank.Taskactive)
@@ -188,10 +178,12 @@ public class FillUpTank : MonoBehaviour
         if (currentTank == 0 || currentTank == threshHold)
         {
            sounderror.GetComponent<AudioSource>().enabled = true;
+            error.SetActive(true);
         }
         else
         {
             sounderror.GetComponent<AudioSource>().enabled = false;
+            error.SetActive(false);
         }
     }
 

@@ -1,6 +1,5 @@
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.PackageManager.UI;
 using UnityEngine;
 
 public class InteractionZone : MonoBehaviour
