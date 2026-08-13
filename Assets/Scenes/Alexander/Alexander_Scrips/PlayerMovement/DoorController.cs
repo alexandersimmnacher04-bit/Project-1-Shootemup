@@ -7,10 +7,13 @@ public class DoorController : MonoBehaviour
     [SerializeField] private float openAngle = 90f;
     [SerializeField] private float speed = 3f;
 
+    public türgehtauf_script playsounddoor;
+
     //Quanternion spechert die Rotation der Tür wenn sie offen bzw. zu ist.
     private bool isOpen = false;
     private Quaternion closedRot;
     private Quaternion openRot;
+
 
     //closedRot ist die positin zu welcher die Tür zurück ghet wenn sie geschlossen ist
     //Quanternion.Euler() erszeugt eine Rotation aus dem Euler-Winkel
@@ -28,6 +31,9 @@ public class DoorController : MonoBehaviour
         isOpen = !isOpen;
         StopAllCoroutines();
         StartCoroutine(RotateDoor());
+        playsounddoor.tuersound();
+
+        
     }
     //Ist leer wird nicht verwendet aber vielleicht später mal
     public void InteractSecondary() { }
