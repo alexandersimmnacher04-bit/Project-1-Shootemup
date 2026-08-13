@@ -87,6 +87,10 @@ public class FillUpTank : MonoBehaviour
         emptyRate = emptyRate + Random.Range(0, 5);
         Debug.Log(emptyRate);
         Debug.Log(tankSolved);
+        if (openTank.Taskactive)
+        {
+            sliderImage.SetActive(false);
+        }
     }
 
     private void Empty()
@@ -146,10 +150,7 @@ public class FillUpTank : MonoBehaviour
         if (emptyCount % 2 == 0)
         {
             emptyTank = false;
-            if (openTank.Taskactive)
-            {
-                sliderImage.SetActive(false);
-            }
+            
             
         }
         else 
